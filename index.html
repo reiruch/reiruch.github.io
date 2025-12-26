@@ -8,12 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
   <style>
+
     * {
   box-sizing: border-box;
   font-family: 'Nunito', sans-serif;
   line-height: 1.6;
 }
 
+}
     body {
       background: #eaf3ff;
       margin: 0;
@@ -80,7 +82,7 @@
 
 .box:hover {
   transform: translateY(-2px);
-  background: #3bf8ff;
+  background: #3bebff;
 }
 
     .box h2 {
@@ -114,6 +116,7 @@
 }
   </style>
 </head>
+ 
 <body>
 
   <div class="page">
@@ -166,4 +169,46 @@
   </div>
 
 </body>
+
+<div class="character-footer">
+  <img src="chr.png">
+</div>
+  <style>
+      .character-footer {
+  position: relative;
+  margin-top: -80px;
+  opacity: 0.9;
+}
+
+.character-footer img {
+  position: absolute;
+  right: 1;
+  bottom: 9;
+  width: 850px;
+  max-width: 71.5%;
+  margin: 0 auto;
+}
+.character-footer img {
+  transition: transform 1s ease;
+}
+
+.character-footer img:hover {
+  transform: translateX(-1000px);
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.character-footer img {
+  animation: slideInLeft 0.9s ease-out;
+}
+}
+  </style>
 </html>
