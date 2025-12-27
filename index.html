@@ -114,6 +114,103 @@
 .page {
   animation: fadeUp 0.6s ease-out;
 }
+/* ===== CHAOTIC BACKGROUND ===== */
+body {
+  background: linear-gradient(120deg, #eaf3ff, #f5fdff, #eafff3);
+  background-size: 400% 400%;
+  animation: bgMove 10s ease infinite;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== BOX CHAOS ===== */
+.box {
+  transition: all 0.25s ease;
+}
+
+.box:hover {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: 0 0 12px rgba(100,150,255,0.6);
+}
+
+/* ===== FLOATING EMOJI ===== */
+.floating {
+  position: fixed;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: floatUp 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(100vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-120px) rotate(360deg);
+  }
+}
+
+/* ===== NAME GLOW ===== */
+.name {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #8ab6ff;
+  }
+  to {
+    text-shadow: 0 0 14px #ffb3ff;
+  }
+}
+/* ===== ANIME GLITCH TEXT ===== */
+.glitch {
+  position: relative;
+  font-weight: 1000;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.glitch.active::before {
+  color: #0ffffb;
+  opacity: 1;
+  animation: glitchTop 0.3s steps(2);
+}
+
+.glitch.active::after {
+  color: #ff0f0f;
+  opacity: 1;
+  animation: glitchBottom 0.3s steps(2);
+}
+@keyframes glitchTop {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, -1px); }
+  40% { transform: translate(-2px, 1px); }
+  60% { transform: translate(1px, -1px); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitchBottom {
+  0% { transform: translate(0); }
+  20% { transform: translate(1px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(-2px, -1px); }
+  100% { transform: translate(0); }
+}
   </style>
 </head>
  
@@ -131,7 +228,7 @@
 <div class="profile">
   <img src="reii.jpg">
   <div class="profile-text">
-    <h1 class="name">Reiru</h1>
+   <h1 class="name glitch" data-text="Reiru">Reiru</h1>
     <p class="info">
       He/Him <br>
       20 <br>
@@ -142,43 +239,66 @@
 
 <style>
 .name {
-  font-family: Arial, sans-serif;
+  font-family: Arial, Sans-Serif;
   font-weight: 1000;
-  color: #3b83ff;        /* warna nama */
+  color: #2893eb;        /* warna nama */
 
 }
 
 </style>
     <div class="box">
-  <h2>✦ About Me</h2>
+<h2 class="glitch" data-text="✦| About Me">✦| About Me</h2>
   ♡ J-Pop enjoyer<br>
   ♡ Beginner artist <br>
   ♡ Random but friendly
 </div>
 
 <div class="box">
-  <h2>☆ Likes</h2>
-  anime • manga • fanart • music • edits
+  <h2 class="glitch" data-text="☆| Likes">✦| Likes</h2>
+  anime • manga • fanart • music
 </div>
 
 <div class="box">
-  <h2>➤ My Platforms </h2>
+  <h2 class="glitch" data-text="➤| My Platforms ">➤| My Platforms</h2>
   • Ig: frylvdl <br>
   • Yt: reiru_ch
   
 </div>
 
 <div class="box">
-  <h2>✕ Don’t Follow If</h2>
+  <h2 class="glitch" data-text="✕| Don’t Follow If U">✕| Don’t Follow If U </h2>
   toxic • hate speech • drama seeker
 </div>
 
-<p style="text-align:center;font-size:11px;opacity:0.6;">
+<p style="text-align:center;font-size:11px;opacity:0.6;"> 
+<br>
   ── ♡ ──
 </p>
 
   </div>
+<!-- FLOATING CHAOS -->
+<div class="floating" style="left:10%; animation-delay:0s;">⭐</div>
+<div class="floating" style="left:30%; animation-delay:2s;">💫</div>
+<div class="floating" style="left:50%; animation-delay:4s;">♡</div>
+<div class="floating" style="left:70%; animation-delay:1s;">✦</div>
+<div class="floating" style="left:85%; animation-delay:3s;">🎵</div>
 
+<audio id="clickSound" preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_946b7c6c5c.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const clickSound = document.getElementById("clickSound");
+
+  function playClick() {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(()=>{});
+  }
+
+  document.querySelectorAll(".box, .profile img, h2, h1").forEach(el => {
+    el.addEventListener("click", playClick);
+  });
+</script>
 </body>
 
 <div class="character-footer">
@@ -213,7 +333,7 @@
   }
   to {
     transform: translateX(0);
-    opacity: 1;
+    opacity: 100;
   }
 }
 
@@ -222,4 +342,17 @@
 }
 }
   </style>
+  <script>
+  const glitchEls = document.querySelectorAll(".glitch");
+
+  setInterval(() => {
+    glitchEls.forEach(el => {
+      el.classList.add("active");
+
+      setTimeout(() => {
+        el.classList.remove("active");
+      }, 300);
+    });
+  }, 3000);
+</script>
 </html>
