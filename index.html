@@ -1,358 +1,141 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>My Profile</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<title>Enter ♡ Reiru</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * {
-  box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
-  line-height: 1.6;
-}
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
 
-}
-    body {
-      background: #eaf3ff;
-      margin: 0;
-      padding: 30px 0;
-      color: #2c2c2c;
-    }
-
-    .page {
-  max-width: 360px;
-  margin: auto;
-  background: #f7fbff;
-  border: 2px solid #b8d8ff;
-  border-radius: 14px;
-  padding: 18px;
-}
-
-    .topbar {
-      font-size: 13px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      color: #4b7bbd;
-    }
-
-    .profile {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .profile img {
-      width: 90px;
-      height: 90px;
-      border-radius: 10px;
-      object-fit: cover;
-      border: 2px solid #9fc7ff;
-    }
-
-    .profile h1 {
-      font-size: 18px;
-      margin: 0 0 4px;
-    }
-
-    .profile p {
-  font-size: 13px;
-  margin: 0;
-  line-height: 1.6;
-}.profile img {
-  transition: 0.3s ease;
-}
-
-.profile img:hover {
-  transform: scale(1.05);
-}
-
-.box {
-  background: #eef6ff;
-  border: 1.5px solid #c5ddff;
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 14px;
-  font-size: 13px;
-}
-
-.box:hover {
-  transform: translateY(-2px);
-  background: #3bebff;
-}
-
-    .box h2 {
-  font-size: 13px;
-  margin: 0 0 6px;
-  color: #4b7bbd;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-    .footer {
-      text-align: center;
-      font-size: 11px;
-      color: #7a9cc9;
-      margin-top: 14px;
-    }
-    @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page {
-  animation: fadeUp 0.6s ease-out;
-}
-/* ===== CHAOTIC BACKGROUND ===== */
+<style>
 body {
-  background: linear-gradient(120deg, #eaf3ff, #f5fdff, #eafff3);
-  background-size: 400% 400%;
-  animation: bgMove 10s ease infinite;
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, #f6fbff, #eef5ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  overflow: hidden;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ===== BOX CHAOS ===== */
-.box {
-  transition: all 0.25s ease;
-}
-
-.box:hover {
-  transform: rotate(-1deg) scale(1.02);
-  box-shadow: 0 0 12px rgba(100,150,255,0.6);
-}
-
-/* ===== FLOATING EMOJI ===== */
-.floating {
-  position: fixed;
+/* floating cute icons */
+.float {
+  position: absolute;
+  bottom: -20px;
   font-size: 18px;
   opacity: 0.6;
-  animation: floatUp 8s linear infinite;
-  pointer-events: none;
+  animation: floatUp 10s linear infinite;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(100vh) rotate(0deg);
-  }
-  to {
-    transform: translateY(-120px) rotate(360deg);
-  }
+  from { transform: translateY(0); opacity: 0; }
+  10% { opacity: .6; }
+  80% { opacity: .6; }
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 
-/* ===== NAME GLOW ===== */
-.name {
-  animation: glow 2s infinite alternate;
+.container {
+  text-align: center;
+  z-index: 2;
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px #8ab6ff;
-  }
-  to {
-    text-shadow: 0 0 14px #ffb3ff;
-  }
+.title {
+  font-size: 24px;
+  color: #5b8dff;
+  margin-bottom: 26px;
 }
-/* ===== ANIME GLITCH TEXT ===== */
-.glitch {
+
+/* ===== CUTE BUTTON ===== */
+.enter-btn {
   position: relative;
-  font-weight: 1000;
+  padding: 18px 50px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #fff;
+  background: linear-gradient(135deg, #7db7ff, #9ed4ff);
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow: 0 14px 35px rgba(125,183,255,.45);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
 
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
+.enter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 20px 50px rgba(125,183,255,.6);
+}
+
+/* soft pulse idle */
+.enter-btn {
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== CUTE GLITCH ===== */
+.enter-btn::before,
+.enter-btn::after {
+  content: "ENTER";
   position: absolute;
-  left: 0;
-  top: 0;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
   opacity: 0;
+  pointer-events: none;
 }
 
-.glitch.active::before {
-  color: #0ffffb;
-  opacity: 1;
-  animation: glitchTop 0.3s steps(2);
+.enter-btn::before {
+  color: #cce8ff;
+  transform: translateX(-1px);
 }
 
-.glitch.active::after {
-  color: #ff0f0f;
-  opacity: 1;
-  animation: glitchBottom 0.3s steps(2);
+.enter-btn::after {
+  color: #e6f3ff;
+  transform: translateX(1px);
 }
-@keyframes glitchTop {
+
+.enter-btn.glitch::before,
+.enter-btn.glitch::after {
+  opacity: 1;
+  animation: cuteGlitch .12s linear infinite;
+}
+
+@keyframes cuteGlitch {
   0% { transform: translate(0); }
-  20% { transform: translate(-1px, -1px); }
-  40% { transform: translate(-2px, 1px); }
-  60% { transform: translate(1px, -1px); }
-  80% { transform: translate(2px, 1px); }
+  50% { transform: translate(1px,-1px); }
   100% { transform: translate(0); }
 }
-
-@keyframes glitchBottom {
-  0% { transform: translate(0); }
-  20% { transform: translate(1px, 1px); }
-  40% { transform: translate(2px, -1px); }
-  60% { transform: translate(-1px, 1px); }
-  80% { transform: translate(-2px, -1px); }
-  100% { transform: translate(0); }
-}
-  </style>
+</style>
 </head>
- 
+
 <body>
 
-  <div class="page">
+<!-- floating icons -->
+<div class="float" style="left:10%; animation-delay:0s;">♡</div>
+<div class="float" style="left:30%; animation-delay:3s;">✦</div>
+<div class="float" style="left:50%; animation-delay:6s;">💙</div>
+<div class="float" style="left:70%; animation-delay:1.5s;">☆</div>
+<div class="float" style="left:85%; animation-delay:4.5s;">❄️</div>
 
-    <div class="topbar">
-      <span>🌐 僕のサイト</span>
-      <span>Profile | Log Out</span>
-      
-    </div>
-
-
-<div class="profile">
-  <img src="reii.jpg">
-  <div class="profile-text">
-   <h1 class="name glitch" data-text="Reiru">Reiru</h1>
-    <p class="info">
-      He/Him <br>
-      20 <br>
-      eng / idn
-    </p>
-  </div>
+<div class="container">
+  <div class="title">Welcome ♡</div>
+  <a href="profile.html" class="enter-btn" id="enterBtn">ENTER</a>
 </div>
-
-<style>
-.name {
-  font-family: Arial, Sans-Serif;
-  font-weight: 1000;
-  color: #2893eb;        /* warna nama */
-
-}
-
-</style>
-    <div class="box">
-<h2 class="glitch" data-text="✦| About Me">✦| About Me</h2>
-  ♡ J-Pop enjoyer<br>
-  ♡ Beginner artist <br>
-  ♡ Random but friendly
-</div>
-
-<div class="box">
-  <h2 class="glitch" data-text="☆| Likes">✦| Likes</h2>
-  anime • manga • fanart • music
-</div>
-
-<div class="box">
-  <h2 class="glitch" data-text="➤| My Platforms ">➤| My Platforms</h2>
-  • Ig: frylvdl <br>
-  • Yt: reiru_ch
-  
-</div>
-
-<div class="box">
-  <h2 class="glitch" data-text="✕| Don’t Follow If U">✕| Don’t Follow If U </h2>
-  toxic • hate speech • drama seeker
-</div>
-
-<p style="text-align:center;font-size:11px;opacity:0.6;"> 
-<br>
-  ── ♡ ──
-</p>
-
-  </div>
-<!-- FLOATING CHAOS -->
-<div class="floating" style="left:10%; animation-delay:0s;">⭐</div>
-<div class="floating" style="left:30%; animation-delay:2s;">💫</div>
-<div class="floating" style="left:50%; animation-delay:4s;">♡</div>
-<div class="floating" style="left:70%; animation-delay:1s;">✦</div>
-<div class="floating" style="left:85%; animation-delay:3s;">🎵</div>
-
-<audio id="clickSound" preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_946b7c6c5c.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-  const clickSound = document.getElementById("clickSound");
+const btn = document.getElementById("enterBtn");
 
-  function playClick() {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(()=>{});
-  }
-
-  document.querySelectorAll(".box, .profile img, h2, h1").forEach(el => {
-    el.addEventListener("click", playClick);
-  });
+// glitch cute tiap 4 detik
+setInterval(() => {
+  btn.classList.add("glitch");
+  setTimeout(() => btn.classList.remove("glitch"), 180);
+}, 4000);
 </script>
+
 </body>
-
-<div class="character-footer">
-  <img src="chr.png">
-</div>
-  <style>
-      .character-footer {
-  position: relative;
-  margin-top: -80px;
-  opacity: 0.9;
-}
-
-.character-footer img {
-  position: absolute;
-  right: 1;
-  bottom: 9;
-  width: 850px;
-  max-width: 71.5%;
-  margin: 0 auto;
-}
-.character-footer img {
-  transition: transform 1s ease;
-}
-
-.character-footer img:hover {
-  transform: translateX(-1000px);
-}
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-300px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 100;
-  }
-}
-
-.character-footer img {
-  animation: slideInLeft 0.9s ease-out;
-}
-}
-  </style>
-  <script>
-  const glitchEls = document.querySelectorAll(".glitch");
-
-  setInterval(() => {
-    glitchEls.forEach(el => {
-      el.classList.add("active");
-
-      setTimeout(() => {
-        el.classList.remove("active");
-      }, 300);
-    });
-  }, 3000);
-</script>
 </html>
