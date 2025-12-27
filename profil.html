@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+
+    * {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.6;
+}
+
+}
+    body {
+      background: #eaf3ff;
+      margin: 0;
+      padding: 30px 0;
+      color: #2c2c2c;
+    }
+
+    .page {
+  max-width: 360px;
+  margin: auto;
+  background: #f7fbff;
+  border: 2px solid #b8d8ff;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+    .topbar {
+      font-size: 13px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: #4b7bbd;
+    }
+
+    .profile {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .profile img {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid #9fc7ff;
+    }
+
+    .profile h1 {
+      font-size: 18px;
+      margin: 0 0 4px;
+    }
+
+    .profile p {
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.6;
+}.profile img {
+  transition: 0.3s ease;
+}
+
+.profile img:hover {
+  transform: scale(1.05);
+}
+
+.box {
+  background: #eef6ff;
+  border: 1.5px solid #c5ddff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  background: #3bebff;
+}
+
+    .box h2 {
+  font-size: 13px;
+  margin: 0 0 6px;
+  color: #4b7bbd;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #7a9cc9;
+      margin-top: 14px;
+    }
+    @keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page {
+  animation: fadeUp 0.6s ease-out;
+}
+/* ===== CHAOTIC BACKGROUND ===== */
+body {
+  background: linear-gradient(120deg, #eaf3ff, #f5fdff, #eafff3);
+  background-size: 400% 400%;
+  animation: bgMove 10s ease infinite;
+}
+
+@keyframes bgMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== BOX CHAOS ===== */
+.box {
+  transition: all 0.25s ease;
+}
+
+.box:hover {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: 0 0 12px rgba(100,150,255,0.6);
+}
+
+/* ===== FLOATING EMOJI ===== */
+.floating {
+  position: fixed;
+  bottom: -40px;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-55vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+.floating {
+  position: fixed;
+  bottom: -40px;
+  pointer-events: none;
+  opacity: 0.85;
+  animation: floatUp linear forwards;
+  transition: color 2.5s linear;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.4));
+}
+
+/* ===== NAME GLOW ===== */
+.name {
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #8ab6ff;
+  }
+  to {
+    text-shadow: 0 0 14px #ffb3ff;
+  }
+}
+/* ===== ANIME GLITCH TEXT ===== */
+.glitch {
+  position: relative;
+  font-weight: 1000;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.glitch.active::before {
+  color: #0ffffb;
+  opacity: 1;
+  animation: glitchTop 0.3s steps(2);
+}
+
+.glitch.active::after {
+  color: #ff0f0f;
+  opacity: 1;
+  animation: glitchBottom 0.3s steps(2);
+}
+@keyframes glitchTop {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, -1px); }
+  40% { transform: translate(-2px, 1px); }
+  60% { transform: translate(1px, -1px); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitchBottom {
+  0% { transform: translate(0); }
+  20% { transform: translate(1px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(-2px, -1px); }
+  100% { transform: translate(0); }
+}
+/* ===== NIGHT MODE ===== */
+body.night {
+  background: linear-gradient(120deg, #050b1a, #0b1c33, #020814);
+  color: #cfe3ff;
+}
+
+body.night .page {
+  background: rgba(10, 25, 50, 0.85);
+  border-color: #1f3b66;
+}
+
+body.night .box {
+  background: rgba(15, 35, 70, 0.7);
+  border-color: #244a80;
+}
+
+body.night .topbar {
+  color: #8ab6ff;
+}
+
+body.night h1,
+body.night h2 {
+  color: #9fc7ff;
+}
+
+body.night .footer {
+  color: #6b8fbf;
+}
+
+/* floating lebih kalem */
+body.night .floating {
+  opacity: 0.65;
+  filter: drop-shadow(0 0 6px rgba(120,180,255,0.6));
+}
+/* ===== SMOOTH TRANSITION GLOBAL ===== */
+body,
+.page,
+.box,
+.topbar,
+h1,
+h2 {
+  transition: 
+    background-color 0.6s ease,
+    color 0.6s ease,
+    border-color 0.6s ease;
+}
+
+/* label mode */
+#modeLabel {
+  font-size: 12px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* sedikit animasi saat berubah */
+body.night #modeLabel {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+#nightToggle {
+  display: inline-block;
+  transition: transform 0.6s ease;
+}
+
+/* saat mode malam aktif */
+body.night #nightToggle {
+  transform: rotate(180deg);
+}
+
+.logout-btn {
+  font-size: 12px;
+  color: #4b7bbd;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background .3s ease, transform .2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(75,123,189,.15);
+  transform: scale(1.05);
+}
+  </style>
+</head>
+ 
+<body>
+
+  <div class="page">
+
+<div class="topbar">
+  <span class="top-left">🌐 僕のサイト</span>
+
+  <span id="modeControl" class="top-center">
+    <span id="nightToggle">🌙</span>
+  
+  </span>
+
+  <a href="index.html" class="logout-btn"> Profil | Log Out</a>
+</div>
+
+
+<div class="profile">
+  <img src="reii.jpg">
+  <div class="profile-text">
+   <h1 class="name glitch" data-text="Reiru">Reiru</h1>
+    <p class="info">
+      He/Him <br>
+      20 <br>
+      eng / idn
+    </p>
+  </div>
+</div>
+
+<style>
+.name {
+  font-family: Arial, Sans-Serif;
+  font-weight: 1000;
+  color: #2893eb;        /* warna nama */
+
+}
+
+</style>
+    <div class="box">
+<h2 class="glitch" data-text="✦| About Me">✦| About Me</h2>
+  ♡ J-Pop enjoyer<br>
+  ♡ Beginner artist <br>
+  ♡ Random but friendly
+</div>
+
+<div class="box">
+  <h2 class="glitch" data-text="☆| Likes">✦| Likes</h2>
+  anime • manga • fanart • music
+</div>
+
+<div class="box">
+  <h2 class="glitch" data-text="➤| My Platforms ">➤| My Platforms</h2>
+  • Ig: frylvdl <br>
+  • Yt: reiru_ch
+  
+</div>
+
+<div class="box">
+  <h2 class="glitch" data-text="✕| Don’t Follow If U">✕| Don’t Follow If U </h2>
+  toxic • hate speech • drama seeker
+</div>
+
+<p style="text-align:center;font-size:11px;opacity:0.6;"> 
+<br>
+  ── ♡ ──
+</p>
+
+  </div>
+<!-- FLOATING CHAOS -->
+<div class="floating" style="left:10%; animation-delay:0s;">⭐</div>
+<div class="floating" style="left:30%; animation-delay:0s;">💫</div>
+<div class="floating" style="left:50%; animation-delay:0s;">♡</div>
+<div class="floating" style="left:70%; animation-delay:0s;">✦</div>
+<div class="floating" style="left:85%; animation-delay:0s;">🎵</div>
+
+<script>
+  const MAX_FLOATING = 19;
+  const icons = ["❄️", "🔷", "💠", "🩵", "🫧"];
+  let hue = 0; hue = (hue + 1) % 360;
+
+  function spawnFloating() {
+  if (document.querySelectorAll(".floating").length > MAX_FLOATING) return;
+
+  const el = document.createElement("div");
+  el.className = "floating";
+  el.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = 14 + Math.random() * 14 + "px";
+
+  const duration = 4 + Math.random() * 4;
+  el.style.animationDuration = duration + "s";
+
+  el.style.color = `hsl(${hue}, 80%, 70%)`;
+
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), duration * 1000);
+}
+
+  // spawn bertahap
+  setInterval(spawnFloating, 300);
+
+  // hue berjalan pelan (INI YANG BIKIN HIDUP)
+  setInterval(() => {
+  if (document.body.classList.contains("night")) {
+    hue = 200 + Math.sin(Date.now() / 3000) * 15; // biru malam
+  } else {
+    hue = (hue + 1) % 360;
+  }
+
+  document.querySelectorAll(".floating").forEach(el => {
+    el.style.color = `hsl(${hue}, 80%, 70%)`;
+  });
+}, 150);
+const toggle = document.getElementById("nightToggle");
+
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("night");
+
+    toggle.textContent = document.body.classList.contains("night")
+      ? "☀️"
+      : "🌙";
+  });
+
+
+</script>
+
+
+
+</body>
+
+<div class="character-footer">
+  <img src="chr.png">
+</div>
+  <style>
+      .character-footer {
+  position: relative;
+  margin-top: -80px;
+  opacity: 0.9;
+}
+
+.character-footer img {
+  position: absolute;
+  right: 1;
+  bottom: 9;
+  width: 850px;
+  max-width: 71.5%;
+  margin: 0 auto;
+}
+.character-footer img {
+  transition: transform 1s ease;
+}
+
+.character-footer img:hover {
+  transform: translateX(-1000px);
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-300px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 100;
+  }
+}
+
+.character-footer img {
+  animation: slideInLeft 0.9s ease-out;
+}
+}
+  </style>
+  <script>
+  const glitchEls = document.querySelectorAll(".glitch");
+
+  setInterval(() => {
+    glitchEls.forEach(el => {
+      el.classList.add("active");
+
+      setTimeout(() => {
+        el.classList.remove("active");
+      }, 300);
+    });
+  }, 3000);
+</script>
+</html>
