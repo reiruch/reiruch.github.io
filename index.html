@@ -5,9 +5,19 @@
 <title>Enter ♡ Reiru</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --blue1:#7db7ff;
+  --blue2:#9ed4ff;
+  --blue3:#5b8dff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -15,26 +25,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Nunito', sans-serif;
+  body {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
   overflow: hidden;
 }
 
-/* floating cute icons */
+/* ===== FLOATING CUTE ===== */
 .float {
   position: absolute;
-  bottom: -20px;
+  bottom: -40px;
   font-size: 18px;
-  opacity: 0.6;
-  animation: floatUp 10s linear infinite;
+  opacity: .55;
+  animation: floatUp linear infinite;
 }
 
 @keyframes floatUp {
-  from { transform: translateY(0); opacity: 0; }
-  10% { opacity: .6; }
-  80% { opacity: .6; }
-  to { transform: translateY(-120vh); opacity: 0; }
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { opacity: .55; }
+  80%  { opacity: .55; }
+  100% { transform: translateY(-70vh); opacity: 0; }
 }
 
+/* ===== CENTER CONTENT ===== */
 .container {
   text-align: center;
   z-index: 2;
@@ -42,40 +55,56 @@ body {
 
 .title {
   font-size: 24px;
-  color: #5b8dff;
-  margin-bottom: 26px;
+  font-weight: 700;
+  color: #6fa9ff;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
 }
 
-/* ===== CUTE BUTTON ===== */
+/* ===== ENTER BUTTON ===== */
 .enter-btn {
   position: relative;
-  padding: 18px 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 62px;
+
   font-size: 20px;
-  letter-spacing: 2px;
-  color: #fff;
-  background: linear-gradient(135deg, #7db7ff, #9ed4ff);
-  border-radius: 40px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #ffffff;
+
+  background:
+    linear-gradient(135deg, #8fc6ff, #6fa9ff);
+
+  border-radius: 18px;
   text-decoration: none;
-  box-shadow: 0 14px 35px rgba(125,183,255,.45);
-  transition: transform .25s ease, box-shadow .25s ease;
+
+  box-shadow:
+    0 10px 0 #5b8dff,
+    0 20px 35px rgba(111,169,255,.45);
+
+  transform: translateY(0);
+  transition: all .2s ease;
 }
 
-.enter-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 20px 50px rgba(125,183,255,.6);
-}
-
-/* soft pulse idle */
+/* idle cute pulse */
 .enter-btn {
-  animation: softPulse 2.5s ease-in-out infinite;
+  animation: softPulse 2.6s ease-in-out infinite;
 }
 
 @keyframes softPulse {
   0%,100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.06); }
 }
 
-/* ===== CUTE GLITCH ===== */
+.enter-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 20px 50px rgba(125,183,255,.6);
+}
+
+/* ===== CUTE GLITCH (MICRO) ===== */
 .enter-btn::before,
 .enter-btn::after {
   content: "ENTER";
@@ -84,19 +113,26 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 40px;
+  border-radius: 999px;
   opacity: 0;
   pointer-events: none;
 }
 
 .enter-btn::before {
-  color: #cce8ff;
+  color: #e8f6ff;
   transform: translateX(-1px);
 }
 
 .enter-btn::after {
-  color: #e6f3ff;
+  color: #cfe8ff;
   transform: translateX(1px);
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px dashed rgba(255,255,255,.45);
+  border-radius: 14px;
+  pointer-events: none;
+}
 }
 
 .enter-btn.glitch::before,
@@ -106,34 +142,52 @@ body {
 }
 
 @keyframes cuteGlitch {
-  0% { transform: translate(0); }
-  50% { transform: translate(1px,-1px); }
+  0%   { transform: translate(0); }
+  50%  { transform: translate(1px,-1px); }
   100% { transform: translate(0); }
+}
+.enter-btn:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 4px 0 #5b8dff,
+    0 10px 20px rgba(111,169,255,.4);
+}
+
+/* small helper text */
+.hint {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: .65;
+  letter-spacing: .5px;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- floating icons -->
-<div class="float" style="left:10%; animation-delay:0s;">♡</div>
-<div class="float" style="left:30%; animation-delay:3s;">✦</div>
-<div class="float" style="left:50%; animation-delay:6s;">💙</div>
-<div class="float" style="left:70%; animation-delay:1.5s;">☆</div>
-<div class="float" style="left:85%; animation-delay:4.5s;">❄️</div>
+<!-- floating icons (blue-ish only) -->
+<div class="float" style="left:10%; animation-duration:12s;">💙</div>
+<div class="float" style="left:25%; animation-duration:10s;">✦</div>
+<div class="float" style="left:40%; animation-duration:14s;">❄️</div>
+<div class="float" style="left:60%; animation-duration:11s;">☆</div>
+<div class="float" style="left:75%; animation-duration:13s;">♡</div>
+<div class="float" style="left:90%; animation-duration:15s;">✧</div>
 
 <div class="container">
-  <div class="title">Welcome ♡</div>
-  <a href="profile.html" class="enter-btn" id="enterBtn">ENTER</a>
+<div class="title">Welcome to Reiru's Page ♡</div>
+  <a href="profil.html" class="enter-btn" id="enterBtn">ENTER</a>
+  <div class="hint">tap to continue</div>
 </div>
 
 <script>
 const btn = document.getElementById("enterBtn");
 
-// glitch cute tiap 4 detik
+/* cute glitch tiap 4 detik */
 setInterval(() => {
   btn.classList.add("glitch");
-  setTimeout(() => btn.classList.remove("glitch"), 180);
+  setTimeout(() => btn.classList.remove("glitch"), 160);
 }, 4000);
 </script>
 
