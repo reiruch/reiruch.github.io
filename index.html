@@ -6,8 +6,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
+
+.bg-triangle {
+  position: fixed;
+  inset: 0;
+  z-index: 0;              /* background layer */
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+.bg-triangle::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(225deg, #7fb2ff, #4f8dff);
+  clip-path: polygon(
+    100% 0%,   /* kanan atas */
+    55% 0%,    /* atas tengah */
+    100% 45%   /* kanan tengah */
+  );
+}
+.bg-triangle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7fb2ff, #4f8dff);
+  clip-path: polygon(
+  0 100%,   /* kiri bawah */
+  0 40%,    /* kiri tengah (bukan atas lagi) */
+  45% 100%  /* bawah tengah */
+);
+}
+
+.inner-triangle {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.inner-triangle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.45),
+    rgba(255,255,255,0.1)
+  );
+  clip-path: polygon(
+  0 100%,
+  0 55%,
+  30% 100%
+);
+}
+.inner-right {
+  position: absolute;
+  inset: 0;
+  z-index: 1;              /* di atas segitiga besar */
+  pointer-events: none;
+}
+
+.inner-right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    225deg,
+    rgba(255,255,255,0.5),
+    rgba(255,255,255,0.1)
+  );
+  clip-path: polygon(
+    100% 0%,
+    72% 0%,
+    100% 28%
+  );
+}
+.enter-btn {
+  display: inline-block;
+  padding: 14px 36px;
+  font-size: 16px;          /* KUNCI ukuran */
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg, #5fa8ff, #8ecbff);
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 6px 0 #3b83ff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.enter-wrapper {
+  position: relative;
+  z-index: 2;              /* di atas segitiga */
+  text-align: center;
+}
+/* Wrapper enter */
+.enter-wrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #3b83ff; /* default teks biru */
+}
+
+/* WELCOME TEXT */
+.welcome {
+  font-size: 22px;              /* kontrol ukuran */
+  font-weight: 700;
+  color: #3b83ff;               /* kunci warna */
+  margin-bottom: 20px;
+  font-family: 'Comic Neue', 'Nunito', sans-serif;
+}
+
+/* TAP TO CONTINUE */
+.tap {
+  font-size: 12px;
+  color: #084687;
+  opacity: 0.8;
+  margin-top: 14px;
+  font-family: 'Comic Neue', 'Nunito', sans-serif;
+}
 :root {
   --blue1:#7db7ff;
   --blue2:#9ed4ff;
@@ -21,16 +153,17 @@
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(180deg, #f6fbff, #eef5ff);
+  padding: 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  body {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-}
-  overflow: hidden;
-}
 
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  overflow: hidden;
+
+  background: #c4e1ff; /* atau pastel biru pilihanmu */
+}
 /* ===== FLOATING CUTE ===== */
 .float {
   position: absolute;
@@ -200,10 +333,36 @@ body {
     transform: translateY(-20px);
   }
 }
+/* Layer decor */
+#decor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;          /* 👈 paling bawah */
+  pointer-events: none;
+}
+/* Gambar decor */
+.decor {
+  position: absolute;
+  width: 60px;
+  opacity: 0.25;
+  user-select: none;
+}
+.bg-decor img {
+  width: 52px;
+  height: auto;
+  opacity: 0.25;
+}
 </style>
 </head>
 
 <body>
+  <!-- DECOR BACKGROUND -->
+<div id="decor-layer"></div>
+  <div class="bg-decor"></div>
+<div class="bg-triangle">
+  <div class="inner-triangle"></div>   <!-- kiri bawah kecil -->
+  <div class="inner-right"></div>      <!-- kanan atas kecil -->
+</div>
 
 <!-- floating icons (blue-ish only) -->
 <div class="float" style="left:10%; animation-duration:12s;">💙</div>
@@ -214,9 +373,12 @@ body {
 <div class="float" style="left:90%; animation-duration:15s;">✧</div>
 
 <div class="container">
-<div class="title">Welcome to Reiru's Page ♡</div>
+<div class="enter-wrapper">
+  <h1 class="welcome">Welcome to Reiru's Page ♡</h1>
+
   <a href="profil.html" class="enter-btn" id="enterBtn">ENTER</a>
-  <div class="hint">tap to continue</div>
+
+  <p class="tap">tap to continue</p>
 </div>
 
 <div id="anime-transition">
@@ -236,7 +398,6 @@ const enterBtn = document.getElementById("enterBtn");
 const transition = document.getElementById("anime-transition");
 const flash = document.querySelector(".flash");
 
-<script>
 enterBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -249,6 +410,54 @@ enterBtn.addEventListener("click", (e) => {
     window.location.href = "profil.html";
   }, 400);
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const IMAGE_SRC = "decor.png"; // ganti sesuai nama file
+  const TOTAL = 12
+  ;              // jumlah gambar
+  const MIN_DISTANCE = 120;      // jarak minimal
+
+  const placed = [];
+  const layer = document.getElementById("decor-layer");
+
+  function farEnough(x, y) {
+    for (let p of placed) {
+      const dx = x - p.x;
+      const dy = y - p.y;
+      if (Math.sqrt(dx * dx + dy * dy) < MIN_DISTANCE) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  for (let i = 0; i < TOTAL; i++) {
+    const img = document.createElement("img");
+    img.src = IMAGE_SRC;
+    img.className = "decor";
+
+    let x, y, tries = 0;
+    do {
+      x = Math.random() * (window.innerWidth - 80);
+      y = Math.random() * (window.innerHeight - 80);
+      tries++;
+    } while (!farEnough(x, y) && tries < 50);
+
+    placed.push({ x, y });
+
+    img.style.left = x + "px";
+    img.style.top  = y + "px";
+
+    layer.appendChild(img);
+  }
+
+});
+img.style.opacity = 0.18 + Math.random() * 0.15;
+img.style.transform = `
+  rotate(${Math.random() * 360}deg)
+  scale(${0.8 + Math.random() * 0.5})
+`;
 </script>
 
 </body>
