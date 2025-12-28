@@ -162,6 +162,43 @@ body {
   letter-spacing: .5px;
 }
 }
+#anime-transition {
+  position: fixed;
+  inset: 0;
+  background: #f7fbff;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+}
+.flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+}
+@keyframes animeFlash {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes animeZoom {
+  from {
+    transform: scale(1);
+    filter: blur(0);
+  }
+  to {
+    transform: scale(1.15);
+    filter: blur(2px);
+  }
+}
+@keyframes animeSlide {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
 </style>
 </head>
 
@@ -181,6 +218,10 @@ body {
   <div class="hint">tap to continue</div>
 </div>
 
+<div id="anime-transition">
+  <div class="flash"></div>
+</div>
+
 <script>
 const btn = document.getElementById("enterBtn");
 
@@ -189,6 +230,33 @@ setInterval(() => {
   btn.classList.add("glitch");
   setTimeout(() => btn.classList.remove("glitch"), 160);
 }, 4000);
+
+const enterBtn = document.getElementById("enterBtn");
+const transition = document.getElementById("anime-transition");
+const flash = document.querySelector(".flash");
+
+enterBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Aktifkan overlay
+  transition.style.opacity = "1";
+
+  // Flash cepat
+  flash.style.animation = "animeFlash 0.35s ease-out";
+
+  // Zoom halaman
+  document.body.style.animation = "animeZoom 0.6s ease-in-out forwards";
+
+  // Delay cut ala anime
+  setTimeout(() => {
+    transition.style.animation = "animeSlide 0.7s ease-in forwards";
+  }, 300);
+
+  // Pindah halaman
+  setTimeout(() => {
+    window.location.href = "profil.html";
+  }, 900);
+});
 </script>
 
 </body>
