@@ -246,6 +246,36 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     #9fc7ff 12px
   );
 }
+/* ===== PIXEL NAV BUTTON ===== */
+.nav.pixel {
+  width: 42px;
+  height: 42px;
+  background: #9fc7ff;
+  border: 3px solid #2c5aa0;
+  color: #1e3a6d;
+  font-size: 18px;
+  font-family: 'Badaboom', sans-serif;
+  cursor: pointer;
+  border-radius: 2px;
+  /* pixel look */
+  image-rendering: pixelated;
+  box-shadow:
+    3px 3px 0 #2c5aa0,
+    inset -2px -2px 0 rgba(255,255,255,0.3);
+
+  transition: transform 0.1s steps(2), box-shadow 0.1s steps(2);
+}
+
+.nav.pixel:hover {
+  transform: translateY(-2px);
+}
+
+.nav.pixel:active {
+  transform: translateY(2px);
+  box-shadow:
+    1px 1px 0 #2c5aa0,
+    inset 2px 2px 0 rgba(0,0,0,0.2);
+}
 </style>
 </head>
 <body>
@@ -319,9 +349,9 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     <h3>My Gallery</h3>
 
     <div class="slider">
-      <button class="nav left" onclick="prevImg()">◀</button>
+      <button class="nav pixel left" onclick="prevImg()">◀</button>
       <img id="sliderImg" src="reii.jpg" class="modal-img">
-      <button class="nav right" onclick="nextImg()">▶</button>
+      <button class="nav pixel right" onclick="nextImg()">▶</button>
     </div>
   </div>
 </div>
@@ -406,7 +436,7 @@ setInterval(()=>{
 const toggle=document.getElementById("nightToggle");
 toggle.addEventListener("click",()=>{
   document.body.classList.toggle("night");
-  toggle.textContent=document.body.classList.contains("night")?"☀️":"🌙";
+  toggle.textContent=document.body.classList.contains("night")?"️🌙":"☀️";
 });
 
 // ===== ACCORDION =====
