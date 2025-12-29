@@ -70,11 +70,92 @@ body.night .profile-text h1 { color:#9fc7ff; }
 
 /* ===== TRANSITION GLOBAL ===== */
 body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ease; }
+.page.fadeInUp {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUpAnim 0.6s forwards;
+}
+
+@keyframes fadeInUpAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ===== FLOATING ICON BUTTONS ===== */
+.floating-buttons {
+  position: fixed;
+  bottom: 230px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+  z-index: 20;
+}
+
+.icon-btn {
+  font-size: 32px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 14px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 999;
+}
+
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 85%;
+  max-width: 360px;
+  margin: 18vh auto;
+  text-align: center;
+  animation: fadeUp 0.35s ease;
+}
+
+.modal-content h3 {
+  font-family: 'Badaboom', sans-serif;
+  color: #4d97ff;
+  margin-bottom: 12px;
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 18px;
+  cursor: pointer;
+}
 </style>
 </head>
-<body class="day-mode">
+<body>
 
-<div class="page">
+<div class="day-mode">
+
+<div class="page fadeInUp">
 
   <div class="topbar">
     <span>🌐 僕のサイト</span>
@@ -129,7 +210,30 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 <!-- CHARACTER FOOTER -->
 <div class="character-footer"><img src="chr.png" alt="Character"></div>
+<!-- ICON BUTTONS -->
+<div class="floating-buttons">
+  <button class="icon-btn" onclick="openModal('imageModal')">🖼️</button>
+  <button class="icon-btn" onclick="openModal('musicModal')">🎧</button>
+</div>
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('imageModal')">✕</span>
+    <h3>My Gallery</h3>
+    <img src="reii.jpg" class="modal-img">
+  </div>
+</div>
 
+<!-- MUSIC MODAL -->
+<div id="musicModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('musicModal')">✕</span>
+    <h3>My Music</h3>
+    <audio controls style="width:100%;">
+      <source src="Saidai Kouyakusuu.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+</div>
 <script>
 // ===== FLOATING SPAWN =====
 const MAX_FLOATING=19;
@@ -183,7 +287,17 @@ setInterval(()=>{
     setTimeout(()=>el.classList.remove("active"),300);
   });
 },3000);
+
+function openModal(id){
+  document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display = "none";
+}
+
 </script>
 
 </body>
+
 </html>
