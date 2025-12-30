@@ -7,6 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 
 .bg-triangle {
@@ -352,6 +353,30 @@ body {
   height: auto;
   opacity: 0.25;
 }
+/* ===== PIXEL GAME STYLE ===== */
+.pixel-ui {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.welcome.pixel-ui {
+  font-size: 14px;
+  line-height: 1.6;
+}
+.enter-btn.pixel-ui {
+  font-size: 14px;
+  letter-spacing: 3px;
+  border-radius: 6px; /* pixel feel */
+  box-shadow:
+    0 6px 0 #3b83ff,
+    0 12px 0 #2a6fe0;
+}
+.enter-btn.pixel-ui:hover {
+  transform: translateY(-2px);
+}
+.enter-btn.pixel-ui:active {
+  transform: translateY(4px);
+}
 </style>
 </head>
 
@@ -374,9 +399,9 @@ body {
 
 <div class="container">
 <div class="enter-wrapper">
-  <h1 class="welcome">Welcome to Reiru's Page ♡</h1>
+  <h1 class="welcome pixel-ui">Welcome to Reiru's Page ♡</h1>
 
-  <a href="profile.html" class="enter-btn" id="enterBtn">ENTER</a>
+  <a href="profile.html" class="enter-btn pixel-ui" id="enterBtn">ENTER</a>
 
   <p class="tap">tap to continue</p>
 </div>
