@@ -85,7 +85,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 /* ===== FLOATING ICON BUTTONS ===== */
 .floating-buttons {
   position: fixed;
-  bottom: 230px;
+  bottom: 290px;
   left: 0;
   width: 100%;
   display: flex;
@@ -276,6 +276,12 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     1px 1px 0 #2c5aa0,
     inset 2px 2px 0 rgba(0,0,0,0.2);
 }
+.message-btn {
+  position: fixed;
+  bottom: 10px;   /* atur sesuai selera */
+  right: 20px;
+  z-index: 30;
+}
 </style>
 </head>
 <body>
@@ -341,7 +347,11 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div class="floating-buttons">
   <button class="icon-btn" onclick="openModal('imageModal')">🖼️</button>
   <button class="icon-btn" onclick="openModal('musicModal')">🎧</button>
+  
 </div>
+<button class="icon-btn message-btn" onclick="openModal('msgModal')">
+  💬
+</button>
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content anime-modal">
@@ -404,6 +414,22 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   </div>
   <audio src="none.mp3"></audio>
 </div>
+  </div>
+</div>
+<!-- MESSAGE MODAL -->
+<div id="msgModal" class="modal">
+  <div class="modal-content anime-modal">
+    <span class="close" onclick="closeModal('msgModal')">✕</span>
+    <h3>📮 Anonymous Message</h3>
+
+    <form action="https://formspree.io/f/xjgvzpvw" method="POST">
+      <textarea name="message" placeholder="Ketik pesanmu di sini..." required
+        style="width:100%;height:100px;border-radius:10px;padding:10px;"></textarea>
+
+      <button type="submit" class="icon-btn" style="margin-top:10px;">
+        Send ✨
+      </button>
+    </form>
   </div>
 </div>
 <script>
