@@ -9,47 +9,55 @@
 <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/badaboom">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/w0ng/googlefontdirectory@master/fonts/badaboom/badaboom.css">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 /* ===== RESET ===== */
-* { box-sizing: border-box; margin:0; padding:0; font-family: 'Nunito', sans-serif; }
-body { min-height:100vh; background:#eaf3ff; color:#2c2c2c; overflow-x:hidden; position:relative; transition: all 0.6s ease; }
+* { box-sizing: border-box; margin:0; padding:0; font-family:'Press Start 2P', monospace;
+}
+body { 
+  font-size: 15px;
+  line-height: 2;
+  -webkit-font-smoothing: none;
+  text-rendering: optimizeSpeed;
+ min-height:100vh; background:#024ba6; color:#2c2c2c; overflow-x:hidden; position:relative; transition: all 0.6s ease; }
 
 /* ===== PAGE CONTAINER ===== */
-.page { max-width:360px; margin:auto; background:#f7fbff; border:2px solid #b8d8ff; border-radius:14px; padding:18px; animation: fadeUp 0.6s ease-out; }
+.page { max-width:360px; margin:auto; background:#005eff; border:2px solid #b8d8ff; border-radius:14px; padding:18px; animation: fadeUp 0.6s ease-out; }
 
 /* ===== TOPBAR ===== */
-.topbar { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#4b7bbd; margin-bottom:10px; }
-.logout-btn { font-size:12px; color:#4b7bbd; text-decoration:none; padding:6px 10px; border-radius:8px; transition:0.3s; }
+.topbar { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#d5e002; margin-bottom:10px;
+}
+.logout-btn { font-size:8px; color:#d5e002; text-decoration:none; padding:6px 10px; border-radius:8px; transition:0.3s; }
 .logout-btn:hover { background:rgba(75,123,189,.15); transform:scale(1.05); }
 
 /* ===== PROFILE ===== */
 .profile { display:flex; gap:10px; margin-bottom:12px; align-items:center; }
 .profile img { width:90px; height:90px; border-radius:10px; object-fit:cover; border:2px solid #9fc7ff; transition:0.3s ease; }
 .profile img:hover { transform:scale(1.05); }
-.profile-text h1 { font-family:'M PLUS Rounded 1c', sans-serif; font-weight:1000; color:#2893eb; text-align:center; animation: glow 2s infinite alternate; }
-.profile-text p { font-size:13px; text-align:center; line-height:1.6; }
+.profile-text h1 { font-family:'Press Start 2P', monospace; font-weight:1000; color:#ffffff; text-align:center; animation: glow 2s infinite alternate; }
+.profile-text p { font-size:10px; text-align:center; line-height:1; color:#d5e002}
 
 /* ===== ACCORDION ===== */
 .accordion { margin-top:10px; }
 .accordion-item { background:#eef5ff; border-radius:12px; margin:10px 0; overflow:hidden; transition: all 0.3s ease; }
-.accordion-header { padding:12px 15px; cursor:pointer; font-weight:bold; font-size:24px; text-align:center; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); background:linear-gradient(90deg,#a3d0ff,#ffffff); transition:all 0.3s ease; font-family:'Badaboom', sans-serif; }
+.accordion-header { padding:12px 15px; cursor:pointer; font-weight:bold; font-size:14px letter-spacing:1px; text-align:center; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); background:linear-gradient(90deg,#a3d0ff,#ffffff); transition:all 0.3s ease; font-family:'Press Start 2P', monospace; }
 .accordion-header:hover { transform:scale(1.05) rotateZ(-1deg); box-shadow:0 6px 18px rgba(0,0,0,0.15); }
 .accordion-item.active .accordion-header { background:linear-gradient(90deg,#ffb6c1,#87cefa); color:#fff; transform:scale(1.02); }
 .accordion-content { max-height:0; overflow:hidden; padding:0 15px; text-align:center; transition:max-height 0.5s cubic-bezier(0.68,-0.55,0.265,1.55), padding 0.3s ease; }
 .accordion-content {
-  font-family: 'Badaboom', sans-serif;
+  font-family: 'Press Start 2P', monospace;
   font-weight: 600;
-  font-size: 20px; /* bisa diubah */
-  color: #4d97ff;  /* bisa sesuaikan */
+  font-size: 9px; /* bisa diubah */
+  color: #003cff;  /* bisa sesuaikan */
 }
 /* ===== GLITCH ===== */
 .glitch { position:relative; font-weight:1000; }
 .glitch::before,.glitch::after { content:attr(data-text); position:absolute; left:0; top:0; opacity:0; }
 .glitch.active::before { color:#0ffffb; opacity:1; animation:glitchTop 0.3s steps(2); }
-.glitch.active::after { color:#ff0f0f; opacity:1; animation:glitchBottom 0.3s steps(2); }
+.glitch.active::after { color:##00ffe5; opacity:1; animation:glitchBottom 0.3s steps(2); }
 @keyframes glitchTop {0%{transform:translate(0);}20%{transform:translate(-1px,-1px);}40%{transform:translate(-2px,1px);}60%{transform:translate(1px,-1px);}80%{transform:translate(2px,1px);}100%{transform:translate(0);}}
 @keyframes glitchBottom {0%{transform:translate(0);}20%{transform:translate(1px,1px);}40%{transform:translate(2px,-1px);}60%{transform:translate(-1px,1px);}80%{transform:translate(-2px,-1px);}100%{transform:translate(0);}}
-@keyframes glow { from{text-shadow:0 0 5px #8ab6ff;} to{text-shadow:0 0 14px #ffb3ff;} }
+@keyframes glow { from{text-shadow:0 0 5px #8ab6ff;} to{text-shadow:0 0 14px #d5e002;} }
 
 /* ===== FLOATING EMOJI ===== */
 .floating { position:fixed; bottom:-40px; pointer-events:none; opacity:0.85; animation:floatUp linear forwards; transition:color 2.5s linear; filter:drop-shadow(0 0 4px rgba(255,255,255,0.4)); }
@@ -62,7 +70,7 @@ body { min-height:100vh; background:#eaf3ff; color:#2c2c2c; overflow-x:hidden; p
 @keyframes slideInLeft { from{transform:translateX(-300px);opacity:0;} to{transform:translateX(0);opacity:1;} }
 
 /* ===== NIGHT MODE ===== */
-body.night { background: linear-gradient(120deg,#050b1a,#0b1c33,#020814); color:#b300ff; }
+body.night { background: linear-gradient(120deg,#050b1a,#0b1c33,#020814); color:#0537ff; }
 body.night .page { background: rgba(10,25,50,0.85); border-color:#1f3b66; }
 body.night .accordion-item { background: rgba(15,35,70,0.7); }
 body.night .accordion-header { background: linear-gradient(90deg,#1a1a2e,#3b3b5a); color:#9fc7ff; }
@@ -95,7 +103,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 }
 
 .icon-btn {
-  font-size: 32px;
+  font-size: 25px;
   background: rgba(255,255,255,0.6);
   border-radius: 14px;
   padding: 10px;
@@ -132,14 +140,16 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 }
 
 .modal-content h3 {
-  font-family: 'Badaboom', sans-serif;
+  font-family: 'Press Start 2P', sans-serif;
   color: #4d97ff;
   margin-bottom: 12px;
+  font-size:12px;
 }
 
 .modal-img {
   width: 100%;
   border-radius: 14px;
+  animation: imgFade 0.4s ease;
 }
 
 .close {
@@ -167,10 +177,6 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 .nav.left { left: -10px; }
 .nav.right { right: -10px; }
-
-.modal-img {
-  animation: imgFade 0.4s ease;
-}
 
 @keyframes imgFade {
   from { opacity: 0; transform: scale(0.95); }
@@ -220,7 +226,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 }
 
 .pixel-player .title {
-  font-size: 18px;
+  font-size: 10px;
 }
 .pixel-player .info {
   flex: 1;
@@ -288,7 +294,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   right: 20px;
   background: #ffb6d5;
   border: 3px solid #ff5fa2;
-  font-family: 'Badaboom', monospace;
+  font-family: 'Press Start 2P', monospace;
   padding: 12px 16px;
   border-radius: 6px;
   box-shadow: 4px 4px 0 #ff5fa2;
@@ -318,7 +324,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   <div class="topbar">
     <span>🌐 僕のサイト</span>
     <span id="modeControl"><span id="nightToggle">☀️</span></span>
-    <a href="index.html" class="logout-btn">Profil | Log Out</a>
+    <a href="index.html" class="logout-btn">Log Out</a>
   </div>
 
   <div class="profile">
@@ -453,7 +459,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
         style="width:100%;height:100px;border-radius:10px;padding:10px;"></textarea>
 
       <button type="submit" class="icon-btn" style="margin-top:10px;">
-        Send ✨
+        Send✨
       </button>
     </form>
   </div>
