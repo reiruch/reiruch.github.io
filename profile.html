@@ -295,7 +295,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   background: #ffb6d5;
   border: 3px solid #ff5fa2;
   font-family: 'Press Start 2P', monospace;
-  padding: 12px 16px;
+  padding: 1px 5px;
   border-radius: 6px;
   box-shadow: 4px 4px 0 #ff5fa2;
   opacity: 0;
@@ -304,7 +304,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   z-index: 9999;
 }
 #animeNotif.show {
-  animation: pixelPop 1.6s ease forwards;
+  animation: pixelPop 3s ease forwards;
 }
 
 @keyframes pixelPop {
@@ -312,6 +312,71 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   40%  { opacity:1; transform:scale(1.1) translateY(0); }
   70%  { transform:scale(0.95); }
   100% { opacity:0; transform:scale(0.8) translateY(-20px); }
+}
+.diary-btn{
+  position:fixed;
+  bottom:10px;
+  left:20px;
+  z-index:30;
+}
+/* ===== PIXEL PIN INPUT ===== */
+#pinInput {
+  width: 100%;
+  margin: 14px 0;
+  padding: 12px 10px;
+
+  background: #ffffff;           /* ❗ kunci: ini yang bikin gak tembus */
+  color: #1e3a6d;
+
+  border: 3px solid #4d7cff;
+  border-radius: 6px;
+
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 8px;
+
+  box-shadow: 
+    4px 4px 0 #4d7cff,
+    inset -2px -2px 0 rgba(255,255,255,0.4);
+
+  outline: none;
+}
+
+/* focus state (biar berasa game UI) */
+#pinInput:focus {
+  background: #f2f8ff;
+  box-shadow:
+    4px 4px 0 #2c5aa0,
+    0 0 0 3px rgba(77,124,255,0.4);
+}
+.pin-error {
+  display: none;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #ff4d6d;
+  font-family: 'Press Start 2P', monospace;
+  text-align: center;
+  animation: pixelShake .2s steps(2) infinite;
+}
+
+@keyframes pixelShake {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+/* shake effect */
+.shake {
+  animation: shakePixel .25s steps(2);
+}
+
+@keyframes shakePixel {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
 </style>
 </head>
@@ -380,14 +445,16 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   <button class="icon-btn" onclick="openModal('musicModal')">🎧</button>
   
 </div>
+
 <button class="icon-btn message-btn" onclick="openModal('msgModal')">
   💬
 </button>
+<button class="icon-btn diary-btn" onclick="openPinModal()">🔒</button>
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content anime-modal">
     <span class="close" onclick="closeModal('imageModal')">✕</span>
-    <h3>My Gallery</h3>
+    <h3>My Gallery Gwa</h3>
 
     <div class="slider">
       <button class="nav pixel left" onclick="prevImg()">◀</button>
@@ -400,7 +467,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div id="musicModal" class="modal">
   <div class="modal-content anime-modal">
     <span class="close" onclick="closeModal('musicModal')">✕</span>
-    <h3>🎧 My Fav Music</h3>
+    <h3>🎧 Lagu My Favorite Gwa</h3>
 
 <div class="pixel-player" onclick="toggleMusic(0)">
   <span class="btn">▶</span>
@@ -451,7 +518,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div id="msgModal" class="modal">
   <div class="modal-content anime-modal">
     <span class="close" onclick="closeModal('msgModal')">✕</span>
-    <h3>📮 Anonymous Message</h3>
+    <h3>📮 Kirimin dong pesan rahasianya</h3>
 
     <form id="anonForm">
   
@@ -462,9 +529,33 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
         Send✨
       </button>
     </form>
+    <div id="animeNotif">💌 Pesan mu dh nyampe!</div>
   </div>
-  <div id="animeNotif">💌 Message Sent!</div>
 </div>
+
+<div id="pinModal" class="modal">
+  <div class="modal-content anime-modal">
+    <h3>🔐 MASUKIN KODE TOGEL NYA PRENS</h3>
+    <input id="pinInput" type="password" maxlength="6"
+      placeholder="******"
+      style="text-align:center;font-size:18px;letter-spacing:6px;">
+    <button class="icon-btn" onclick="checkPin()">OK</button>
+    <p id="pinError" class="pin-error">SALAH WOI😂</p>
+    <span class="close" onclick="closePinModal()">✕</span>
+  </div>
+</div>
+<div id="diaryModal" class="modal">
+  <div class="modal-content anime-modal">
+    <span class="close" onclick="closeModal('diaryModal')">✕</span>
+    <h3>📓 My Kisah</h3>
+
+    <div class="diary-entry">
+      <p>📅 2025-12-25</p>
+      <p>Hari ini aku belajar bikin web pixel…</p>
+    </div>
+  </div>
+</div>
+
 <script>
 // ===== FLOATING SPAWN =====
 const MAX_FLOATING=19;
@@ -613,6 +704,41 @@ function showAnimeNotif(){
   const notif = document.getElementById("animeNotif");
   notif.classList.add("show");
   setTimeout(() => notif.classList.remove("show"), 1600);
+}
+const CORRECT_PIN = "000000"; // UX only
+
+function openPinModal(){
+  openModal("pinModal");
+}
+
+function checkPin(){
+  const inputEl = document.getElementById("pinInput");
+  const error = document.getElementById("pinError");
+  const modalBox = document.querySelector("#pinModal .modal-content");
+  const inputValue = inputEl.value;
+
+  if(inputValue !== CORRECT_PIN){
+    // ❌ PIN SALAH
+    error.style.display = "block";
+    modalBox.classList.add("shake");
+
+    setTimeout(() => {
+      modalBox.classList.remove("shake");
+      error.style.display = "none";
+      inputEl.value = "";
+    }, 1200);
+
+    return;
+  }
+
+// ✔️ PIN BENAR
+inputEl.value = "";
+closeModal("pinModal");   // ⬅️ WAJIB
+openModal("diaryModal");
+}
+function closePinModal(){
+  closeModal("pinModal");
+  document.getElementById("pinInput").value = "";
 }
 </script>
 
