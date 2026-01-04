@@ -405,6 +405,35 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
 }
+/* ===== DIARY SCROLL AREA ===== */
+.diary-entry {
+  max-height: 360px;        /* atur sesuai selera (200–260 enak) */
+  overflow-y: auto;
+  padding-right: 6px;
+
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  line-height: 1.9;
+}
+.diary-entry::-webkit-scrollbar {
+  width: 8px;
+}
+
+.diary-entry::-webkit-scrollbar-track {
+  background: #c7e6ff;
+  border: 2px solid #4d7cff;
+}
+
+.diary-entry::-webkit-scrollbar-thumb {
+  background: repeating-linear-gradient(
+    180deg,
+    #4d7cff 0px,
+    #4d7cff 4px,
+    #9fc7ff 4px,
+    #9fc7ff 8px
+  );
+  border: 2px solid #2c5aa0;
+}
 </style>
 </head>
 <body>
@@ -630,7 +659,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
       <p>Nyalain air nya woii PDAM!</p>
       <p>————</p>
       <p>📅 2026-01-04</p>
-      <p>Holiday with my family♥️</p>
+      <p>️Abang bawa makan-makan😋🤤</p>
       <p>————</p>
     </div>
   </div>
