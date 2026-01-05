@@ -484,7 +484,18 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   border-left: 3px solid #ff5fa2;
   color: #ff5fa2;
 }
-
+#rateNotif {
+  display: none;
+  margin-top: 10px;
+  background: #fff3b0;
+  border: 3px solid #ffb703;
+  color: #7a4a00;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 6px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 #ffb703;
+}
 </style>
 </head>
 <body>
@@ -665,7 +676,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div id="msgModal" class="modal">
   <div class="modal-content anime-modal">
     <span class="close" onclick="closeModal('msgModal')">✕</span>
-    <h3>📮 Kirimin dong pesan</h3>
+    <h3>📮 Kirimin dong pesannya</h3>
 
     <form id="anonForm">
   
@@ -677,6 +688,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
       </button>
     </form>
     <div id="animeNotif">💌 Pesan mu dh nyampe!</div>
+    <div id="rateNotif">⏳ Tunggu sebentar ya~</div>
   </div>
 </div>
 
@@ -936,13 +948,26 @@ function toggleMusic(index){
 }
 const form = document.getElementById("anonForm");
 
+const RATE_LIMIT = 60; // detik
+const RATE_KEY = "lastMessageTime";
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  if(!canSendMessage()){
-    alert("Tunggu 1 menit sebelum kirim lagi 😅");
+  const now = Date.now();
+  const lastTime = localStorage.getItem(RATE_KEY);
+  const rateBox = document.getElementById("rateNotif");
+
+  if (lastTime && now - lastTime < RATE_LIMIT * 1000) {
+    const remain = Math.ceil(
+      (RATE_LIMIT * 1000 - (now - lastTime)) / 1000
+    );
+    rateBox.textContent = `⏳ Tunggu ${remain} detik lagi ya~`;
+    rateBox.style.display = "block";
     return;
   }
+
+  rateBox.style.display = "none";
 
   const msg = form.querySelector("textarea").value.trim();
   if (!msg) return;
@@ -953,11 +978,12 @@ form.addEventListener("submit", async (e) => {
       {
         text: msg,
         reply: "",
+        approoved: false,
         createdAt: window.serverTimestamp()
       }
     );
 
-    markMessageSent();   // ⬅️ PENTING
+    localStorage.setItem(RATE_KEY, now);
     showAnimeNotif();
     form.reset();
 
