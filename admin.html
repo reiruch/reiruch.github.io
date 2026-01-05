@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace;
+}
+
+body {
+  background: #050b1a;
+  color: #9fc7ff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-box, .admin-box {
+  max-width: 420px;
+  margin: auto;
+  background: #0b1c33;
+  border: 3px solid #4d7cff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 6px 6px 0 #1e3a6d;
+}
+
+input, textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+  border: 2px solid #4d7cff;
+  background: #050b1a;
+  color: #9fc7ff;
+  font-size: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  cursor: pointer;
+  background: #9fc7ff;
+  border: 3px solid #2c5aa0;
+  font-size: 10px;
+}
+
+.msg {
+  background: #050b1a;
+  border: 2px solid #4d7cff;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+  font-size: 9px;
+}
+
+.reply {
+  margin-top: 6px;
+  color: #ff5fa2;
+  font-size: 9px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🛠 ADMIN PANEL</h1>
+
+<!-- LOGIN -->
+<div id="loginBox" class="login-box">
+  <input id="email" type="email" placeholder="Email Admin">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- ADMIN -->
+<div id="adminBox" class="admin-box hidden">
+  <button onclick="logout()">Logout</button>
+  <hr style="margin:14px 0;">
+  <div id="messages">Loading...</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  updateDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDMPB7cCb1HdT1B_UC3tN96OsXyFVZ6eiw",
+  authDomain: "reiru-project.firebaseapp.com",
+  projectId: "reiru-project",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const loginBox = document.getElementById("loginBox");
+const adminBox = document.getElementById("adminBox");
+const msgBox = document.getElementById("messages");
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    loginBox.classList.add("hidden");
+    adminBox.classList.remove("hidden");
+    loadMessages();
+  } else {
+    loginBox.classList.remove("hidden");
+    adminBox.classList.add("hidden");
+  }
+});
+
+window.login = async () => {
+  await signInWithEmailAndPassword(
+    auth,
+    email.value,
+    password.value
+  );
+};
+
+window.logout = () => signOut(auth);
+
+function loadMessages() {
+  const q = query(
+    collection(db, "messages"),
+    orderBy("createdAt", "desc")
+  );
+
+  onSnapshot(q, snap => {
+    msgBox.innerHTML = "";
+    snap.forEach(d => {
+      const data = d.data();
+      const div = document.createElement("div");
+      div.className = "msg";
+      div.innerHTML = `
+        💬 ${data.text}
+        <textarea placeholder="Balasan...">${data.reply || ""}</textarea>
+        <button data-id="${d.id}">Kirim Balasan</button>
+      `;
+      const btn = div.querySelector("button");
+      const ta = div.querySelector("textarea");
+
+      btn.onclick = async () => {
+        await updateDoc(doc(db, "messages", d.id), {
+          reply: ta.value
+        });
+        btn.textContent = "✔";
+        setTimeout(()=>btn.textContent="Kirim Balasan",800);
+      };
+
+      msgBox.appendChild(div);
+    });
+  });
+}
+</script>
+<script>
+  
+</script>
+</body>
+</html>
