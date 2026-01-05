@@ -445,7 +445,26 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   padding-right: 6px;
   text-align: left;
 }
+/* ===== BOARD SCROLLBAR (PIXEL STYLE) ===== */
+.board-list::-webkit-scrollbar {
+  width: 8px;
+}
 
+.board-list::-webkit-scrollbar-track {
+  background: #c7e6ff;
+  border: 2px solid #4d7cff;
+}
+
+.board-list::-webkit-scrollbar-thumb {
+  background: repeating-linear-gradient(
+    180deg,
+    #4d7cff 0px,
+    #4d7cff 4px,
+    #9fc7ff 4px,
+    #9fc7ff 8px
+  );
+  border: 2px solid #2c5aa0;
+}
 .board-item {
   background: #eef5ff;
   border: 2px solid #4d7cff;
