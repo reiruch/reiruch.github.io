@@ -434,6 +434,38 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   );
   border: 2px solid #2c5aa0;
 }
+.board-btn {
+  position: fixed;
+  bottom: 300px;
+  right: 180px;
+}
+.board-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 6px;
+  text-align: left;
+}
+
+.board-item {
+  background: #eef5ff;
+  border: 2px solid #4d7cff;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 9px;
+}
+
+.msg-text {
+  color: #1e3a6d;
+}
+
+.msg-reply {
+  margin-top: 6px;
+  padding-left: 6px;
+  border-left: 3px solid #ff5fa2;
+  color: #ff5fa2;
+}
+
 </style>
 </head>
 <body>
@@ -506,6 +538,9 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   💬
 </button>
 <button class="icon-btn diary-btn" onclick="openPinModal()">🔒</button>
+<button class="icon-btn board-btn" onclick="openBoard()">
+  📌
+</button>
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content anime-modal">
@@ -611,7 +646,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div id="msgModal" class="modal">
   <div class="modal-content anime-modal">
     <span class="close" onclick="closeModal('msgModal')">✕</span>
-    <h3>📮 Kirimin dong pesan rahasianya</h3>
+    <h3>📮 Kirimin dong pesan</h3>
 
     <form id="anonForm">
   
@@ -664,6 +699,96 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     </div>
   </div>
 </div>
+
+
+<div id="boardModal" class="modal">
+  <div class="modal-content anime-modal">
+    <span class="close" onclick="closeBoard()">✕</span>
+    <h3>📌 Papan Pesan</h3>
+
+    <div id="publicMessages" class="board-list">
+      Loading...
+    </div>
+  </div>
+</div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+ import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.closeBoard = function(){
+  closeModal("boardModal");
+  if (unsubscribeBoard) {
+    unsubscribeBoard();
+    unsubscribeBoard = null;
+  }
+}
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDMPB7cCb1HdT1B_UC3tN96OsXyFVZ6eiw",
+    authDomain: "reiru-project.firebaseapp.com",
+    projectId: "reiru-project",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ⬇️ SIMPAN KE GLOBAL BIAR BISA DIPAKAI
+  window.db = db;
+  window.addDoc = addDoc;
+  window.collection = collection;
+  window.serverTimestamp = serverTimestamp;
+  
+  let unsubscribeBoard = null;
+
+window.openBoard = function(){
+  openModal("boardModal");
+
+  const list = document.getElementById("publicMessages");
+
+  const q = query(
+    collection(db, "messages"),
+    orderBy("createdAt", "desc")
+  );
+
+  unsubscribeBoard = onSnapshot(q, snap => {
+    if (snap.empty) {
+      list.innerHTML = "<p>Belum ada pesan</p>";
+      return;
+    }
+
+    list.innerHTML = "";
+
+    snap.forEach(doc => {
+      const data = doc.data();
+
+      const div = document.createElement("div");
+      div.className = "board-item";
+
+      div.innerHTML = `
+        <div class="msg-text">💬 ${data.text}</div>
+        ${
+          data.reply
+          ? `<div class="msg-reply">↳ ${data.reply}</div>`
+          : ""
+        }
+      `;
+
+      list.appendChild(div);
+    });
+  });
+}
+window.closeModal = function(id){
+  document.getElementById(id).style.display = "none";
+}
+</script>
 
 <script>
 // ===== FLOATING SPAWN =====
@@ -793,27 +918,36 @@ function toggleMusic(index){
 const form = document.getElementById("anonForm");
 
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // 🚨 ini kuncinya
+  e.preventDefault();
 
-  const msg = form.querySelector("textarea").value;
+  if(!canSendMessage()){
+    alert("Tunggu 1 menit sebelum kirim lagi 😅");
+    return;
+  }
+
+  const msg = form.querySelector("textarea").value.trim();
+  if (!msg) return;
 
   try {
-    const res = await fetch("https://formspree.io/f/xjgvzpvw", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: msg })
-    });
+    await window.addDoc(
+      window.collection(window.db, "messages"),
+      {
+        text: msg,
+        reply: "",
+        createdAt: window.serverTimestamp()
+      }
+    );
 
-    if (res.ok) {
-      showAnimeNotif();   // 🎉 notif muncul
-      form.reset();
-    } else {
-      alert("Gagal mengirim pesan 😢");
-    }
-  } catch {
-    alert("Koneksi error");
+    markMessageSent();   // ⬅️ PENTING
+    showAnimeNotif();
+    form.reset();
+
+  } catch (err) {
+    alert("Gagal mengirim 😢");
+    console.error(err);
   }
 });
+
 function showAnimeNotif(){
   const notif = document.getElementById("animeNotif");
   notif.classList.add("show");
@@ -854,8 +988,19 @@ function closePinModal(){
   closeModal("pinModal");
   document.getElementById("pinInput").value = "";
 }
-</script>
+const COOLDOWN = 60_000; // 60 detik
 
+function canSendMessage(){
+  const last = localStorage.getItem("last_send_time");
+  if(!last) return true;
+
+  return (Date.now() - Number(last)) > COOLDOWN;
+}
+
+function markMessageSent(){
+  localStorage.setItem("last_send_time", Date.now());
+}
+</script>
 </body>
 
 </html>
