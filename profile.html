@@ -686,6 +686,34 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
       <button type="submit" class="icon-btn" style="margin-top:10px;">
         Send✨
       </button>
+      <div id="cooldownBox" style="display:none;margin-top:10px;">
+  <div id="cooldownText"
+       style="font-size:10px;margin-bottom:6px;">
+    ⏳ Tunggu 15 detik...
+  </div>
+
+  <div style="
+    width:100%;
+    height:10px;
+    background:#c7e6ff;
+    border:2px solid #4d7cff;
+    overflow:hidden;
+  ">
+    <div id="cooldownBar"
+         style="
+           height:100%;
+           width:100%;
+           background:repeating-linear-gradient(
+             90deg,
+             #4d7cff 0px,
+             #4d7cff 6px,
+             #9fc7ff 6px,
+             #9fc7ff 12px
+           );
+         ">
+    </div>
+  </div>
+</div>
     </form>
     <div id="animeNotif">💌 Pesan mu dh nyampe!</div>
     <div id="rateNotif">⏳ Tunggu sebentar ya~</div>
@@ -951,44 +979,33 @@ const form = document.getElementById("anonForm");
 const RATE_LIMIT = 60; // detik
 const RATE_KEY = "lastMessageTime";
 
-form.addEventListener("submit", async (e) => {
+ form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const now = Date.now();
-  const lastTime = localStorage.getItem(RATE_KEY);
-  const rateBox = document.getElementById("rateNotif");
+  if (cooldownActive) return; // ⬅️ ANTI SPAM
 
-  if (lastTime && now - lastTime < RATE_LIMIT * 1000) {
-    const remain = Math.ceil(
-      (RATE_LIMIT * 1000 - (now - lastTime)) / 1000
-    );
-    rateBox.textContent = `⏳ Tunggu ${remain} detik lagi ya~`;
-    rateBox.style.display = "block";
-    return;
-  }
-
-  rateBox.style.display = "none";
-
+  const btn = form.querySelector("button");
   const msg = form.querySelector("textarea").value.trim();
   if (!msg) return;
 
   try {
+    btn.textContent = "⏳";
     await window.addDoc(
       window.collection(window.db, "messages"),
       {
         text: msg,
         reply: "",
-        approoved: false,
         createdAt: window.serverTimestamp()
       }
     );
 
-    localStorage.setItem(RATE_KEY, now);
     showAnimeNotif();
     form.reset();
+    startCooldown(btn); // ⬅️ AKTIFKAN COOLDOWN
 
   } catch (err) {
     alert("Gagal mengirim 😢");
+    btn.textContent = "Send✨";
     console.error(err);
   }
 });
@@ -997,6 +1014,37 @@ function showAnimeNotif(){
   const notif = document.getElementById("animeNotif");
   notif.classList.add("show");
   setTimeout(() => notif.classList.remove("show"), 1600);
+}
+let cooldownActive = false;
+const COOLDOWN_TIME = 15; // detik
+
+function startCooldown(btn){
+  cooldownActive = true;
+
+  const box = document.getElementById("cooldownBox");
+  const bar = document.getElementById("cooldownBar");
+  const text = document.getElementById("cooldownText");
+
+  let remaining = COOLDOWN_TIME;
+  box.style.display = "block";
+  btn.disabled = true;
+
+  const interval = setInterval(() => {
+    remaining--;
+
+    const percent = (remaining / COOLDOWN_TIME) * 100;
+    bar.style.width = percent + "%";
+    text.textContent = `⏳ Tunggu ${remaining} detik...`;
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      cooldownActive = false;
+      box.style.display = "none";
+      btn.disabled = false;
+      bar.style.width = "100%";
+      btn.textContent = "Send✨";
+    }
+  }, 1000);
 }
 const CORRECT_PIN = "000000"; // UX only
 
