@@ -496,6 +496,11 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   border-radius: 6px;
   box-shadow: 3px 3px 0 #ffb703;
 }
+.msg-date{
+  font-size: 6px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body>
@@ -831,14 +836,19 @@ window.openBoard = function(){
       const div = document.createElement("div");
       div.className = "board-item";
 
-      div.innerHTML = `
-        <div class="msg-text">💬 ${data.text}</div>
-        ${
-          data.reply
-          ? `<div class="msg-reply">↳ ${data.reply}</div>`
-          : ""
-        }
-      `;
+const shortId = data.visitorId
+  ? data.visitorId.slice(0, 5).toUpperCase()
+  : "LEGACY";
+
+div.innerHTML = `
+  <div class="msg-meta">👤 Anon #${shortId}</div>
+  <div class="msg-text">💬 ${data.text}</div>
+  ${
+    data.reply
+    ? `<div class="msg-reply">↳ ${data.reply}</div>`
+    : ""
+  }
+`;
 
       list.appendChild(div);
     });
@@ -991,13 +1001,15 @@ const RATE_KEY = "lastMessageTime";
   try {
     btn.textContent = "⏳";
     await window.addDoc(
-      window.collection(window.db, "messages"),
-      {
-        text: msg,
-        reply: "",
-        createdAt: window.serverTimestamp()
-      }
-    );
+  window.collection(window.db, "messages"),
+  {
+    text: msg,
+    visitorId: VISITOR_ID,
+    reply: "",
+    approved: false,
+    createdAt: window.serverTimestamp()
+  }
+);
 
     showAnimeNotif();
     form.reset();
@@ -1093,6 +1105,28 @@ function canSendMessage(){
 function markMessageSent(){
   localStorage.setItem("last_send_time", Date.now());
 }
+function formatTanggal(ts){
+  if(!ts) return ""; // jaga-jaga
+
+  const date = ts.toDate();
+
+  return date.toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+}
+function getVisitorId(){
+  let id = localStorage.getItem("visitorId");
+  if(!id){
+    id = crypto.randomUUID();
+    localStorage.setItem("visitorId", id);
+  }
+  return id;
+}
+
+const VISITOR_ID = getVisitorId();
 </script>
 </body>
 
