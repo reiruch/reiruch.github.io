@@ -501,6 +501,15 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   opacity: 0.7;
   margin-bottom: 4px;
 }
+.msg-meta {
+  display: inline-block;
+  background-color: #caff80;
+  color: #000;
+  font-size: 7px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body>
@@ -842,7 +851,7 @@ const shortId = data.visitorId
 
 div.innerHTML = `
   <div class="msg-date">📅 ${formatDate(data.createdAt)}</div>
-  <div class="msg-meta">👤 Anon #${shortId}</div>
+  <div class="msg-meta">💦NPC #${shortId}</div>
   <div class="msg-text">💬 ${data.text}</div>
   ${
     data.reply
