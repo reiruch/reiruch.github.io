@@ -440,7 +440,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   right: 20px;
 }
 .board-list {
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
   padding-right: 6px;
   text-align: left;
@@ -841,6 +841,7 @@ const shortId = data.visitorId
   : "LEGACY";
 
 div.innerHTML = `
+  <div class="msg-date">📅 ${formatDate(data.createdAt)}</div>
   <div class="msg-meta">👤 Anon #${shortId}</div>
   <div class="msg-text">💬 ${data.text}</div>
   ${
@@ -1127,6 +1128,17 @@ function getVisitorId(){
 }
 
 const VISITOR_ID = getVisitorId();
+
+function formatDate(ts){
+  if (!ts) return "";
+  const d = ts.toDate();
+  return d.toLocaleDateString("id-ID", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+}
 </script>
 </body>
 
