@@ -750,29 +750,10 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     <span class="close" onclick="closeModal('diaryModal')">✕</span>
     <h3>📓 My Kisah</h3>
 
-    <div class="diary-entry">
-      <p>📅 2025-12-25</p>
-      <p>Hari ini gwech belajar bikin web…</p>
-      <p>————</p>
-      <p>📅 2025-12-31</p>
-      <p>What if I confess?</p>
-      <p>————</p>
-      <p>📅 2026-01-01</p>
-      <p>New Year New Me/ntal issue</p>
-      <p>————</p>
-      <p>📅 2026-01-02</p>
-      <p>Yeayy dpt duitt🤑</p>
-      <p>————</p>
-      <p>📅 2026-01-03</p>
-      <p>Nyalain air nya woii PDAM!</p>
-      <p>————</p>
-      <p>📅 2026-01-04</p>
-      <p>️Abang bawa pergi makan-makan😋🤤</p>
-      <p>————</p>
-      <p>📅 2026-01-08</p>
-      <p>️Lil bro dh merantau ikut abang</p>
-      <p>————</p>
-    </div>
+<div class="diary-entry" id="diaryContainer">
+  <p style="text-align:center; margin-top:20px;">Memuat kenangan... ⏳</p>
+</div>
+
   </div>
 </div>
 
@@ -789,23 +770,15 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 </div>
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
- import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  orderBy,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-window.closeBoard = function(){
-  closeModal("boardModal");
-  if (unsubscribeBoard) {
-    unsubscribeBoard();
-    unsubscribeBoard = null;
-  }
-}
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDMPB7cCb1HdT1B_UC3tN96OsXyFVZ6eiw",
@@ -816,61 +789,140 @@ window.closeBoard = function(){
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // ⬇️ SIMPAN KE GLOBAL BIAR BISA DIPAKAI
+  // ⬇️ GLOBAL ASSIGNMENT (Supaya script lain di bawah bisa pakai db & addDoc)
   window.db = db;
   window.addDoc = addDoc;
   window.collection = collection;
   window.serverTimestamp = serverTimestamp;
+
+  // =========================================
+  // 1. BAGIAN BARU: DIARY LOADER (MY KISAH)
+  // =========================================
+  const diaryContainer = document.getElementById("diaryContainer");
+  
+  function loadPublicDiary() {
+    // Ambil data diary dari Firebase, urutkan tanggal terbaru
+    const q = query(collection(db, "diary"), orderBy("date", "desc"));
+
+    onSnapshot(q, (snap) => {
+      // Jika diary kosong / belum ada yang diupload admin
+      if(snap.empty){
+        // Cek dulu apakah elemen diaryContainer ada (biar gak error)
+        if(diaryContainer) diaryContainer.innerHTML = "<p style='text-align:center'>Belum ada kisah baru.</p>";
+        return;
+      }
+
+      if(diaryContainer) {
+        diaryContainer.innerHTML = ""; // Bersihkan loading/teks lama
+
+        snap.forEach(doc => {
+          const data = doc.data();
+          
+          // Format tanggal: Senin, 01 Januari 2026
+          const dateObj = new Date(data.date);
+          const dateString = dateObj.toLocaleDateString("id-ID", {
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+          });
+
+          // Render HTML per diary
+          const entryDiv = document.createElement("div");
+          entryDiv.innerHTML = `
+            <p style="color:#ff5fa2; margin-top:10px; font-size:10px;">📅 ${dateString}</p>
+            <p style="white-space: pre-wrap; margin-bottom:10px;">${data.content}</p>
+            <p style="color:#4d7cff; text-align:center;">————</p>
+          `;
+          diaryContainer.appendChild(entryDiv);
+        });
+      }
+    });
+  }
+
+  // Jalankan fungsi load diary saat web dibuka
+  loadPublicDiary();
+
+
+  // =========================================
+  // 2. BAGIAN LAMA: BOARD MESSAGE & UTILS
+  // (Ini script asli kamu, aku pertahankan)
+  // =========================================
   
   let unsubscribeBoard = null;
 
-window.openBoard = function(){
-  openModal("boardModal");
-
-  const list = document.getElementById("publicMessages");
-
-  const q = query(
-    collection(db, "messages"),
-    orderBy("createdAt", "desc")
-  );
-
-  unsubscribeBoard = onSnapshot(q, snap => {
-    if (snap.empty) {
-      list.innerHTML = "<p>Belum ada pesan</p>";
-      return;
+  // Fungsi tutup modal & matikan listener realtime board
+  window.closeBoard = function(){
+    closeModal("boardModal");
+    if (unsubscribeBoard) {
+      unsubscribeBoard();
+      unsubscribeBoard = null;
     }
-
-    list.innerHTML = "";
-
-    snap.forEach(doc => {
-      const data = doc.data();
-
-      const div = document.createElement("div");
-      div.className = "board-item";
-
-const shortId = data.visitorId
-  ? data.visitorId.slice(0, 5).toUpperCase()
-  : "LEGACY";
-
-div.innerHTML = `
-  <div class="msg-date">📅 ${formatDate(data.createdAt)}</div>
-  <div class="msg-meta">NPC💦 #${shortId}</div>
-  <div class="msg-text">💬 ${data.text}</div>
-  ${
-    data.reply
-    ? `<div class="msg-reply">↳ ${data.reply}</div>`
-    : ""
   }
-`;
 
-      list.appendChild(div);
+  // Fungsi buka board & ambil data pesan
+  window.openBoard = function(){
+    openModal("boardModal");
+
+    const list = document.getElementById("publicMessages");
+    
+    // Query pesan (sama seperti sebelumnya)
+    const q = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "desc")
+    );
+
+    unsubscribeBoard = onSnapshot(q, snap => {
+      if (snap.empty) {
+        list.innerHTML = "<p>Belum ada pesan</p>";
+        return;
+      }
+
+      list.innerHTML = "";
+
+      snap.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "board-item";
+
+        const shortId = data.visitorId
+          ? data.visitorId.slice(0, 5).toUpperCase()
+          : "LEGACY";
+
+        div.innerHTML = `
+          <div class="msg-date">📅 ${formatDate(data.createdAt)}</div>
+          <div class="msg-meta">NPC💦 #${shortId}</div>
+          <div class="msg-text">💬 ${data.text}</div>
+          ${
+            data.reply
+            ? `<div class="msg-reply">↳ ${data.reply}</div>`
+            : ""
+          }
+        `;
+
+        list.appendChild(div);
+      });
     });
-  });
-}
-window.closeModal = function(id){
-  document.getElementById(id).style.display = "none";
-}
+  }
+
+  // Helper untuk menutup modal umum
+  window.closeModal = function(id){
+    document.getElementById(id).style.display = "none";
+  }
+
+  // Helper format tanggal untuk Board Message (dari script lama)
+  function formatDate(ts){
+    if (!ts) return "";
+    const d = ts.toDate();
+    return d.toLocaleDateString("id-ID", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
 </script>
+
 
 <script>
 // ===== FLOATING SPAWN =====
