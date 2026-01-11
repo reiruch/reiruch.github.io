@@ -5,11 +5,9 @@
 <title>My Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.cdnfonts.com/css/badaboom">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/w0ng/googlefontdirectory@master/fonts/badaboom/badaboom.css">
+<link href="https://fonts.cdnfonts.com/css/badaboom" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 <style>
 /* ===== RESET ===== */
 * { box-sizing: border-box; margin:0; padding:0; font-family:'Press Start 2P', monospace;
@@ -43,7 +41,6 @@ body {
 .accordion-header { padding:12px 15px; cursor:pointer; font-weight:bold; font-size:14px letter-spacing:1px; text-align:center; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); background:linear-gradient(90deg,#a3d0ff,#ffffff); transition:all 0.3s ease; font-family:'Press Start 2P', monospace; }
 .accordion-header:hover { transform:scale(1.05) rotateZ(-1deg); box-shadow:0 6px 18px rgba(0,0,0,0.15); }
 .accordion-item.active .accordion-header { background:linear-gradient(90deg,#ffb6c1,#87cefa); color:#fff; transform:scale(1.02); }
-.accordion-content { max-height:0; overflow:hidden; padding:0 15px; text-align:center; transition:max-height 0.5s cubic-bezier(0.68,-0.55,0.265,1.55), padding 0.3s ease; }
 .accordion-content {
   font-family: 'Press Start 2P', monospace;
   font-weight: 600;
@@ -572,10 +569,202 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     padding: 40px;
   }
 }
+/* ===== LIKES STATS MODAL ===== */
+.likes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Membagi menjadi 2 kolom (Kiri & Kanan) */
+  gap: 15px; /* Jarak antar kolom */
+  text-align: left;
+  margin-top: 10px;
+}
+
+.stat-item {
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #1e3a6d;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-bar-container {
+  width: 100%;
+  height: 12px;
+  background: #c7e6ff;
+  border: 2px solid #4d7cff;
+  position: relative;
+  /* Shadow pixel */
+  box-shadow: 2px 2px 0 #4d7cff; 
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff5fa2 0px,
+    #ff5fa2 6px,
+    #ff8dc7 6px,
+    #ff8dc7 12px
+  );
+  width: 0%; /* Default 0, nanti diatur di HTML */
+  transition: width 1s ease-out;
+}
+
+/* Agar animasi bar jalan saat modal dibuka */
+.modal-content:hover .stat-bar-fill {
+  /* Ini trik simpel: saat mouse di atas modal, bar akan terisi */
+  /* Atau biarkan width diset inline di HTML */
+}
+
+/* Khusus Mobile biar tetap rapi */
+@media screen and (max-width: 320px) {
+  .likes-grid {
+    grid-template-columns: 1fr; /* Kalau layar hp kekecilan, jadi 1 kolom */
+  }
+}
+/* ===== RPG STATUS STYLE ===== */
+.rpg-card {
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  border: 2px solid #4d7cff;
+  padding: 10px;
+  border-radius: 10px;
+  align-items: center;
+  text-align: left;
+}
+.rpg-avatar { position: relative; }
+.rpg-avatar img {
+  width: 70px; height: 70px;
+  border-radius: 6px; border: 2px solid #000;
+}
+.lvl-badge {
+  position: absolute; bottom: -5px; right: -5px;
+  background: #ffb600; color: #000;
+  font-size: 8px; padding: 2px 4px;
+  border: 2px solid #fff; border-radius: 4px;
+}
+.rpg-info p {
+  font-size: 9px; margin: 4px 0; color: #1e3a6d;
+}
+.rpg-stats {
+  margin-top: 15px;
+  background: #eef5ff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px dashed #9fc7ff;
+}
+.stat-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+  font-size: 8px; font-family: 'Press Start 2P', monospace;
+}
+.xp-bar {
+  flex: 1; height: 8px; background: #ccc;
+  border: 2px solid #000; position: relative;
+}
+.xp-fill { height: 100%; transition: width 0.5s; }
+/* ===== CSS TAMBAHAN UNTUK MODAL BARU ===== */
+
+/* --- Social Link Style --- */
+.social-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pixel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  text-decoration: none;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+  transition: transform 0.1s, box-shadow 0.1s;
+  font-family: 'Press Start 2P', monospace;
+  color: #000;
+}
+
+.pixel-link:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+.pixel-link .icon { font-size: 20px; margin-right: 10px; }
+.pixel-link .arrow { font-size: 14px; animation: pointRight 1s infinite; }
+
+.link-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.link-info .platform { font-size: 8px; opacity: 0.6; margin-bottom: 4px; }
+.link-info .username { font-size: 10px; font-weight: bold; }
+
+/* Warna khusus tiap sosmed */
+.ig-theme { border-color: #E1306C; color: #8a2387; }
+.ig-theme:hover { background: #ffeef5; }
+
+.x-theme { border-color: #1DA1F2; color: #1e3a6d; }
+.x-theme:hover { background: #e8f5fe; }
+
+@keyframes pointRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+/* --- Warning/Don't Style --- */
+.warning-box {
+  margin-top: 15px;
+  border: 2px dashed #ff4d6d;
+  background: #ffe6e6;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.warning-item {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #d00000;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid rgba(255, 77, 109, 0.3);
+  padding-bottom: 5px;
+}
+
+.warning-item:last-child { border-bottom: none; margin-bottom: 0; }
+.warning-item .skull { font-size: 14px; animation: shakePixel 2s infinite; }
+
+.alert-msg {
+  margin-top: 15px;
+  background: #000;
+  color: #ff0000;
+  font-size: 7px;
+  padding: 8px;
+  border-radius: 4px;
+  font-family: 'Press Start 2P', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
 </style>
 </head>
 <body>
+  
+<audio id="bgmAudio" loop>
+  <source src="Xshotshop.mp3" type="audio/mpeg">
+</audio>
 
 <div class="day-mode">
 
@@ -595,33 +784,30 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     </div>
   </div>
 
-  <div class="accordion">
-    <div class="accordion-item">
-      <div class="accordion-header">✈️ About Me</div>
-      <div class="accordion-content">
-        <p>♥ Music enjoyer</p>
-        <p>♥ Beginner artist</p>
-        <p>♥ Random but friendly</p>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header">🚀 Likes</div>
-      <div class="accordion-content"><p>♦ Anime/Donghua<br> ♦ Man(g/hw/hu)a<br> ♦ Drawing/Photography<br> ♦ J-Pop/C-Pop</p></div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header">📌 Find Me On</div>
-      <div class="accordion-content">
-        <p>♠ IG: reiru_xyz</p>
-        <p>♠ X: reiiru_x</p>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <div class="accordion-header">🗿 Don't </div>
-      <div class="accordion-content">
-        <p>♣ toxic<br> ♣ hate speech<br> ♣ drama seeker</p>
-      </div>
-    </div>
+  <div class="accordion-item" onclick="openModal('statusModal')">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #ffb6c1, #fff); color: #c71585;">
+    ⚔️ Status (About Me)
   </div>
+</div>
+
+    <div class="accordion-item like-trigger" onclick="openModal('likesModal')">
+  <div class="accordion-header" style="background: linear-gradient(90deg,#a3d0ff,#fff); color: #2e9aff;">
+    🚀 Likes
+  </div>
+</div>
+
+    <div class="accordion-item like-trigger" onclick="openModal('socialModal')">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #c4a7e7, #fff); color: #5c2c7e;">
+    📡 Find Me On
+  </div>
+</div>
+
+<div class="accordion-item like-trigger" onclick="openModal('dontModal')">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #eb6f92, #fff); color: #820e2d;">
+    ⚠️ Don't (Warning)
+  </div>
+</div>
+
 
 </div>
 
@@ -749,6 +935,8 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     </div>
   </div>
 </div>
+
+
 <!-- MESSAGE MODAL -->
 <div id="msgModal" class="modal">
   <div class="modal-content anime-modal">
@@ -831,6 +1019,204 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     </div>
   </div>
 </div>
+
+<div id="likesModal" class="modal">
+  <div class="modal-content anime-modal" style="max-width: 450px;"> <span class="close" onclick="closeModal('likesModal')">✕</span>
+    <h3>📊 Stats of My Likes</h3>
+
+    <div class="likes-grid">
+      
+      <div class="left-col">
+        
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Anime(Movie)</span> <span>♥️99</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 99%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Donghua</span> <span>♥️90</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Manga</span> <span>♥️65</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 65%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Manhwa</span> <span>♥️95</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 95%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Manhua</span> <span>♥️75</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 75%;"></div>
+          </div>
+        </div>
+
+      </div> <div class="right-col">
+        
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Drawing</span> <span>♥️100</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Gaming</span> <span>♥️999</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 999%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>Photography</span> <span>♥️97</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 97%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>J-Pop</span> <span>♥️99.99</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 99.99%;"></div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-label">
+            <span>C-Pop</span> <span>♥️96</span>
+          </div>
+          <div class="stat-bar-container">
+            <div class="stat-bar-fill" style="width: 96%;"></div>
+          </div>
+        </div>
+
+      </div> </div>
+  </div>
+</div>
+
+<div id="statusModal" class="modal">
+  <div class="modal-content anime-modal">
+    <span class="close" onclick="closeModal('statusModal')">✕</span>
+    <h3>👤 Character Stats</h3>
+    
+    <div class="rpg-card">
+      <div class="rpg-avatar">
+        <img src="reii.jpg" alt="Avatar"> <div class="lvl-badge">LV. 20</div>
+      </div>
+      
+      <div class="rpg-info">
+        <p><strong>Name:</strong> Reiru</p>
+        <p><strong>Class:</strong> Chill Developer</p>
+        <p><strong>Height:</strong> 16xcm</p>
+        <p><strong>Age:</strong> 20 Years</p>
+        <p><strong>Origin:</strong> Indonesia</p>
+      </div>
+    </div>
+
+    <div class="rpg-stats">
+      <div class="stat-row">
+        <span>STR</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 40%; background:#ff4d6d;"></div></div>
+      </div>
+      <div class="stat-row">
+        <span>INT</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 90%; background:#4d7cff;"></div></div>
+      </div>
+      <div class="stat-row">
+        <span>LUCK</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 75%; background:#ffe600;"></div></div>
+      </div>
+    </div>
+    
+    <div style="margin-top:15px; font-size:8px; color:#666;">
+      "Random but friendly NPC."
+    </div>
+  </div>
+</div>
+
+<div id="socialModal" class="modal">
+  <div class="modal-content anime-modal">
+    <span class="close" onclick="closeModal('socialModal')">✕</span>
+    <h3>📡 Communication Link</h3>
+    
+    <div class="social-grid">
+      <a href="https://instagram.com/reiru_xyz" target="_blank" class="pixel-link ig-theme">
+        <span class="icon">📸</span>
+        <div class="link-info">
+          <span class="platform">Instagram</span>
+          <span class="username">@reiru_xyz</span>
+        </div>
+        <span class="arrow">➤</span>
+      </a>
+
+      <a href="https://twitter.com/reiiru_x" target="_blank" class="pixel-link x-theme">
+        <span class="icon">🐦</span>
+        <div class="link-info">
+          <span class="platform">Twitter / X</span>
+          <span class="username">@reiiru_x</span>
+        </div>
+        <span class="arrow">➤</span>
+      </a>
+    </div>
+
+    <p style="font-size:8px; margin-top:10px; color:#666;">*Click to warp*</p>
+  </div>
+</div>
+
+<div id="dontModal" class="modal">
+  <div class="modal-content anime-modal" style="border: 4px solid #ff4d6d; background: #fff0f3;">
+    <span class="close" onclick="closeModal('dontModal')">✕</span>
+    <h3 style="color: #d00000;">⚠️ WARNING SYSTEM</h3>
+    
+    <div class="warning-box">
+      <div class="warning-item">
+        <span class="skull">☠️</span> NO TOXIC
+      </div>
+      <div class="warning-item">
+        <span class="skull">☠️</span> NO HATE SPEECH
+      </div>
+      <div class="warning-item">
+        <span class="skull">☠️</span> NO DRAMA SEEKER
+      </div>
+    </div>
+
+    <div class="alert-msg">
+      "Violation will result in immediate banishment."
+    </div>
+  </div>
+</div>
+
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import {
@@ -1021,16 +1407,8 @@ toggle.addEventListener("click",()=>{
 });
 
 // ===== ACCORDION =====
-const items=document.querySelectorAll('.accordion-item');
-items.forEach(item=>{
-  const header=item.querySelector('.accordion-header');
-  header.addEventListener('click',()=>{
-    items.forEach(i=>{ if(i!==item)i.querySelector('.accordion-content').style.maxHeight=null; i.classList.remove('active'); });
-    const content=item.querySelector('.accordion-content');
-    if(content.style.maxHeight){ content.style.maxHeight=null; item.classList.remove('active'); }
-    else{ content.style.maxHeight=content.scrollHeight+"px"; item.classList.add('active'); }
-  });
-});
+// ✅ KODE BARU (Tambahkan :not(.like-trigger))
+
 
 // ===== GLITCH TEXT =====
 const glitchEls=document.querySelectorAll(".glitch");
@@ -1080,16 +1458,32 @@ document.querySelectorAll("audio").forEach(audio => {
 });
 
 // ===== Pixel=====
-const players = document.querySelectorAll(".pixel-player");
+// Ambil elemen backsound
+const bgm = document.getElementById("bgmAudio");
+if(bgm) bgm.volume = 0.2; // Atur volume BGM jadi kecil (20%)
 
-function toggleMusic(index){
+// Fungsi Play BGM otomatis saat pertama kali klik layar (syarat browser)
+document.body.addEventListener('click', () => {
+  if (bgm && bgm.paused) {
+    // Hanya mainkan jika tidak ada musik lain yang sedang jalan
+    const isAnyOtherPlaying = Array.from(document.querySelectorAll('audio')).some(a => a !== bgm && !a.paused);
+    if(!isAnyOtherPlaying) bgm.play().catch(() => {});
+  }
+}, { once: true });
+
+function toggleMusic(index) {
+  const players = document.querySelectorAll(".pixel-player");
+  
   players.forEach((player, i) => {
     const audio = player.querySelector("audio");
     const btn = player.querySelector(".btn");
     const fill = player.querySelector(".progress-fill");
 
-    if(i === index){
-      if(audio.paused){
+    if (i === index) {
+      if (audio.paused) {
+        // MATIKAN backsound jika musik di list diputar
+        if(bgm) bgm.pause();
+
         audio.play();
         player.classList.add("playing");
         btn.textContent = "⏸";
@@ -1098,12 +1492,24 @@ function toggleMusic(index){
           const percent = (audio.currentTime / audio.duration) * 100;
           fill.style.width = percent + "%";
         };
+
+        // Jika lagu di list selesai, nyalakan lagi backsound
+        audio.onended = () => {
+          player.classList.remove("playing");
+          btn.textContent = "▶";
+          if(bgm) bgm.play();
+        };
+
       } else {
+        // Jika lagu dipause manual, nyalakan kembali backsound
         audio.pause();
+        if(bgm) bgm.play();
+        
         player.classList.remove("playing");
         btn.textContent = "▶";
       }
     } else {
+      // Matikan lagu lain jika ada yang sedang diputar
       audio.pause();
       audio.currentTime = 0;
       player.classList.remove("playing");
@@ -1112,6 +1518,8 @@ function toggleMusic(index){
     }
   });
 }
+
+
 const form = document.getElementById("anonForm");
 
 const RATE_LIMIT = 60; // detik
@@ -1256,16 +1664,22 @@ function getVisitorId(){
 
 const VISITOR_ID = getVisitorId();
 
-function formatDate(ts){
-  if (!ts) return "";
-  const d = ts.toDate();
-  return d.toLocaleDateString("id-ID", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
-}
+
+/* ========================================= */
+/* 🔊 SOUND EFFECT SYSTEM (SFX)             */
+/* ========================================= */
+// Ganti sound_klik.mp3 dengan nama file suara klik kamu
+const clickSfx = new Audio('klik.mp3'); 
+
+document.addEventListener('click', (e) => {
+  // Jika yang diklik tombol, header, atau link
+  if (e.target.closest('button') || e.target.closest('.accordion-header') || e.target.closest('a')) {
+    const sfxClone = clickSfx.cloneNode();
+    sfxClone.volume = 0.5;
+    sfxClone.play().catch(() => {});
+  }
+});
+
 </script>
 </body>
 
