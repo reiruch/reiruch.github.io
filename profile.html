@@ -510,6 +510,69 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   border-radius: 4px;
   margin-bottom: 4px;
 }
+/* ========================================= */
+/* 🖥️ MEDIA QUERY (MODAL DEKSTOP/TABLET) 🖥️ */
+/* ========================================= */
+@media screen and (min-width: 768px) {
+  
+  /* 1. Perbesar Kartu Profil */
+  .page {
+    max-width: 700px;
+    padding: 40px;
+    margin-top: 50px;
+  }
+  .profile img {
+    width: 220px;
+    height: 220px;
+  }
+  .profile-text h1 { font-size: 40px; }
+  .profile-text p { font-size: 14px; }
+
+  /* 2. PERBAIKAN GAMBAR KARAKTER (DI TENGAH & BESAR) */
+  .character-footer img {
+    width: 500px; 
+    max-width: 600px;
+  }
+
+  /* 3. PERBAIKAN TOMBOL AGAR TIDAK HILANG */
+  .icon-btn {
+    font-size: 30px !important;
+    padding: 15px !important;
+    transform: scale(1.1);
+  }
+
+  /* Susun tombol KIRI (Diary & Gambar) */
+  .diary-btn {
+    bottom: 50px !important;
+    left: 50px !important;
+  }
+  /* Memaksa tombol di dalam container floating-buttons muncul */
+  .floating-buttons {
+    display: flex !important; 
+    position: fixed !important;
+    bottom: 50px !important;
+    left: 140px !important; /* Geser agar di samping Diary */
+    width: auto !important;
+    gap: 20px;
+  }
+
+  /* Susun tombol KANAN (Chat & Board) */
+  .message-btn {
+    bottom: 50px !important;
+    right: 50px !important;
+  }
+  .board-btn {
+    bottom: 140px !important; /* Di atas tombol chat */
+    right: 50px !important;
+  }
+
+  /* 4. Perbesar Modal Box */
+  .modal-content {
+    max-width: 600px;
+    padding: 40px;
+  }
+}
+
 </style>
 </head>
 <body>
