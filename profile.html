@@ -12,12 +12,34 @@
 /* ===== RESET ===== */
 * { box-sizing: border-box; margin:0; padding:0; font-family:'Press Start 2P', monospace;
 }
-body { 
+
+body {
+  background-color: #021a40;
+  /* Membuat garis-garis grid */
+  background-image: 
+    linear-gradient(rgba(77, 124, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77, 124, 255, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px; /* Ukuran kotak grid */
+  background-position: center;
+  
+  /* Settingan font lama kamu tetap ada di sini */
+  font-family: 'Press Start 2P', monospace;
   font-size: 15px;
   line-height: 2;
-  -webkit-font-smoothing: none;
-  text-rendering: optimizeSpeed;
- min-height:100vh; background:#024ba6; color:#2c2c2c; overflow-x:hidden; position:relative; transition: all 0.6s ease; }
+  color: #2c2c2c;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  
+  /* Animasi grid bergerak */
+  animation: moveGrid 20s linear infinite;
+}
+
+@keyframes moveGrid {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
 
 /* ===== PAGE CONTAINER ===== */
 .page { max-width:360px; margin:auto; background:#005eff; border:2px solid #b8d8ff; border-radius:14px; padding:18px; animation: fadeUp 0.6s ease-out; }
@@ -757,6 +779,66 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+.corner-pixel {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 4px solid #d5e002; /* Warna kuning retro */
+  transition: 0.3s;
+}
+
+.page:hover .corner-pixel {
+  width: 25px;
+  height: 25px;
+  border-color: #00ffea; /* Berubah warna saat hover */
+}
+
+/* Posisi Sudut */
+.top-left { top: -6px; left: -6px; border-right: none; border-bottom: none; }
+.top-right { top: -6px; right: -6px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: -6px; left: -6px; border-right: none; border-top: none; }
+.bottom-right { bottom: -6px; right: -6px; border-left: none; border-top: none; }
+
+/* Hantu Pixel - Versi Upgrade */
+.pixel-ghost {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  
+  /* Ukuran dasar pixel */
+  width: 4px;
+  height: 4px;
+  
+  /* Menggambar hantu */
+  box-shadow: 
+    4px 0 #fff, 8px 0 #fff, 12px 0 #fff,
+    0 4px #fff, 4px 4px #fff, 8px 4px #fff, 12px 4px #fff, 16px 4px #fff,
+    0 8px #fff, 4px 8px #000, 8px 8px #fff, 12px 8px #000, 16px 8px #fff,
+    0 12px #fff, 4px 12px #fff, 8px 12px #fff, 12px 12px #fff, 16px 12px #fff,
+    0 16px #fff, 4px 16px #fff, 8px 16px #fff, 12px 16px #fff, 16px 16px #fff,
+    0 20px #fff, 8px 20px #fff, 16px 20px #fff;
+    
+  /* Animasi Melayang (Naik Turun) */
+  animation: floatGhostMobile 3s ease-in-out infinite alternate;
+  
+  z-index: 50; 
+  opacity: 0.9;
+  
+  /* --- BAGIAN BARU --- */
+  transform: scale(3); /* Memperbesar hantu 3x lipat */
+  cursor: pointer;     /* Kursor berubah jadi jari saat diarahkan */
+  pointer-events: auto; /* PENTING: Supaya bisa diklik */
+  
+  /* Transisi halus saat posisi (top/left) berubah atau saat menghilang (opacity) */
+  transition: top 4s ease-in-out, left 4s ease-in-out, opacity 0.5s, transform 0.5s;
+}
+
+/* Class tambahan saat hantu diklik (menghilang) */
+.pixel-ghost.vanish {
+  opacity: 0;
+  transform: scale(0); /* Mengecil saat hilang */
+  pointer-events: none; /* Gak bisa diklik pas lagi ngilang */
+}
 
 </style>
 </head>
@@ -765,6 +847,11 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <audio id="bgmAudio" loop>
   <source src="Xshotshop.mp3" type="audio/mpeg">
 </audio>
+<div class="corner-pixel top-left"></div>
+<div class="corner-pixel top-right"></div>
+<div class="corner-pixel bottom-left"></div>
+<div class="corner-pixel bottom-right"></div>
+<div class="pixel-ghost"></div>
 
 <div class="day-mode">
 
@@ -1375,7 +1462,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 <script>
 // ===== FLOATING SPAWN =====
-const MAX_FLOATING=19;
+const MAX_FLOATING=14;
 const icons=["❄️","🔷","💠","🩵","🫧"];
 let hue=0;
 function spawnFloating(){
@@ -1679,6 +1766,86 @@ document.addEventListener('click', (e) => {
     sfxClone.play().catch(() => {});
   }
 });
+
+// =========================================
+// 👻 SYSTEM 1 HANTU (OPTIMIZED / RINGAN)
+// =========================================
+
+function spawnGhosts() {
+  // 1. Bersihkan hantu lama (biar gak numpuk)
+  document.querySelectorAll('.pixel-ghost').forEach(el => el.remove());
+
+  // 2. Bikin 1 Hantu saja
+  const g = document.createElement('div');
+  g.classList.add('pixel-ghost');
+  
+  // Set posisi awal random
+  const startPos = getRandomPosition();
+  g.style.left = startPos.x + 'px';
+  g.style.top = startPos.y + 'px';
+  
+  // Masukkan ke body
+  document.body.appendChild(g);
+  
+  // 3. Gerakkan Hantu
+  // Bergerak setiap 4.5 detik (4500ms)
+  moveGhost(g);
+  setInterval(() => moveGhost(g), 4500);
+
+  // 4. Event Klik (Hantu kaget & hilang)
+  g.addEventListener('click', (e) => {
+      e.stopPropagation(); // Biar gak trigger sound klik global
+      
+      // Play SFX jika ada
+      if(typeof clickSfx !== 'undefined') {
+          const sfx = clickSfx.cloneNode();
+          sfx.play().catch(()=>{});
+      }
+
+      // Animasi menghilang
+      g.classList.add('vanish');
+
+      // Muncul lagi di tempat lain setelah 1.5 detik
+      setTimeout(() => {
+          const newPos = getRandomPosition();
+          g.style.left = newPos.x + 'px';
+          g.style.top = newPos.y + 'px';
+          g.classList.remove('vanish');
+      }, 1500);
+  });
+}
+
+// --- Helper Functions (Tetap Sama) ---
+
+function getRandomPosition() {
+  // Dikurangi 50px biar gak mepet banget ke pinggir layar
+  const x = Math.random() * (window.innerWidth - 50);
+  const y = Math.random() * (window.innerHeight - 50);
+  return { x, y };
+}
+
+function moveGhost(element) {
+  // Kalau lagi ngilang, jangan digerakin
+  if (element.classList.contains('vanish')) return;
+
+  const pos = getRandomPosition();
+  element.style.left = pos.x + 'px';
+  element.style.top = pos.y + 'px';
+  
+  // Flip arah hadap (Kiri/Kanan)
+  const currentLeft = parseFloat(element.style.left || 0);
+  
+  // Scale(2) biarin dia tetap besar, scaleX atur hadapnya
+  if (pos.x < currentLeft) {
+      element.style.transform = "scale(3) scaleX(-1)"; // Hadap Kiri
+  } else {
+      element.style.transform = "scale(3) scaleX(1)";  // Hadap Kanan
+  }
+}
+
+// Jalankan Hantu
+spawnGhosts();
+
 
 </script>
 </body>
