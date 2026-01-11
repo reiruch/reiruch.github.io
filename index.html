@@ -2,487 +2,291 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Enter ♡ Reiru</title>
+<title>Start Game ♡ Reiru</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
 <style>
-
-.bg-triangle {
-  position: fixed;
-  inset: 0;
-  z-index: 0;              /* background layer */
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
-.bg-triangle::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(225deg, #7fb2ff, #4f8dff);
-  clip-path: polygon(
-    100% 0%,   /* kanan atas */
-    55% 0%,    /* atas tengah */
-    100% 45%   /* kanan tengah */
-  );
-}
-.bg-triangle::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #7fb2ff, #4f8dff);
-  clip-path: polygon(
-  0 100%,   /* kiri bawah */
-  0 40%,    /* kiri tengah (bukan atas lagi) */
-  45% 100%  /* bawah tengah */
-);
-}
-
-.inner-triangle {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.inner-triangle::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.45),
-    rgba(255,255,255,0.1)
-  );
-  clip-path: polygon(
-  0 100%,
-  0 55%,
-  30% 100%
-);
-}
-.inner-right {
-  position: absolute;
-  inset: 0;
-  z-index: 1;              /* di atas segitiga besar */
-  pointer-events: none;
-}
-
-.inner-right::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    225deg,
-    rgba(255,255,255,0.5),
-    rgba(255,255,255,0.1)
-  );
-  clip-path: polygon(
-    100% 0%,
-    72% 0%,
-    100% 28%
-  );
-}
-.enter-btn {
-  display: inline-block;
-  padding: 14px 36px;
-  font-size: 16px;          /* KUNCI ukuran */
-  font-weight: 800;
-  color: white;
-  background: linear-gradient(135deg, #5fa8ff, #8ecbff);
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 6px 0 #3b83ff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.enter-wrapper {
-  position: relative;
-  z-index: 2;              /* di atas segitiga */
-  text-align: center;
-}
-/* Wrapper enter */
-.enter-wrapper {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: #3b83ff; /* default teks biru */
-}
-
-/* WELCOME TEXT */
-.welcome {
-  font-size: 22px;              /* kontrol ukuran */
-  font-weight: 700;
-  color: #3b83ff;               /* kunci warna */
-  margin-bottom: 20px;
-  font-family: 'Comic Neue', 'Nunito', sans-serif;
-}
-
-/* TAP TO CONTINUE */
-.tap {
-  font-size: 12px;
-  color: #084687;
-  opacity: 0.8;
-  margin-top: 14px;
-  font-family: 'Comic Neue', 'Nunito', sans-serif;
-}
+/* ===== VARIABEL WARNA (Sesuai Profile) ===== */
 :root {
-  --blue1:#7db7ff;
-  --blue2:#9ed4ff;
-  --blue3:#5b8dff;
+  --bg-sky-top: #021842;
+  --bg-sky-bot: #0a45a1;
+  --building-far: #063478;
+  --building-near: #005eff;
+  --accent: #4d7cff;
+  --white: #ffffff;
+  --shadow: rgba(0,0,0,0.3);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
 
 body {
-  margin: 0;
   height: 100vh;
-  padding: 0;
-
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-sky-top), var(--bg-sky-bot));
+  font-family: 'Press Start 2P', monospace;
+  color: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  overflow: hidden;
-
-  background: #c4e1ff; /* atau pastel biru pilihanmu */
-}
-/* ===== FLOATING CUTE ===== */
-.float {
-  position: absolute;
-  bottom: -40px;
-  font-size: 18px;
-  opacity: .55;
-  animation: floatUp linear infinite;
-}
-
-@keyframes floatUp {
-  0%   { transform: translateY(0); opacity: 0; }
-  10%  { opacity: .55; }
-  80%  { opacity: .55; }
-  100% { transform: translateY(-70vh); opacity: 0; }
-}
-
-/* ===== CENTER CONTENT ===== */
-.container {
-  text-align: center;
-  z-index: 2;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #6fa9ff;
-  margin-bottom: 24px;
-  letter-spacing: 1px;
-}
-
-/* ===== ENTER BUTTON ===== */
-.enter-btn {
   position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 210px;
-  height: 62px;
-
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  color: #ffffff;
-
-  background:
-    linear-gradient(135deg, #8fc6ff, #6fa9ff);
-
-  border-radius: 18px;
-  text-decoration: none;
-
-  box-shadow:
-    0 10px 0 #5b8dff,
-    0 20px 35px rgba(111,169,255,.45);
-
-  transform: translateY(0);
-  transition: all .2s ease;
 }
 
-/* idle cute pulse */
+/* ===== LAYERS BACKGROUND (SCROLLING CITY) ===== */
+.layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gedung Jauh (Lambat) */
+.city-far {
+  background-image: 
+    linear-gradient(transparent 85%, var(--building-far) 85%),
+    repeating-linear-gradient(90deg, var(--building-far) 0px, var(--building-far) 30px, transparent 30px, transparent 60px);
+  background-size: 100% 100%;
+  height: 40%;
+  opacity: 0.6;
+  animation: scrollCity 20s linear infinite;
+}
+
+/* Gedung Dekat (Cepat) - Dibuat dengan CSS Gradient agar ringan */
+.city-near {
+  height: 25%;
+  background: 
+    linear-gradient(to top, var(--building-near) 0%, var(--building-near) 100%);
+  /* Pola kotak-kotak seperti jendela gedung */
+  mask-image: 
+    linear-gradient(to right, 
+      black 0%, black 15%, transparent 15%, transparent 20%, 
+      black 20%, black 45%, transparent 45%, transparent 50%,
+      black 50%, black 70%, transparent 70%, transparent 75%,
+      black 75%, black 100%
+    );
+  mask-size: 300px 100%; 
+  -webkit-mask-image: 
+     linear-gradient(to right, 
+      black 0%, black 15%, transparent 15%, transparent 20%, 
+      black 20%, black 45%, transparent 45%, transparent 50%,
+      black 50%, black 70%, transparent 70%, transparent 75%,
+      black 75%, black 100%
+    );
+  -webkit-mask-size: 300px 100%;
+  
+  animation: scrollCity 8s linear infinite;
+  z-index: 2;
+  border-top: 4px solid #8ab6ff; /* Highlight atap */
+}
+
+/* Animasi Bergerak ke Kiri */
+@keyframes scrollCity {
+  from { background-position-x: 0px; -webkit-mask-position-x: 0px; }
+  to { background-position-x: -300px; -webkit-mask-position-x: -300px; }
+}
+
+/* ===== CLOUDS (Generated by JS) ===== */
+.cloud {
+  position: absolute;
+  background: var(--white);
+  opacity: 0.8;
+  border-radius: 4px;
+  box-shadow: 
+    8px 0 0 0 var(--white),
+    -8px 0 0 0 var(--white),
+    0 -8px 0 0 var(--white),
+    0 8px 0 0 var(--white); /* Efek Pixel */
+  animation: floatCloud linear infinite;
+  z-index: 0;
+}
+
+@keyframes floatCloud {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-150px); }
+}
+
+/* ===== UI CONTAINER ===== */
+.ui-container {
+  z-index: 10;
+  text-align: center;
+  position: relative;
+  animation: floatUp 1s ease-out;
+}
+
+.title-box {
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 35px;
+  color: #d5e002; /* Kuning retro */
+  text-shadow: 4px 4px 0 #000;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 10px;
+  color: #8ab6ff;
+  letter-spacing: 2px;
+  animation: blink 1s steps(2) infinite;
+}
+
+/* ===== PIXEL BUTTON ===== */
+.btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .enter-btn {
-  animation: softPulse 2.6s ease-in-out infinite;
+  background: #ffffff;
+  color: #005eff;
+  border: 4px solid #005eff;
+  padding: 15px 30px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 
+    6px 6px 0 #003cff,
+    inset -4px -4px 0 rgba(0,0,0,0.1);
+  transition: transform 0.1s, box-shadow 0.1s;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
 }
 
-@keyframes softPulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+/* Arrow Decoration */
+.enter-btn::before {
+  content: "►";
+  position: absolute;
+  left: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 .enter-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 20px 50px rgba(125,183,255,.6);
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #003cff;
+  padding-left: 40px; /* Geser teks dikit */
 }
 
-/* ===== CUTE GLITCH (MICRO) ===== */
-.enter-btn::before,
-.enter-btn::after {
-  content: "ENTER";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 999px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.enter-btn::before {
-  color: #e8f6ff;
-  transform: translateX(-1px);
-}
-
-.enter-btn::after {
-  color: #cfe8ff;
-  transform: translateX(1px);
-  content: "";
-  position: absolute;
-  inset: 4px;
-  border: 2px dashed rgba(255,255,255,.45);
-  border-radius: 14px;
-  pointer-events: none;
-}
-}
-
-.enter-btn.glitch::before,
-.enter-btn.glitch::after {
+.enter-btn:hover::before {
   opacity: 1;
-  animation: cuteGlitch .12s linear infinite;
 }
 
-@keyframes cuteGlitch {
-  0%   { transform: translate(0); }
-  50%  { transform: translate(1px,-1px); }
-  100% { transform: translate(0); }
-}
 .enter-btn:active {
-  transform: translateY(6px);
-  box-shadow:
-    0 4px 0 #5b8dff,
-    0 10px 20px rgba(111,169,255,.4);
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0 #003cff;
+  background: #e6f0ff;
 }
 
-/* small helper text */
-.hint {
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 500;
-  opacity: .65;
-  letter-spacing: .5px;
-}
-}
-#anime-transition {
+/* ===== ANIMASI TRANSISI ===== */
+@keyframes blink { 0% {opacity:1} 50% {opacity:0} 100% {opacity:1} }
+@keyframes floatUp { from {transform: translateY(50px); opacity:0;} to {transform:translateY(0); opacity:1;} }
+
+/* Layar Hitam Transisi */
+#fadeOverlay {
   position: fixed;
-  inset: 0;
-  background: #f7fbff;
-  z-index: 9999;
-  pointer-events: none;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #000;
   opacity: 0;
-}
-.flash {
-  position: absolute;
-  inset: 0;
-  background: white;
-  opacity: 0;
-}
-@keyframes animeFlash {
-  0% { opacity: 0; }
-  20% { opacity: 1; }
-  100% { opacity: 0; }
-}
-}
-@keyframes animeSlide {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-}
-@keyframes animeExit {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
-/* Layer decor */
-#decor-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 0;          /* 👈 paling bawah */
   pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 999;
 }
-/* Gambar decor */
-.decor {
-  position: absolute;
-  width: 60px;
-  opacity: 0.25;
-  user-select: none;
-}
-.bg-decor img {
-  width: 52px;
-  height: auto;
-  opacity: 0.25;
-}
-/* ===== PIXEL GAME STYLE ===== */
-.pixel-ui {
-  font-family: 'Press Start 2P', monospace;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.welcome.pixel-ui {
-  font-size: 14px;
-  line-height: 1.6;
-}
-.enter-btn.pixel-ui {
-  font-size: 14px;
-  letter-spacing: 3px;
-  border-radius: 6px; /* pixel feel */
-  box-shadow:
-    0 6px 0 #3b83ff,
-    0 12px 0 #2a6fe0;
-}
-.enter-btn.pixel-ui:hover {
-  transform: translateY(-2px);
-}
-.enter-btn.pixel-ui:active {
-  transform: translateY(4px);
+
+/* Versi HP */
+@media (max-width: 600px) {
+  h1 { font-size: 20px; }
+  .city-near { mask-size: 150px 100%; -webkit-mask-size: 150px 100%; }
 }
 </style>
 </head>
-
 <body>
-  <!-- DECOR BACKGROUND -->
-<div id="decor-layer"></div>
-  <div class="bg-decor"></div>
-<div class="bg-triangle">
-  <div class="inner-triangle"></div>   <!-- kiri bawah kecil -->
-  <div class="inner-right"></div>      <!-- kanan atas kecil -->
-</div>
 
-<!-- floating icons (blue-ish only) -->
-<div class="float" style="left:10%; animation-duration:12s;">💙</div>
-<div class="float" style="left:25%; animation-duration:10s;">✦</div>
-<div class="float" style="left:40%; animation-duration:14s;">❄️</div>
-<div class="float" style="left:60%; animation-duration:11s;">☆</div>
-<div class="float" style="left:75%; animation-duration:13s;">♡</div>
-<div class="float" style="left:90%; animation-duration:15s;">✧</div>
+  <audio id="sfxClick" src="Klik.mp3"></audio>
 
-<div class="container">
-<div class="enter-wrapper">
-  <h1 class="welcome pixel-ui">Welcome to Reiru's Page ♡</h1>
+  <div id="cloudContainer"></div> <div class="layer city-far"></div>
+  <div class="layer city-near"></div>
+  
+  <div class="layer" style="background: linear-gradient(transparent 95%, #001f52 95%); z-index: 3;"></div> <div class="ui-container">
+    <div class="title-box">
+      <h1>REIRU'S<br>WORLD</h1>
+      <p class="subtitle">- PRESS START TO CONNECT -</p>
+    </div>
 
-  <a href="profile.html" class="enter-btn pixel-ui" id="enterBtn">ENTER</a>
+    <div class="btn-wrapper">
+      <button class="enter-btn" onclick="enterWorld()">START GAME</button>
+    </div>
+  </div>
 
-  <p class="tap">tap to continue</p>
-</div>
-
-<div id="anime-transition">
-  <div class="flash"></div>
-</div>
+  <div id="fadeOverlay"></div>
 
 <script>
-const btn = document.getElementById("enterBtn");
+  // 1. GENERATE PIXEL CLOUDS
+  const cloudContainer = document.getElementById('cloudContainer');
+  
+  function spawnCloud() {
+    const cloud = document.createElement('div');
+    cloud.classList.add('cloud');
+    
+    // Random ukuran & posisi
+    const size = Math.random() * 20 + 10; // 10px - 30px
+    const topPos = Math.random() * 40; // 0% - 40% dari atas
+    const duration = Math.random() * 10 + 15; // 15s - 25s speed
+    
+    cloud.style.width = size * 2 + 'px';
+    cloud.style.height = size + 'px';
+    cloud.style.top = topPos + '%';
+    cloud.style.animationDuration = duration + 's';
+    
+    // Pixelated box-shadow trick randomizer (biar bentuk awan beda2 dikit)
+    cloud.style.boxShadow = `
+      ${size/2}px -${size/2}px 0 0 white,
+      -${size/2}px ${size/3}px 0 0 white
+    `;
 
-/* cute glitch tiap 4 detik */
-setInterval(() => {
-  btn.classList.add("glitch");
-  setTimeout(() => btn.classList.remove("glitch"), 160);
-}, 4000);
+    cloudContainer.appendChild(cloud);
 
-const enterBtn = document.getElementById("enterBtn");
-const transition = document.getElementById("anime-transition");
-const flash = document.querySelector(".flash");
-
-enterBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  transition.style.opacity = "1";
-  flash.style.animation = "animeFlash 0.25s ease-out";
-
-  document.body.style.animation = "animeExit 0.35s ease-in forwards";
-
-  setTimeout(() => {
-    window.location.href = "profile.html";
-  }, 400);
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const IMAGE_SRC = "decor.png"; // ganti sesuai nama file
-  const TOTAL = 12
-  ;              // jumlah gambar
-  const MIN_DISTANCE = 120;      // jarak minimal
-
-  const placed = [];
-  const layer = document.getElementById("decor-layer");
-
-  function farEnough(x, y) {
-    for (let p of placed) {
-      const dx = x - p.x;
-      const dy = y - p.y;
-      if (Math.sqrt(dx * dx + dy * dy) < MIN_DISTANCE) {
-        return false;
-      }
-    }
-    return true;
+    // Hapus awan setelah lewat layar
+    setTimeout(() => {
+      cloud.remove();
+    }, duration * 1000);
   }
 
-  for (let i = 0; i < TOTAL; i++) {
-    const img = document.createElement("img");
-    img.src = IMAGE_SRC;
-    img.className = "decor";
+  // Spawn awan setiap 2.5 detik
+  setInterval(spawnCloud, 2500);
+  // Spawn 3 awan awal biar ga sepi
+  spawnCloud(); spawnCloud(); spawnCloud();
 
-    let x, y, tries = 0;
-    do {
-      x = Math.random() * (window.innerWidth - 80);
-      y = Math.random() * (window.innerHeight - 80);
-      tries++;
-    } while (!farEnough(x, y) && tries < 50);
 
-    placed.push({ x, y });
+  // 2. FUNGSI KLIK & TRANSISI
+  function enterWorld() {
+    const sfx = document.getElementById('sfxClick');
+    const overlay = document.getElementById('fadeOverlay');
+    const btn = document.querySelector('.enter-btn');
 
-    img.style.left = x + "px";
-    img.style.top  = y + "px";
+    // Ubah teks tombol jadi loading
+    btn.innerHTML = "LOADING...";
+    
+    // Mainkan suara (Reset dulu biar kalau spam klik tetep bunyi)
+    sfx.currentTime = 0;
+    sfx.volume = 0.5;
+    sfx.play().catch(e => console.log("Audio play failed:", e));
 
-    layer.appendChild(img);
+    // Animasi Layar Gelap
+    overlay.style.opacity = '1';
+
+    // Pindah halaman setelah 0.8 detik (tunggu suara & efek)
+    setTimeout(() => {
+      window.location.href = 'profile.html';
+    }, 800);
   }
-
-});
-img.style.opacity = 0.18 + Math.random() * 0.15;
-img.style.transform = `
-  rotate(${Math.random() * 360}deg)
-  scale(${0.8 + Math.random() * 0.5})
-`;
 </script>
 
 </body>
