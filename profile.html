@@ -109,14 +109,48 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     transform: translateY(0);
   }
 }
-/* ===== 1. TOMBOL MENU PIXEL (Biru Tema Profil) ===== */
+/* ===== FLOATING ICON BUTTONS ===== */
+.floating-buttons {
+  position: fixed;
+  bottom: 270px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 35px;
+  z-index: 20;
+}
+
+/* ===== 1 TOMBOL MENU PIXEL (Biru Tema Profil) ===== */
+/* Update pada .icon-btn */
 .icon-btn {
-  /* Bentuk Kotak Pixel */
+  background: #e6f2ff;
+  border: 3px solid #4d7cff;
+  border-radius: 4px;
+  color: #1e3a6d;
+  box-shadow: 3px 3px 0px #1e3a6d, inset 2px 2px 0px #ffffff;
+  
+  /* HAPUS width: 50px dan height: 50px dari sini */
+  /* GANTI DENGAN INI: */
+  min-width: 45px;      /* Ukuran minimal */
+  padding: 8px 15px;    /* Ruang di dalam tombol agar teks tidak sesak */
+  height: auto;         /* Tinggi mengikuti isi */
+  
+  display: inline-flex; /* Agar tombol tidak memakan satu baris penuh */
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;      /* Perkecil dikit biar pas */
+  cursor: pointer;
+  transition: all 0.1s steps(2);
+  font-family: 'Press Start 2P', monospace; /* Gunakan font retro */
+}
+/* Tambahkan ini di bawah kode .icon-btn tadi */
+.side-nav .icon-btn {
   width: 50px;
   height: 50px;
-  background: #e6f2ff;           /* Biru sangat muda */
-  border: 3px solid #4d7cff;     /* Border tebal biru */
-  border-radius: 4px;            /* Sudut sedikit tumpul (kotak) */
+  padding: 0; /* Kembalikan ke 0 agar icon pas di tengah */
+}
+
   
   /* Icon & Text */
   color: #1e3a6d;
@@ -1093,7 +1127,9 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   font-size: 26px;
   cursor: pointer;
   
-
+  /* Animasi Melayang Pixel */
+  animation: pixelFloat 3s steps(4) infinite alternate;
+  transition: all 0.1s;
 }
 
 /* Animasi Melayang Patah-patah */
