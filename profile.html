@@ -109,33 +109,50 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     transform: translateY(0);
   }
 }
-/* ===== FLOATING ICON BUTTONS ===== */
-.floating-buttons {
-  position: fixed;
-  bottom: 270px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 35px;
-  z-index: 20;
-}
-
+/* ===== 1. TOMBOL MENU PIXEL (Biru Tema Profil) ===== */
 .icon-btn {
-  font-size: 25px;
-  background: rgba(255,255,255,0.6);
-  border-radius: 14px;
-  padding: 10px;
-  border: none;
+  /* Bentuk Kotak Pixel */
+  width: 50px;
+  height: 50px;
+  background: #e6f2ff;           /* Biru sangat muda */
+  border: 3px solid #4d7cff;     /* Border tebal biru */
+  border-radius: 4px;            /* Sudut sedikit tumpul (kotak) */
+  
+  /* Icon & Text */
+  color: #1e3a6d;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.25s ease;
+  
+  /* Efek Bayangan Keras (Hard Shadow) ala Pixel Art */
+  box-shadow: 
+    4px 4px 0px #1e3a6d,         /* Bayangan gelap */
+    inset 2px 2px 0px #ffffff;   /* Highlight putih di dalam */
+    
+  transition: all 0.1s steps(2); /* Animasi patah-patah */
+  position: relative;
+  z-index: 100;
 }
 
+/* Saat Mouse di Atas (Hover) */
 .icon-btn:hover {
-  transform: scale(1.15) rotate(-5deg);
+  background: #ffffff;
+  transform: translate(-2px, -2px); /* Tombol naik sedikit */
+  box-shadow: 
+    6px 6px 0px #1e3a6d,         /* Bayangan memanjang */
+    inset 2px 2px 0px #ffffff;
 }
+
+/* Saat Ditekan (Active/Click) */
+.icon-btn:active {
+  transform: translate(4px, 4px); /* Tombol turun menutupi bayangan */
+  box-shadow: 
+    0px 0px 0px #1e3a6d,          /* Bayangan hilang (efek tombol mendelep) */
+    inset 2px 2px 0px #cccccc;
+}
+
 
 /* ===== MODAL ===== */
 .modal {
@@ -829,19 +846,50 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 }
 
 /* Penyesuaian Tombol agar Rapi */
+./* ===== RETRO PIXEL BUTTONS ===== */
 .side-nav .icon-btn {
-  position: relative !important; /* Reset posisi absolut lama */
-  left: auto !important;
-  bottom: auto !important;
-  right: auto !important;
-  margin: 0 !important;
-  width: 50px;         /* Ukuran lebar tombol seragam */
-  height: 50px;        /* Ukuran tinggi tombol seragam */
-  font-size: 20px;
+  /* Reset gaya lama */
+  background: #e6f2ff;           /* Warna dasar terang */
+  border: 3px solid #4d7cff;     /* Border tebal biru */
+  border-radius: 4px;            /* Sudut sedikit tumpul (kotak) */
+  color: #1e3a6d;                /* Warna icon */
+  
+  /* Bikin efek 3D Pixel */
+  box-shadow: 
+    3px 3px 0px #1e3a6d,         /* Bayangan keras gelap */
+    inset 2px 2px 0px #ffffff;   /* Highlight dalam biar kinclong */
+    
+  /* Ukuran & Posisi */
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.1s steps(2); /* Animasi patah-patah ala game */
+  
+  /* Hapus efek blur lama */
+  backdrop-filter: none;
 }
+
+/* Efek Hover (Saat mouse di atas) */
+.side-nav .icon-btn:hover {
+  background: #ffffff;
+  transform: translate(-2px, -2px); /* Tombol naik dikit */
+  box-shadow: 
+    5px 5px 0px #1e3a6d,         /* Bayangan memanjang */
+    inset 2px 2px 0px #ffffff;
+}
+
+/* Efek Klik (Saat ditekan) */
+.side-nav .icon-btn:active {
+  transform: translate(3px, 3px); /* Tombol turun (efek kepencet) */
+  box-shadow: 
+    0px 0px 0px #1e3a6d,          /* Bayangan hilang */
+    inset 2px 2px 0px #cccccc;
+}
+
 
 /* HAPUS/SEMBUNYIKAN WADAH LAMA BIAR GAK BENTROK */
 .floating-buttons {
@@ -964,6 +1012,106 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     transform-origin: right bottom;
   }
 }
+/* ===== FORTUNE COOKIE STYLE ===== */
+.cookie-icon {
+  font-size: 60px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  animation: floatCookie 3s infinite ease-in-out;
+}
+.cookie-icon:active {
+  transform: scale(0.9) rotate(10deg);
+}
+@keyframes floatCookie {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Kertas Ramalan */
+.fortune-paper {
+  background: #fff;
+  border: 2px dashed #d4af37;
+  padding: 15px;
+  margin-top: 10px;
+  font-family: 'Press Start 2P', monospace;
+  color: #1e3a6d;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+  animation: fadeUp 0.5s ease;
+}
+
+#dailyFortuneText {
+  font-size: 10px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.lucky-numbers {
+  font-size: 8px;
+  color: #ff5fa2;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+  letter-spacing: 2px;
+}
+
+/* Animasi Guncang saat mau dibuka */
+.shake-cookie {
+  animation: shakeHeavy 0.5s infinite;
+}
+@keyframes shakeHeavy {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+/* ===== TOMBOL KUE FORTUNE TERPISAH ===== */
+/* ===== FORTUNE BUTTON (GOLD THEME) ===== */
+#fortuneBtn {
+  position: fixed;
+  top: 60%;
+  right: 45%;
+  z-index: 999;
+  
+  /* Warna Emas/Kue */
+  background: #fff8dc;
+  border: 3px solid #d4af37;     /* Border Emas Gelap */
+  border-radius: 8px;            /* Sedikit lebih bulat */
+  
+  /* Shadow Coklat */
+  box-shadow: 
+    4px 4px 0px #8b4513,
+    inset 2px 2px 0px #ffffff;
+    
+  width: 55px;
+  height: 55px;
+  font-size: 26px;
+  cursor: pointer;
+  
+
+}
+
+/* Animasi Melayang Patah-patah */
+@keyframes pixelFloat {
+  0%   { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+#fortuneBtn:hover {
+  background: #ffe4b5;
+  transform: scale(1.1) rotate(-5deg); /* Membesar & miring dikit */
+}
+
+#fortuneBtn:active {
+  transform: scale(0.95) translate(4px, 4px); /* Efek pencet */
+  box-shadow: 0px 0px 0px #8b4513;
+}
+
 
 </style>
 </head>
@@ -1044,7 +1192,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   
   <button class="icon-btn" onclick="openPinModal()">🔒</button>
 </div>
-
+  
 <div class="utbk-container">
   
   <div class="itb-logo-frame">
@@ -1076,6 +1224,11 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   </div>
 
 </div>
+
+  ...
+  <button id="fortuneBtn" class="icon-btn" onclick="openFortuneModal()">🥠</button>
+</body>
+</html>
 
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
@@ -1477,6 +1630,28 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   </div>
 </div>
 
+<div id="fortuneModal" class="modal">
+  <div class="modal-content anime-modal" style="border: 4px solid #ffd700; background: #fff8dc;">
+    <span class="close" onclick="closeModal('fortuneModal')">✕</span>
+    <h3 style="color: #d4af37;">🥠 FORTUNE COOKIE 🥠</h3>
+    
+    <div id="cookieClosed">
+      <div class="cookie-icon" onclick="crackCookie()">🥠</div>
+      <p style="font-size:10px; color:#8b4513; margin-top:10px;">
+        Ketuk untuk melihat nasibmu hari ini!
+      </p>
+    </div>
+
+    <div id="cookieOpened" style="display:none;">
+      <div class="fortune-paper">
+        <p id="dailyFortuneText">Loading...</p>
+        <div class="lucky-numbers" id="dailyLuckyNumbers"></div>
+      </div>
+      <p id="resetTimer" style="font-size:8px; margin-top:15px; color:#aaa;"></p>
+    </div>
+
+  </div>
+</div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -2060,6 +2235,158 @@ setInterval(updateCountdown, 1000);
 
 // Jalankan sekali di awal agar tidak menunggu 1 detik saat loading
 updateCountdown();
+
+/* ========================================= */
+/* 🥠 FORTUNE COOKIE SYSTEM (AUTO DAILY)    */
+/* ========================================= */
+
+// 1. Bank Kata-Kata (Bisa kamu tambah sesukanya)
+const fortuneList = [
+    "Hari ini aura kamu bersinar banget, serius deh.",
+    "Jangan lupa minum air putih, biar nggak dehidrasi pas ngejar mimpi.",
+    "Awas, ada yang lagi diem-diem stalking sosmed kamu.",
+    "Rezeki nggak kemana, tapi kalau nggak dijemput ya diambil orang.",
+    "Coba dengerin playlist lama, bakal ada inspirasi baru.",
+    "Kode keras: Si dia lagi nunggu chat dari kamu lho.",
+    "Hari ini cocok banget buat cheat day, dietnya besok aja.",
+    "Hati-hati, dompet mulai menipis. Hemat mode: ON.",
+    "Bakal ada kabar baik yang bikin kamu senyum-senyum sendiri.",
+    "Sabar ya, drama hari ini cuma ujian kesabaran level easy.",
+    "Outfit kamu hari ini bakal dapet pujian, pede aja!",
+    "Jangan overthinking malem ini, mending tidur gasik.",
+    "Ada peluang bagus di depan mata, jangan sampai skip.",
+    "Mantan tiba-tiba ngechat? Hati-hati jebakan batman.",
+    "Energi kamu lagi low, mending rebahan dulu sebentar.",
+    "Ide brilian bakal muncul pas kamu lagi di WC/kamar mandi.",
+    "Jangan ragu buat bilang 'nggak' kalau emang nggak mau.",
+    "Hari ini kamu bakal jadi pusat perhatian (in a good way).",
+    "Cek keranjang belanja online, mending checkout sekarang atau nyesel.",
+    "Keberuntungan ada di pihakmu kalau kamu berani mulai duluan.",
+    "Akan ada momen awkward, tapi bawa santai aja biar tetep cool.",
+    "Teman lama bakal ngajak ketemuan, gas aja!",
+    "Jauhi orang toxic hari ini, mood kamu terlalu berharga.",
+    "Fokus sama satu tujuan dulu, jangan maruk mau semuanya.",
+    "Hari ini skill komunikasi kamu lagi level 100, manfaatin!",
+    "Siap-siap, bakal ada plot twist kecil di hari ini.",
+    "Uang kaget mungkin datang dari arah yang nggak disangka.",
+    "Jangan lupa ucapin terima kasih ke diri sendiri hari ini.",
+    "Kalau ragu, lempar koin aja. Intuisi kamu bakal njawab.",
+    "Hari ini waktu yang tepat buat ganti gaya rambut atau vibe.",
+    "Masalah yang bikin pusing kemarin bakal nemu solusinya hari ini.",
+    "Jangan gampang baper, dia emang gitu ke semua orang.",
+    "Coba rute jalan baru pas pulang, siapa tau nemu hidden gem.",
+    "Musik favorit bakal nyelamatin mood kamu seharian.",
+    "Kurangi screen time, mata kamu butuh istirahat bestie.",
+    "Ada barang yang kamu cari-cari akhirnya ketemu juga.",
+    "Senyum dikit dong, dunia butuh energi positif kamu.",
+    "Stop bandingin diri sama orang lain, kamu udah keren kok.",
+    "Hari ini mending main aman, jangan ambil risiko gede dulu.",
+    "Bakal ada yang traktir makan, siapin perut kosong.",
+    "Intuisi kamu lagi tajam banget, dengerin kata hati.",
+    "Jangan nunda pekerjaan, nanti numpuk jadi gunung lho.",
+    "Kesempatan emas buat memperbaiki hubungan yang renggang.",
+    "Hari ini kamu magnet keberuntungan, coba aja ikut giveaway.",
+    "Awas spoiler film/series bertebaran di timeline.",
+    "Kebaikan kecil yang kamu buat hari ini bakal balik berlipat ganda.",
+    "Jangan lupa telpon ortu atau orang terdekat, mereka kangen.",
+    "Rencana dadakan malah bakal jadi kenangan paling seru.",
+    "Hari ini kamu kuat banget, badai apapun lewat!",
+    "Tetap slay dan jangan biarkan siapapun ngerusak hari kamu."
+];
+const colorList = [
+    "Merah Maroon", "Biru Langit", "Hijau Sage", "Kuning Mustard", 
+    "Hitam Elegan", "Putih Bersih", "Pink Pastel", "Ungu Lavender", 
+    "Abu-abu Monyet", "Coklat Kopi", "Oranye Senja", "Emas Berkilau",
+    "Silver Futuristik", "Tosca Ceria", "Navy Gelap", "Cream Kalem"
+];
+
+
+// 2. Fungsi Utama
+function openFortuneModal() {
+  const modal = document.getElementById('fortuneModal');
+  const closedView = document.getElementById('cookieClosed');
+  const openedView = document.getElementById('cookieOpened');
+  
+  modal.style.display = "block";
+
+  // Cek apakah user sudah buka hari ini?
+  const lastDate = localStorage.getItem('fortune_date');
+  const todayDate = new Date().toDateString(); // Contoh: "Mon Jan 12 2026"
+
+  if (lastDate === todayDate) {
+    // SUDAH BUKA HARI INI -> Langsung tampilkan hasil (Gak bisa gacha lagi)
+    closedView.style.display = "none";
+    openedView.style.display = "block";
+    
+    // Ambil data yang tersimpan
+    document.getElementById('dailyFortuneText').textContent = localStorage.getItem('fortune_text');
+    document.getElementById('dailyLuckyNumbers').textContent = localStorage.getItem('fortune_lucky');
+    document.getElementById('resetTimer').textContent = "Kembali lagi besok untuk ramalan baru!";
+  } else {
+    // BELUM BUKA HARI INI -> Tampilkan kue utuh
+    closedView.style.display = "block";
+    openedView.style.display = "none";
+  }
+}
+
+function crackCookie() {
+  const cookieIcon = document.querySelector('.cookie-icon');
+  
+  // Efek getar dulu
+  cookieIcon.classList.add('shake-cookie');
+
+  // Play SFX (jika ada)
+  if(typeof clickSfx !== 'undefined') {
+      clickSfx.play().catch(()=>{}); 
+  }
+
+  setTimeout(() => {
+    cookieIcon.classList.remove('shake-cookie');
+    
+    // 1. Pilih Ramalan Random
+    const randomMsg = fortuneList[Math.floor(Math.random() * fortuneList.length)];
+    
+    // 2. Angka Keberuntungan (Hanya 1 angka, antara 1 - 12)
+    const singleLuckyNum = Math.floor(Math.random() * 12) + 1;
+
+    // 3. Warna Keberuntungan Random
+    const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
+
+    // Gabungkan Angka dan Warna dalam satu teks biar rapi
+    // Format: "Lucky: 7 | Color: Navy Gelap"
+    const luckyResult = `Lucky Number: ${singleLuckyNum} | Color: ${randomColor}`;
+
+    // 4. Simpan ke LocalStorage (Biar gak ilang kalau di-refresh hari ini)
+    const todayDate = new Date().toDateString();
+    localStorage.setItem('fortune_date', todayDate);
+    localStorage.setItem('fortune_text', randomMsg);
+    localStorage.setItem('fortune_lucky', luckyResult); // Simpan gabungan angka & warna
+
+    // 5. Update Tampilan HTML
+    document.getElementById('dailyFortuneText').textContent = randomMsg;
+    document.getElementById('dailyLuckyNumbers').textContent = luckyResult;
+    
+    // Optional: Ubah warna teks angka keberuntungan sesuai warnanya (kalau mau lebih keren)
+    // document.getElementById('dailyLuckyNumbers').style.color = getColorCode(randomColor); 
+
+    document.getElementById('resetTimer').textContent = "Nasibmu sudah ditentukan untuk hari ini.";
+
+    // 6. Ganti Tampilan (Animasi transisi)
+    document.getElementById('cookieClosed').style.display = "none";
+    document.getElementById('cookieOpened').style.display = "block"; // Pastikan di CSS ada class ini atau sesuaikan ID-nya
+
+    // Tampilkan container hasil
+    const fortuneResult = document.getElementById('fortuneResult');
+    fortuneResult.style.display = "block";
+    
+    // Sedikit animasi fade in
+    setTimeout(() => {
+        fortuneResult.classList.add('show');
+    }, 10);
+
+  }, 1000); // Durasi getar 1 detik
+}
+
 
 </script>
 </body>
