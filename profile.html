@@ -83,8 +83,8 @@ body {
 @keyframes floatUp { from{transform:translateY(0) rotate(0deg); opacity:0;} 15%{opacity:0.9;} 70%{opacity:0.8;} to{transform:translateY(-55vh) rotate(360deg); opacity:0;} }
 
 /* ===== CHARACTER FOOTER ===== */
-.character-footer { position:fixed; bottom:0; left:50%; transform:translateX(-50%); opacity:0.95; z-index:10; pointer-events:none; }
-.character-footer img { width:300px; max-width:325px; transition:transform 1s ease; animation:slideInLeft 0.9s ease-out; }
+.character-footer { position:fixed; bottom:0; left:35%; transform:translateX(-50%); opacity:0.95; z-index:10; pointer-events:none; }
+.character-footer img { width:280px; max-width:325px; transition:transform 1s ease; animation:slideInLeft 0.9s ease-out; }
 .character-footer img:hover { transform:translateX(-1000px); }
 @keyframes slideInLeft { from{transform:translateX(-300px);opacity:0;} to{transform:translateX(0);opacity:1;} }
 
@@ -779,25 +779,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.corner-pixel {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 4px solid #d5e002; /* Warna kuning retro */
-  transition: 0.3s;
-}
 
-.page:hover .corner-pixel {
-  width: 25px;
-  height: 25px;
-  border-color: #00ffea; /* Berubah warna saat hover */
-}
-
-/* Posisi Sudut */
-.top-left { top: -6px; left: -6px; border-right: none; border-bottom: none; }
-.top-right { top: -6px; right: -6px; border-left: none; border-bottom: none; }
-.bottom-left { bottom: -6px; left: -6px; border-right: none; border-top: none; }
-.bottom-right { bottom: -6px; right: -6px; border-left: none; border-top: none; }
 
 /* Hantu Pixel - Versi Upgrade */
 /* Hantu Gambar Custom */
@@ -835,6 +817,153 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   pointer-events: none;
 }
 
+/* ===== SIDE NAV BARU (KIRI MENURUN) ===== */
+.side-nav {
+  position: fixed;
+  left: 20px;          /* Jarak dari sisi kiri layar */
+  bottom: 30px;        /* Jarak dari sisi bawah layar */
+  display: flex;
+  flex-direction: column; /* Menyusun tombol secara vertikal (menurun) */
+  gap: 15px;           /* Jarak antar tombol */
+  z-index: 100;        /* Pastikan tombol ada di lapisan paling atas */
+}
+
+/* Penyesuaian Tombol agar Rapi */
+.side-nav .icon-btn {
+  position: relative !important; /* Reset posisi absolut lama */
+  left: auto !important;
+  bottom: auto !important;
+  right: auto !important;
+  margin: 0 !important;
+  width: 50px;         /* Ukuran lebar tombol seragam */
+  height: 50px;        /* Ukuran tinggi tombol seragam */
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* HAPUS/SEMBUNYIKAN WADAH LAMA BIAR GAK BENTROK */
+.floating-buttons {
+  display: none !important;
+}
+
+/* MEDIA QUERY (Agar di HP tidak terlalu mepet) */
+@media screen and (max-width: 480px) {
+  .side-nav {
+    left: 10px;        /* Di HP jarak kiri lebih kecil */
+    bottom: 20px;
+    gap: 12px;
+  }
+  .side-nav .icon-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+/* ========================================= */
+/* 🎓 UTBK WIDGET STYLE (Pojok Kanan) 🎓 */
+/* ========================================= */
+.utbk-container {
+  position: fixed;
+  right: 80px;         /* Jarak dari kanan */
+  bottom: 180px;       /* Jarak dari bawah (di atas karakter) */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;           /* Jarak antar elemen */
+  z-index: 20;
+  text-align: center;
+  animation: fadeUp 0.8s ease-out;
+  /* Agar tidak menutupi karakter di layar kecil, kita batasi lebarnya */
+  max-width: 120px; 
+}
+
+/* 1. Gaya Logo Pixel Bulat */
+.itb-logo-frame {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  border: 4px solid #d5e002; /* Warna kuning retro */
+  border-radius: 50%;        /* Membuat jadi bulat */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    4px 4px 0 #b8860b,      /* Shadow pixel emas */
+    inset 0 0 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+.itb-logo-frame:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+.itb-logo-frame img {
+  width: 80%;
+  height: auto;
+  image-rendering: pixelated; /* Mencoba membuat gambar jadi pixel */
+}
+
+/* 2. Label Teks (Judul Kecil) */
+.utbk-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #d5e002;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 1px;
+}
+
+/* 3. Kotak Tanggal */
+.utbk-date-box {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #fff;
+  background: linear-gradient(45deg, #4d7cff, #1e3a6d);
+  padding: 8px 10px;
+  border: 3px solid #000;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+  white-space: nowrap;
+}
+
+/* 4. Kotak Countdown Retro */
+.countdown-box {
+  display: flex;
+  gap: 6px;
+  background: #001a4d;
+  border: 3px solid #4d97ff;
+  padding: 8px;
+  border-radius: 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: #a3d0ff;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Angka Countdown */
+.countdown-num {
+  font-size: 11px;
+  color: #d5e002; /* Warna angka kuning */
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+/* Responsif untuk HP (Layar Kecil) */
+@media screen and (max-width: 480px) {
+  .utbk-container {
+    right: 40px;
+    bottom: 100px; /* Sedikit diturunkan di HP */
+    transform: scale(0.9); /* Perkecil sedikit agar muat */
+    transform-origin: right bottom;
+  }
+}
 
 </style>
 </head>
@@ -904,19 +1033,53 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <!-- CHARACTER FOOTER -->
 <div class="character-footer"><img src="chr.png" alt="Character"></div>
 <!-- ICON BUTTONS -->
-<div class="floating-buttons">
+<div class="side-nav">
   <button class="icon-btn" onclick="openModal('imageModal')">🖼️</button>
+  
   <button class="icon-btn" onclick="openModal('musicModal')">🎧</button>
   
+  <button class="icon-btn" onclick="openModal('msgModal')">💬</button>
+  
+  <button class="icon-btn" onclick="openBoard()">📌</button>
+  
+  <button class="icon-btn" onclick="openPinModal()">🔒</button>
 </div>
 
-<button class="icon-btn message-btn" onclick="openModal('msgModal')">
-  💬
-</button>
-<button class="icon-btn diary-btn" onclick="openPinModal()">🔒</button>
-<button class="icon-btn board-btn" onclick="openBoard()">
-  📌
-</button>
+<div class="utbk-container">
+  
+  <div class="itb-logo-frame">
+    <img src="Itb.png">
+  </div>
+
+  <div>
+
+    <div class="utbk-date-box">21 APRIL 2026</div>
+  </div>
+
+  
+    
+    <div id="utbkCountdown" class="countdown-box">
+      <div class="countdown-item">
+        <span id="cd-days" class="countdown-num">00</span>
+        <span>HARI</span>
+      </div>
+      <div class="countdown-item">
+        <span id="cd-hours" class="countdown-num">00</span>
+        <span>JAM</span>
+      </div>
+      <div class="countdown-item">
+        <span id="cd-minutes" class="countdown-num">00</span>
+        <span>MNT</span>
+      </div>
+      <div class="countdown-item">
+        <span id="cd-seconds" class="countdown-num">00</span>
+        <span>DTK</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <!-- IMAGE MODAL -->
 <div id="imageModal" class="modal">
   <div class="modal-content anime-modal">
@@ -1863,6 +2026,43 @@ function moveGhost(element) {
 // Jalankan Hantu
 spawnGhosts();
 
+/* ========================================= */
+/* ⏳ SISTEM HITUNG MUNDUR UTBK ⏳          */
+/* ========================================= */
+
+// 1. Tentukan Tanggal Target (Tahun, Bulan (mulai dari 0=Jan), Tanggal)
+// 21 April 2026 -> Bulan April adalah index ke-3 (Jan=0, Feb=1, Mar=2, Apr=3)
+const targetDate = new Date(2026, 3, 21, 0, 0, 0).getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  // Jika waktu sudah lewat
+  if (distance < 0) {
+    document.getElementById("utbkCountdown").innerHTML = 
+      "<div style='font-size:8px; color:#ff4d6d;'>WAKTU TELAH TIBA! SEMANGAT!</div>";
+    return;
+  }
+
+  // Perhitungan Waktu Matematis
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Masukkan ke dalam HTML dan tambahkan angka '0' di depan jika kurang dari 10
+  document.getElementById("cd-days").innerText = days < 10 ? "0" + days : days;
+  document.getElementById("cd-hours").innerText = hours < 10 ? "0" + hours : hours;
+  document.getElementById("cd-minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+  document.getElementById("cd-seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+}
+
+// Jalankan fungsi update setiap 1 detik (1000ms)
+setInterval(updateCountdown, 1000);
+
+// Jalankan sekali di awal agar tidak menunggu 1 detik saat loading
+updateCountdown();
 
 </script>
 </body>
