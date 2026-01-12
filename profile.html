@@ -1148,6 +1148,47 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   box-shadow: 0px 0px 0px #8b4513;
 }
 
+/* ===== RUNNING TEXT CSS ===== */
+.wip-banner {
+  background: #ffcc00;
+  color: #000;
+  border: 3px solid #000;
+  
+  /* --- KUNCI POSISI BEBAS (ABSOLUTE) --- */
+  position: absolute;   /* Supaya bisa bebas dipindah */
+  left: 50%;            /* Geser ke tengah dari kiri */
+  transform: translateX(-50%); /* Teknik wajib biar bener-bener presisi di tengah */
+  
+  /* --- ATUR TINGGI RENDAHNYA DI SINI --- */
+  top: 3px;            /* <--- UBAH INI: Makin kecil angkanya, makin ke ATAS */
+  
+  /* --- ATUR UKURAN KOTAK --- */
+  width: 340px;         /* <--- UBAH INI: Lebar kotaknya mau seberapa (pixel) */
+  height: 20px;         /* <--- UBAH INI: Tinggi kotaknya */
+  
+  /* --- ISI DALAM --- */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;         /* Supaya tidak tertutup elemen lain */
+}
+
+.running-text-container {
+  display: flex;
+  width: fit-content;
+  animation: loop-text 10s linear infinite;
+}
+
+.text-item {
+  white-space: nowrap;
+  font-size: 10px;
+  padding-right: 40px; /* Jarak agar teks tidak dempet saat looping */
+}
+
+@keyframes loop-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 </style>
 </head>
@@ -1688,6 +1729,18 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
   </div>
 </div>
+<div class="wip-banner">
+  <div class="running-text-container">
+    <div class="text-item">
+      🚧 maaf kalau UX nya ga rapi karna gw buat nya sesuai HP gw 😂🚧
+    </div>
+    <div class="text-item">
+      🚧 maaf kalau UX nya ga rapi karna gw buat nya sesuai HP gw 😂🚧
+    </div>
+  </div>
+</div>
+
+
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
