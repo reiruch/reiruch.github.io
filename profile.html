@@ -14,11 +14,11 @@
 }
 
 body {
-  background-color: #021a40;
+  background-color: #ad4200;
   /* Membuat garis-garis grid */
   background-image: 
-    linear-gradient(rgba(77, 124, 255, 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(77, 124, 255, 0.2) 1px, transparent 1px);
+    linear-gradient(rgba(218, 165, 32, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(218, 165, 32, 0.3) 1px, transparent 1px);
   background-size: 40px 40px; /* Ukuran kotak grid */
   background-position: center;
   
@@ -42,12 +42,12 @@ body {
 
 
 /* ===== PAGE CONTAINER ===== */
-.page { max-width:360px; margin:auto; background:#005eff; border:2px solid #b8d8ff; border-radius:14px; padding:18px; animation: fadeUp 0.6s ease-out; }
+.page { max-width:360px; margin:auto; background:#e68209; border:2px solid #fbff00; border-radius:14px; padding:18px; animation: fadeUp 0.6s ease-out; }
 
 /* ===== TOPBAR ===== */
-.topbar { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#d5e002; margin-bottom:10px;
+.topbar { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#fbff00; margin-bottom:10px;
 }
-.logout-btn { font-size:8px; color:#d5e002; text-decoration:none; padding:6px 10px; border-radius:8px; transition:0.3s; }
+.logout-btn { font-size:8px; color:#fbff00; text-decoration:none; padding:6px 10px; border-radius:8px; transition:0.3s; }
 .logout-btn:hover { background:rgba(75,123,189,.15); transform:scale(1.05); }
 
 /* ===== PROFILE ===== */
@@ -55,8 +55,8 @@ body {
 .profile img { width:150px; height:150px; border-radius:10px; object-fit:cover; border:2px solid #9fc7ff; transition:0.3s ease; }
 .profile img:hover { transform:scale(1.05); }
 .profile-text h1 { font-family:'Press Start 2P', monospace; font-weight:1000; color:#ffffff; text-align:center; animation: glow 2s infinite alternate; }
-.profile-text p { font-size:10px; text-align:left; line-height:2; color:#d5e002}
 
+.profile-text p { font-size:10px; text-align:left; line-height:2; color:#fbff00}
 /* ===== ACCORDION ===== */
 .accordion { margin-top:10px; }
 .accordion-item { background:#eef5ff; border-radius:12px; margin:10px 0; overflow:hidden; transition: all 0.3s ease; }
@@ -124,8 +124,8 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 /* ===== 1 TOMBOL MENU PIXEL (Biru Tema Profil) ===== */
 /* Update pada .icon-btn */
 .icon-btn {
-  background: #e6f2ff;
-  border: 3px solid #4d7cff;
+  background: #fbff00;
+  border: 3px solid #ffa600;
   border-radius: 4px;
   color: #1e3a6d;
   box-shadow: 3px 3px 0px #1e3a6d, inset 2px 2px 0px #ffffff;
@@ -199,7 +199,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 .modal-content {
   position: relative;
-  background: #c7e6ff;
+  background: #ffa600;
   border-radius: 20px;
   padding: 20px;
   width: 85%;
@@ -211,7 +211,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 .modal-content h3 {
   font-family: 'Press Start 2P', sans-serif;
-  color: #4d97ff;
+  color: #fbff00;
   margin-bottom: 12px;
   font-size:12px;
 }
@@ -1001,7 +1001,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
   color: #fff;
-  background: linear-gradient(45deg, #4d7cff, #1e3a6d);
+  background: linear-gradient(45deg, #e68209, #ad4200);
   padding: 8px 10px;
   border: 3px solid #000;
   border-radius: 8px;
@@ -1013,8 +1013,8 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 .countdown-box {
   display: flex;
   gap: 6px;
-  background: #001a4d;
-  border: 3px solid #4d97ff;
+  background: #e68209;
+  border: 3px solid #000000;
   padding: 8px;
   border-radius: 8px;
   font-family: 'Press Start 2P', monospace;
@@ -1208,13 +1208,13 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div class="page fadeInUp">
 
   <div class="topbar">
-    <span>🌐 僕のサイト</span>
+    <span>🍁 僕のサイト</span>
     <span id="modeControl"><span id="nightToggle">☀️</span></span>
     <a href="index.html" class="logout-btn">Log Out</a>
   </div>
 
   <div class="profile">
-    <img src="reii.jpg" alt="Reiru">
+    <img src="Reiiq.png" alt="Reiru">
     <div class="profile-text">
       <h1 class="name glitch" data-text="Reiru">Reiru</h1>
       <p>HE/HIM</p> <p>20</p> <p>IDN/ENG</p> <p>INTJ</p>
@@ -1222,25 +1222,25 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
   </div>
 
   <div class="accordion-item" onclick="openModal('statusModal')">
-  <div class="accordion-header" style="background: linear-gradient(90deg, #ffb6c1, #fff); color: #c71585;">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #ffa600, #fff); color: #ff3700;">
     ⚔️ Status (About Me)
   </div>
 </div>
 
     <div class="accordion-item like-trigger" onclick="openModal('likesModal')">
-  <div class="accordion-header" style="background: linear-gradient(90deg,#a3d0ff,#fff); color: #2e9aff;">
+  <div class="accordion-header" style="background: linear-gradient(90deg,#ffa600,#fff); color: #ff3700;">
     🚀 Favorites
   </div>
 </div>
 
     <div class="accordion-item like-trigger" onclick="openModal('socialModal')">
-  <div class="accordion-header" style="background: linear-gradient(90deg, #c4a7e7, #fff); color: #5c2c7e;">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #ffa600, #fff); color: #ff3700;">
     📡 Find Me On
   </div>
 </div>
 
 <div class="accordion-item like-trigger" onclick="openModal('dontModal')">
-  <div class="accordion-header" style="background: linear-gradient(90deg, #eb6f92, #fff); color: #820e2d;">
+  <div class="accordion-header" style="background: linear-gradient(90deg, #ffa600, #fff); color: #ff3700;">
     ⚠️ Don't (Warning)
   </div>
 </div>
@@ -1256,7 +1256,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <div class="floating" style="left:85%;">🎵</div>
 
 <!-- CHARACTER FOOTER -->
-<div class="character-footer"><img src="chr.png" alt="Character"></div>
+<div class="character-footer"><img src="reigu.png" alt="Character"></div>
 <!-- ICON BUTTONS -->
 <div class="side-nav">
   <button class="icon-btn" onclick="openModal('imageModal')">🖼️</button>
@@ -1302,7 +1302,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 
 </div>
 
-  ...
+  
   <button id="fortuneBtn" class="icon-btn" onclick="openFortuneModal()">🥠</button>
 </body>
 </html>
@@ -1622,7 +1622,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
     
     <div class="rpg-card">
       <div class="rpg-avatar">
-        <img src="reii.jpg" alt="Avatar"> <div class="lvl-badge">LV. 20</div>
+        <img src="reigu.png" alt="Avatar"> <div class="lvl-badge">LV. 20</div>
       </div>
       
       <div class="rpg-info">
@@ -1901,7 +1901,7 @@ body, .page, .accordion-item, .accordion-header, h1,h2 { transition: all 0.6s ea
 <script>
 // ===== FLOATING SPAWN =====
 const MAX_FLOATING=14;
-const icons=["❄️","🔷","💠","🩵","🫧"];
+const icons=["🍁","🔶","🍊","🧡","🍂"];
 let hue=0;
 function spawnFloating(){
   if(document.querySelectorAll(".floating").length>MAX_FLOATING)return;
