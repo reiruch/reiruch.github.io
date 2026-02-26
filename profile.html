@@ -1,0 +1,2589 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Reiru's Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== ROOT VARIABLES ===== */
+:root {
+  --gold-primary: #d4af37;
+  --gold-light: #f4d03f;
+  --gold-dark: #b8860b;
+  --blue-primary: #1a237e;
+  --blue-dark: #0d1642;
+  --blue-light: #3949ab;
+  --white: #ffffff;
+  --cream: #faf8f3;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --shadow-gold: 0 0 30px rgba(212, 175, 55, 0.4);
+  --shadow-blue: 0 0 30px rgba(26, 35, 126, 0.3);
+}
+
+/* ===== RESET & BASE ===== */
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  
+  /* Genshin-style gradient background */
+  background: linear-gradient(135deg, 
+    #0d1642 0%, 
+    #1a237e 25%, 
+    #283593 50%, 
+    #1a237e 75%, 
+    #0d1642 100%);
+  background-attachment: fixed;
+}
+
+/* Animated background particles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(244, 208, 63, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating stars background */
+.stars-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* ===== PAGE CONTAINER ===== */
+.page { 
+  max-width: 400px; 
+  margin: 20px auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 24px;
+  position: relative;
+  z-index: 10;
+  animation: fadeUp 0.8s ease-out;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Decorative corner ornaments */
+.page::before,
+.page::after {
+  content: '✦';
+  position: absolute;
+  font-size: 20px;
+  color: var(--gold-primary);
+  opacity: 0.6;
+}
+
+.page::before {
+  top: 10px;
+  left: 15px;
+}
+
+.page::after {
+  bottom: 10px;
+  right: 15px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== TOPBAR ===== */
+.topbar { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  font-size: 12px; 
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 1px;
+}
+
+.logout-btn { 
+  font-size: 11px; 
+  color: var(--gold-light); 
+  text-decoration: none; 
+  padding: 8px 16px; 
+  border-radius: 20px; 
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Cinzel', serif;
+}
+
+.logout-btn:hover { 
+  background: rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* ===== PROFILE ===== */
+.profile { 
+  display: flex; 
+  gap: 20px; 
+  margin-bottom: 24px; 
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.profile img { 
+  width: 120px; 
+  height: 120px; 
+  border-radius: 50%;
+  object-fit: cover; 
+  border: 3px solid var(--gold-primary);
+  box-shadow: 
+    0 0 20px rgba(212, 175, 55, 0.4),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+.profile img:hover { 
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 30px rgba(212, 175, 55, 0.6),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.profile-text h1 { 
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 28px;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  text-shadow: none;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.profile-text p { 
+  font-size: 12px; 
+  text-align: left; 
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* ===== ACCORDION ===== */
+.accordion { 
+  margin-top: 15px; 
+}
+
+.accordion-item { 
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  margin: 12px 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.accordion-item:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateX(5px);
+}
+
+.accordion-header { 
+  padding: 16px 20px; 
+  cursor: pointer; 
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.2) 0%, 
+    rgba(212, 175, 55, 0.1) 100%);
+  color: var(--gold-light);
+  transition: all 0.4s ease;
+  font-family: 'Cinzel', serif;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.accordion-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.accordion-header:hover::before {
+  left: 100%;
+}
+
+.accordion-header:hover { 
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.3) 0%, 
+    rgba(212, 175, 55, 0.15) 100%);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+}
+
+.accordion-item.active .accordion-header { 
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.4) 0%, 
+    rgba(212, 175, 55, 0.2) 100%);
+  color: var(--white);
+}
+
+/* ===== FLOATING ELEMENTS ===== */
+.floating { 
+  position: fixed; 
+  bottom: -40px; 
+  pointer-events: none; 
+  opacity: 0.6;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+  font-size: 20px;
+  z-index: 5;
+}
+
+@keyframes floatUp { 
+  from { transform: translateY(0) rotate(0deg); opacity: 0; } 
+  15% { opacity: 0.8; } 
+  70% { opacity: 0.6; } 
+  to { transform: translateY(-60vh) rotate(360deg); opacity: 0; } 
+}
+
+/* ===== CHARACTER FOOTER ===== */
+
+
+@keyframes slideInLeft { 
+  from { transform: translateX(-300px); opacity: 0; } 
+  to { transform: translateX(0); opacity: 1; } 
+}
+
+/* ===== NIGHT MODE (Elegant Dark) ===== */
+body.night { 
+  background: linear-gradient(135deg, 
+    #050510 0%, 
+    #0a0a1a 25%, 
+    #101025 50%, 
+    #0a0a1a 75%, 
+    #050510 100%);
+}
+
+body.night .page { 
+  background: rgba(10, 10, 25, 0.7);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+body.night .accordion-item { 
+  background: rgba(15, 15, 35, 0.5);
+}
+
+body.night .accordion-header { 
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.15) 0%, 
+    rgba(212, 175, 55, 0.05) 100%);
+  color: var(--gold-light);
+}
+
+body.night .profile-text h1 { 
+  background: linear-gradient(135deg, #c0c0c0 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== TRANSITION GLOBAL ===== */
+body, .page, .accordion-item, .accordion-header, h1, h2 { 
+  transition: all 0.6s ease; 
+}
+
+.page.fadeInUp {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUpAnim 0.6s forwards;
+}
+
+@keyframes fadeInUpAnim {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== SIDE NAVIGATION ===== */
+.side-nav {
+  position: fixed;
+  left: 20px;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 100;
+}
+
+.icon-btn {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.2) 0%, 
+    rgba(212, 175, 55, 0.1) 100%);
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  color: var(--gold-light);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.icon-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.35) 0%, 
+    rgba(212, 175, 55, 0.2) 100%);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 8px 25px rgba(212, 175, 55, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: var(--gold-primary);
+}
+
+.icon-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(26, 35, 126, 0.95) 0%, 
+    rgba(13, 22, 66, 0.98) 100%);
+  border-radius: 24px;
+  padding: 28px;
+  width: 90%;
+  max-width: 400px;
+  margin: 15vh auto;
+  text-align: center;
+  animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(212, 175, 55, 0.15);
+}
+
+.modal-content::before {
+  content: '✦';
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 16px;
+  color: var(--gold-primary);
+  opacity: 0.6;
+}
+
+.modal-content::after {
+  content: '✦';
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 16px;
+  color: var(--gold-primary);
+  opacity: 0.6;
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+  70% { transform: scale(1.02); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-content h3 {
+  font-family: 'Cinzel', serif;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 16px;
+  animation: imgFade 0.4s ease;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--gold-light);
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close:hover {
+  background: rgba(212, 175, 55, 0.2);
+  transform: rotate(90deg);
+}
+
+.slider {
+  position: relative;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.nav:hover {
+  background: rgba(212, 175, 55, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav.left { left: -15px; }
+.nav.right { right: -15px; }
+
+@keyframes imgFade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== MUSIC PLAYER ===== */
+.pixel-player {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pixel-player:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateX(5px);
+}
+
+.pixel-player:active {
+  transform: translateX(3px);
+}
+
+.pixel-player.playing {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.pixel-player .btn {
+  font-size: 18px;
+  color: var(--gold-light);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.2);
+  border-radius: 50%;
+}
+
+.pixel-player .title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.pixel-player .info {
+  flex: 1;
+}
+
+.progress {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* ===== MUSIC SCROLL AREA ===== */
+.music-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.music-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.music-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.music-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-primary), var(--gold-dark));
+  border-radius: 3px;
+}
+
+/* ===== MESSAGE FORM ===== */
+#anonForm textarea {
+  width: 100%;
+  height: 100px;
+  border-radius: 14px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--white);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  resize: none;
+  transition: all 0.3s ease;
+}
+
+#anonForm textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+#anonForm textarea:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+#anonForm button {
+  margin-top: 15px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  border: none;
+  border-radius: 25px;
+  color: var(--blue-dark);
+  font-weight: 600;
+  font-family: 'Cinzel', serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+}
+
+#anonForm button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+#anonForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Cooldown bar */
+#cooldownBox {
+  margin-top: 15px;
+}
+
+#cooldownText {
+  font-size: 11px;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+
+#cooldownBar {
+  height: 6px;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+  border-radius: 3px;
+  transition: width 1s linear;
+}
+
+/* ===== NOTIFICATIONS ===== */
+#animeNotif {
+  position: fixed;
+  bottom: 120px;
+  right: 20px;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.9) 0%, 
+    rgba(184, 134, 11, 0.9) 100%);
+  color: var(--blue-dark);
+  font-family: 'Cinzel', serif;
+  padding: 15px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#animeNotif.show {
+  animation: notifPop 3s ease forwards;
+}
+
+@keyframes notifPop {
+  0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+  20% { opacity: 1; transform: scale(1) translateY(0); }
+  80% { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(0.9) translateY(-10px); }
+}
+
+#rateNotif {
+  display: none;
+  margin-top: 15px;
+  background: rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  color: #ffc107;
+  font-size: 11px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* ===== PIN INPUT ===== */
+#pinInput {
+  width: 100%;
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--gold-light);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 14px;
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 12px;
+  transition: all 0.3s ease;
+}
+
+#pinInput:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+#pinInput::placeholder {
+  color: rgba(212, 175, 55, 0.3);
+}
+
+.pin-error {
+  display: none;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #ff6b6b;
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+
+/* ===== DIARY & BOARD SCROLL ===== */
+.diary-entry, .board-list {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 8px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.diary-entry::-webkit-scrollbar,
+.board-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.diary-entry::-webkit-scrollbar-track,
+.board-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.diary-entry::-webkit-scrollbar-thumb,
+.board-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-primary), var(--gold-dark));
+  border-radius: 3px;
+}
+
+/* ===== BOARD ITEMS ===== */
+.board-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.board-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateX(3px);
+}
+
+.msg-text {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8px;
+}
+
+.msg-reply {
+  margin-top: 10px;
+  padding: 10px;
+  padding-left: 15px;
+  border-left: 3px solid var(--gold-primary);
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 0 8px 8px 0;
+  color: var(--gold-light);
+}
+
+.msg-date {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.msg-meta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  color: var(--blue-dark);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* ===== STATS / LIKES GRID ===== */
+.likes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.stat-item {
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-bar-container {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+  border-radius: 5px;
+  width: 0%;
+  transition: width 1s ease-out;
+}
+
+/* ===== RPG STATUS CARD ===== */
+.rpg-card {
+  display: flex;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 20px;
+  border-radius: 16px;
+  align-items: center;
+  text-align: left;
+}
+
+.rpg-avatar { 
+  position: relative; 
+}
+
+.rpg-avatar img {
+  width: 80px; 
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--gold-primary);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.lvl-badge {
+  position: absolute; 
+  bottom: -5px; 
+  right: -5px;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  color: var(--blue-dark);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 2px solid var(--blue-dark);
+}
+
+.rpg-info p {
+  font-size: 12px; 
+  margin: 6px 0; 
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rpg-info strong {
+  color: var(--gold-light);
+}
+
+.rpg-stats {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px dashed rgba(212, 175, 55, 0.2);
+}
+
+.stat-row {
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.xp-bar {
+  flex: 1; 
+  height: 10px; 
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.xp-fill { 
+  height: 100%; 
+  border-radius: 5px;
+  transition: width 0.8s ease;
+}
+
+/* ===== SOCIAL LINKS ===== */
+.social-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.pixel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  color: var(--white);
+}
+
+.pixel-link:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.4);
+  transform: translateX(5px);
+}
+
+.pixel-link .icon { 
+  font-size: 24px; 
+  margin-right: 12px; 
+}
+
+.pixel-link .arrow { 
+  font-size: 16px; 
+  color: var(--gold-light);
+  animation: pointRight 1s infinite;
+}
+
+.link-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.link-info .platform { 
+  font-size: 10px; 
+  opacity: 0.6; 
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.link-info .username { 
+  font-size: 13px; 
+  font-weight: 600;
+  color: var(--white);
+}
+
+.ig-theme { border-color: rgba(225, 48, 108, 0.4); }
+.ig-theme:hover { background: rgba(225, 48, 108, 0.1); }
+
+.x-theme { border-color: rgba(29, 161, 242, 0.4); }
+.x-theme:hover { background: rgba(29, 161, 242, 0.1); }
+
+@keyframes pointRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+/* ===== WARNING/DON'T MODAL ===== */
+#dontModal .modal-content {
+  border-color: rgba(255, 77, 109, 0.4);
+  background: linear-gradient(135deg, 
+    rgba(50, 10, 20, 0.95) 0%, 
+    rgba(30, 5, 15, 0.98) 100%);
+}
+
+.warning-box {
+  margin-top: 15px;
+  border: 1px dashed rgba(255, 77, 109, 0.4);
+  background: rgba(255, 77, 109, 0.05);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.warning-item {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  color: #ff6b6b;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 77, 109, 0.2);
+}
+
+.warning-item:last-child { 
+  border-bottom: none; 
+  margin-bottom: 0; 
+}
+
+.warning-item .skull { 
+  font-size: 18px; 
+}
+
+.alert-msg {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ff6b6b;
+  font-size: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 77, 109, 0.3);
+}
+
+/* ===== FORTUNE COOKIE ===== */
+#fortuneModal .modal-content {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, 
+    rgba(40, 30, 10, 0.95) 0%, 
+    rgba(25, 20, 5, 0.98) 100%);
+}
+
+.cookie-icon {
+  font-size: 70px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: floatCookie 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
+}
+
+.cookie-icon:hover {
+  transform: scale(1.1);
+}
+
+.cookie-icon:active {
+  transform: scale(0.95);
+}
+
+@keyframes floatCookie {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.fortune-paper {
+  background: linear-gradient(135deg, 
+    rgba(255, 248, 220, 0.95) 0%, 
+    rgba(250, 240, 200, 0.95) 100%);
+  border: 2px dashed var(--gold-dark);
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeUp 0.5s ease;
+}
+
+#dailyFortuneText {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--blue-dark);
+  margin-bottom: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.lucky-numbers {
+  font-size: 11px;
+  color: var(--gold-dark);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.shake-cookie {
+  animation: shakeHeavy 0.5s infinite;
+}
+
+@keyframes shakeHeavy {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+#resetTimer {
+  font-size: 10px;
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== UTBK WIDGET ===== */
+.utbk-container {
+  position: fixed;
+  right: 20px;
+  top: 10px;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+  text-align: center;
+  max-width: 200px;
+}
+
+.itb-logo-frame {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  border: 3px solid var(--gold-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 30px rgba(212, 175, 55, 0.3),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.itb-logo-frame:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 
+    0 0 40px rgba(212, 175, 55, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.itb-logo-frame img {
+  width: 100%;
+  height: auto;
+}
+
+.utbk-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  letter-spacing: 1px;
+}
+
+.utbk-date-box {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--white);
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.3) 0%, 
+    rgba(212, 175, 55, 0.15) 100%);
+  padding: 10px 15px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-box {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-num {
+  font-size: 14px;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* ===== FORTUNE BUTTON ===== */
+#fortuneBtn {
+  position: fixed;
+  top: 90%;
+  right: 45%;
+  z-index: 999;
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.3) 0%, 
+    rgba(212, 175, 55, 0.15) 100%);
+  border: 2px solid var(--gold-primary);
+  border-radius: 16px;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  cursor: pointer;
+  animation: pixelFloat 3s ease-in-out infinite alternate;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 25px rgba(212, 175, 55, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes pixelFloat {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+}
+
+#fortuneBtn:hover {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.45) 0%, 
+    rgba(212, 175, 55, 0.25) 100%);
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 
+    0 12px 35px rgba(212, 175, 55, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+#fortuneBtn:active {
+  transform: scale(0.95);
+}
+
+/* ===== RUNNING TEXT BANNER ===== */
+.wip-banner {
+  background: linear-gradient(90deg, 
+    var(--gold-primary), 
+    var(--gold-light), 
+    var(--gold-primary));
+  background-size: 200% 100%;
+  color: var(--blue-dark);
+  border: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -40px;
+  width: 90%;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 100;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 11px;
+  animation: shimmer 3s linear infinite;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.running-text-container {
+  display: flex;
+  width: fit-content;
+  animation: loop-text 12s linear infinite;
+}
+
+.text-item {
+  white-space: nowrap;
+  font-size: 11px;
+  padding-right: 50px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+@keyframes loop-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== PIXEL GHOST ===== */
+.pixel-ghost {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  background-image: url('Meong.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: floatGhost 3s ease-in-out infinite alternate;
+  z-index: 50;
+  opacity: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: top 4s ease-in-out, left 4s ease-in-out, opacity 0.5s, transform 0.5s;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+@keyframes floatGhost {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
+}
+
+.pixel-ghost.vanish {
+  opacity: 0;
+  transform: scale(0) rotate(360deg);
+  pointer-events: none;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media screen and (min-width: 768px) {
+  .page {
+    max-width: 600px;
+    padding: 40px;
+    margin-top: 40px;
+  }
+  
+  .profile img {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .profile-text h1 { 
+    font-size: 36px; 
+  }
+  
+  .profile-text p { 
+    font-size: 14px; 
+  }
+  
+  .character-footer img {
+    width: 450px;
+    max-width: 500px;
+  }
+  
+  .icon-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+  
+  .side-nav {
+    left: 40px;
+    bottom: 50px;
+    gap: 18px;
+  }
+  
+  .modal-content {
+    max-width: 500px;
+    padding: 35px;
+  }
+  
+  .utbk-container {
+    right: 40px;
+    bottom: 220px;
+  }
+  
+  .itb-logo-frame {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .page {
+    margin: 15px;
+    padding: 20px;
+  }
+  
+  .side-nav {
+    left: 10px;
+    bottom: 20px;
+    gap: 10px;
+  }
+  
+  .side-nav .icon-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+  
+  .utbk-container {
+    right: 10px;
+    bottom: 150px;
+    transform: scale(0.85);
+    transform-origin: right bottom;
+  }
+  
+  .profile {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-text p {
+    text-align: center;
+  }
+  
+  .likes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .wip-banner {
+    top: -35px;
+    height: 24px;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .likes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .utbk-container {
+    display: none;
+  }
+}
+
+/* ===== HIDE OLD ELEMENTS ===== */
+.floating-buttons {
+  display: none !important;
+}
+
+/* ===== DAY MODE ===== */
+.day-mode {
+  /* Default is already the elegant style */
+}
+
+/* Corner decorations */
+.corner-pixel {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--gold-primary);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.corner-pixel.top-left {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 10px 0 0 0;
+}
+
+.corner-pixel.top-right {
+  top: 20px;
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 10px 0 0;
+}
+
+.corner-pixel.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  border-right: none;
+  border-top: none;
+  border-radius: 0 0 0 10px;
+}
+
+.corner-pixel.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 10px 0;
+}
+</style>
+</head>
+<body>
+
+<audio id="bgmAudio" loop>
+  <source src="Xshotshop.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Background Stars -->
+<div class="stars-bg" id="starsBg"></div>
+
+<!-- Corner Decorations -->
+<div class="corner-pixel top-left"></div>
+<div class="corner-pixel top-right"></div>
+<div class="corner-pixel bottom-left"></div>
+<div class="corner-pixel bottom-right"></div>
+
+<!-- Floating Ghost -->
+<div class="pixel-ghost"></div>
+
+<div class="day-mode">
+
+<div class="page fadeInUp">
+
+  <!-- Running Banner -->
+  <div class="wip-banner">
+    <div class="running-text-container">
+      <div class="text-item">
+        ✦ Welcome to Reiru's Profile ✦ Designed with Genshin Impact Style ✦
+      </div>
+      <div class="text-item">
+        ✦ Welcome to Reiru's Profile ✦
+      </div>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <span>🍁 僕のサイト</span>
+    <span id="modeControl"><span id="nightToggle" style="cursor: pointer;">☀️</span></span>
+    <a href="index.html" class="logout-btn">Log Out</a>
+  </div>
+
+  <div class="profile">
+    <img src="Reiiq.png" alt="Reiru">
+    <div class="profile-text">
+      <h1 class="name">Reiru</h1>
+      <p>HE/HIM • 20 Years</p>
+      <p>IDN/ENG • INTJ</p>
+    </div>
+  </div>
+
+  <div class="accordion-item" onclick="openModal('statusModal')">
+    <div class="accordion-header">
+      ⚔️ Status (About Me)
+    </div>
+  </div>
+
+  <div class="accordion-item like-trigger" onclick="openModal('likesModal')">
+    <div class="accordion-header">
+      🚀 Favorites
+    </div>
+  </div>
+
+  <div class="accordion-item like-trigger" onclick="openModal('socialModal')">
+    <div class="accordion-header">
+      📡 Find Me On
+    </div>
+  </div>
+
+  <div class="accordion-item like-trigger" onclick="openModal('dontModal')">
+    <div class="accordion-header">
+      ⚠️ Don't (Warning)
+    </div>
+  </div>
+
+</div>
+
+<!-- Floating Elements -->
+<div class="floating" style="left:10%;">✦</div>
+<div class="floating" style="left:30%;">✧</div>
+<div class="floating" style="left:50%;">✦</div>
+<div class="floating" style="left:70%;">✧</div>
+<div class="floating" style="left:85%;">✦</div>
+
+<!-- Character Footer -->
+
+
+<!-- Side Navigation -->
+<div class="side-nav">
+  <button class="icon-btn" onclick="openModal('imageModal')" title="Gallery">🖼️</button>
+  <button class="icon-btn" onclick="openModal('musicModal')" title="Music">🎧</button>
+  <button class="icon-btn" onclick="openModal('msgModal')" title="Message">💬</button>
+  <button class="icon-btn" onclick="openBoard()" title="Board">📌</button>
+  <button class="icon-btn" onclick="openPinModal()" title="Secret Diary">🔒</button>
+</div>
+
+<!-- UTBK Widget -->
+<div class="utbk-container">
+  <div class="itb-logo-frame">
+    <img src="Itb.png" alt="ITB">
+  </div>
+  <div>
+    <div class="utbk-label">MENUJU UTBK!</div>
+    <div class="utbk-date-box">21 APRIL 2026</div>
+  </div>
+  <div id="utbkCountdown" class="countdown-box">
+    <div class="countdown-item">
+      <span id="cd-days" class="countdown-num">00</span>
+      <span>DAYS</span>
+    </div>
+    <div class="countdown-item">
+      <span id="cd-hours" class="countdown-num">00</span>
+      <span>HOUR</span>
+    </div>
+    <div class="countdown-item">
+      <span id="cd-minutes" class="countdown-num">00</span>
+      <span>MNT</span>
+    </div>
+    <div class="countdown-item">
+      <span id="cd-seconds" class="countdown-num">00</span>
+      <span>SEC</span>
+    </div>
+  </div>
+</div>
+
+<!-- Fortune Button -->
+<button id="fortuneBtn" onclick="openFortuneModal()">🥠</button>
+
+<!-- Notification -->
+<div id="animeNotif">💌 Pesanmu telah terkirim!</div>
+
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('imageModal')">✕</span>
+    <h3>✦ My Gallery ✦</h3>
+    <div class="slider">
+      <button class="nav left" onclick="prevImg()">◀</button>
+      <img id="sliderImg" src="reii.jpg" class="modal-img">
+      <button class="nav right" onclick="nextImg()">▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC MODAL -->
+<div id="musicModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('musicModal')">✕</span>
+    <h3>✦ My Playlist ✦</h3>
+    <div class="music-list">
+      <div class="pixel-player" onclick="toggleMusic(0)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Saidai Kouyakusuu</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="Saidai Kouyakusuu.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(1)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Lost Umbrella</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="Lost Umbrella.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(2)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Jumping Machine</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="Jumping Machine.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(3)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Hoshi Ga Furu</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="hoshigafuru.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(4)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Zenzenzense</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="Zenzenzense.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(5)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Kimi Ni Todoke Indo Ver.</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src="kiminitodoke.mp3"></audio>
+      </div>
+      <div class="pixel-player" onclick="toggleMusic(6)">
+        <span class="btn">▶</span>
+        <div class="info">
+          <div class="title">Bakal ada lagi kok~</div>
+          <div class="progress"><div class="progress-fill"></div></div>
+        </div>
+        <audio src=""></audio>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGE MODAL -->
+<div id="msgModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('msgModal')">✕</span>
+    <h3>✦ Kirim Pesan ✦</h3>
+    <form id="anonForm">
+      <textarea name="message" placeholder="Tulis pesanmu di sini..." required></textarea>
+      <button type="submit">Kirim Pesan ✨</button>
+      <div id="cooldownBox" style="display:none;">
+        <div id="cooldownText">⏳ Tunggu 15 detik...</div>
+        <div style="width:100%; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden;">
+          <div id="cooldownBar" style="height:100%; width:100%;"></div>
+        </div>
+      </div>
+    </form>
+    <div id="rateNotif">⏳ Tunggu sebentar ya~</div>
+  </div>
+</div>
+
+<!-- PIN MODAL -->
+<div id="pinModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closePinModal()">✕</span>
+    <h3>✦ Secret Diary ✦</h3>
+    <p style="font-size:12px; color:rgba(255,255,255,0.6); margin-bottom:15px;">Masukkan PIN untuk membuka</p>
+    <input id="pinInput" type="password" maxlength="6" placeholder="••••••">
+    <button class="icon-btn" onclick="checkPin()" style="width:auto; padding:12px 40px; margin-top:10px;">Buka</button>
+    <p id="pinError" class="pin-error">PIN Salah!</p>
+  </div>
+</div>
+
+<!-- DIARY MODAL -->
+<div id="diaryModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('diaryModal')">✕</span>
+    <h3>✦ My Kisah ✦</h3>
+    <div class="diary-entry" id="diaryContainer">
+      <p style="text-align:center; margin-top:20px; color:rgba(255,255,255,0.5);">Memuat kenangan... ⏳</p>
+    </div>
+  </div>
+</div>
+
+<!-- BOARD MODAL -->
+<div id="boardModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeBoard()">✕</span>
+    <h3>✦ Papan Pesan ✦</h3>
+    <div id="publicMessages" class="board-list">Loading...</div>
+  </div>
+</div>
+
+<!-- LIKES MODAL -->
+<div id="likesModal" class="modal">
+  <div class="modal-content" style="max-width: 450px;">
+    <span class="close" onclick="closeModal('likesModal')">✕</span>
+    <h3>✦ My Favorites ✦</h3>
+    <div class="likes-grid">
+      <div class="left-col">
+        <div class="stat-item">
+          <div class="stat-label"><span>Anime Movie</span> <span>♥ 99</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 99%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Anime/Donghua</span> <span>♥ 90</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 90%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Manga</span> <span>♥ 65</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 65%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Manhwa</span> <span>♥ 95</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Manhua</span> <span>♥ 75</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 75%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Drawing</span> <span>♥ 100</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 100%;"></div></div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="stat-item">
+          <div class="stat-label"><span>Gaming</span> <span>♥ ∞</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 100%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>Photography</span> <span>♥ 97</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 97%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>J-Pop</span> <span>♥ 99.9</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 99.9%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>C-Pop</span> <span>♥ 96</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>K-Pop</span> <span>♥ 85</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 85%;"></div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label"><span>ITB</span> <span>♥ ∞</span></div>
+          <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 100%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS MODAL -->
+<div id="statusModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('statusModal')">✕</span>
+    <h3>✦ Character Stats ✦</h3>
+    <div class="rpg-card">
+      <div class="rpg-avatar">
+        <img src="reigu.png" alt="Avatar">
+        <div class="lvl-badge">LV. 20</div>
+      </div>
+      <div class="rpg-info">
+        <p><strong>Name:</strong> Reiru</p>
+        <p><strong>Class:</strong> Chill Developer</p>
+        <p><strong>Height:</strong> 16xcm</p>
+        <p><strong>Age:</strong> 20 Years</p>
+        <p><strong>Origin:</strong> Indonesia</p>
+      </div>
+    </div>
+    <div class="rpg-stats">
+      <div class="stat-row">
+        <span style="width:40px;">STR</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 40%; background: linear-gradient(90deg, #ff6b6b, #ff8e8e);"></div></div>
+      </div>
+      <div class="stat-row">
+        <span style="width:40px;">INT</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 90%; background: linear-gradient(90deg, #4ecdc4, #6ee7df);"></div></div>
+      </div>
+      <div class="stat-row">
+        <span style="width:40px;">LUCK</span>
+        <div class="xp-bar"><div class="xp-fill" style="width: 75%; background: linear-gradient(90deg, #ffe66d, #fff099);"></div></div>
+      </div>
+    </div>
+    <div style="margin-top:20px; font-size:11px; color:rgba(255,255,255,0.5); font-style:italic;">
+      "Random but friendly NPC."
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL MODAL -->
+<div id="socialModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('socialModal')">✕</span>
+    <h3>✦ Find Me On ✦</h3>
+    <div class="social-grid">
+      <a href="https://instagram.com/reiru_xyz" target="_blank" class="pixel-link ig-theme">
+        <span class="icon">📸</span>
+        <div class="link-info">
+          <span class="platform">Instagram</span>
+          <span class="username">@reiru_xyz</span>
+        </div>
+        <span class="arrow">➤</span>
+      </a>
+      <a href="https://twitter.com/reiiru_x" target="_blank" class="pixel-link x-theme">
+        <span class="icon">🐦</span>
+        <div class="link-info">
+          <span class="platform">Twitter / X</span>
+          <span class="username">@reiiru_x</span>
+        </div>
+        <span class="arrow">➤</span>
+      </a>
+    </div>
+    <p style="font-size:10px; margin-top:15px; color:rgba(255,255,255,0.4);">*Click to visit*</p>
+  </div>
+</div>
+
+<!-- DON'T MODAL -->
+<div id="dontModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('dontModal')">✕</span>
+    <h3 style="color: #ff6b6b;">✦ Warning System ✦</h3>
+    <div class="warning-box">
+      <div class="warning-item">
+        <span class="skull">⚠️</span> NO TOXIC
+      </div>
+      <div class="warning-item">
+        <span class="skull">⚠️</span> NO HATE SPEECH
+      </div>
+      <div class="warning-item">
+        <span class="skull">⚠️</span> NO DRAMA SEEKER
+      </div>
+    </div>
+    <div class="alert-msg">
+      "Violation will result in immediate banishment."
+    </div>
+  </div>
+</div>
+
+<!-- FORTUNE MODAL -->
+<div id="fortuneModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('fortuneModal')">✕</span>
+    <h3 style="color: var(--gold-light);">✦ Fortune Cookie ✦</h3>
+    <div id="cookieClosed">
+      <div class="cookie-icon" onclick="crackCookie()">🥠</div>
+      <p style="font-size:12px; color:rgba(255,255,255,0.6); margin-top:15px;">
+        Ketuk untuk melihat nasibmu hari ini!
+      </p>
+    </div>
+    <div id="cookieOpened" style="display:none;">
+      <div class="fortune-paper">
+        <p id="dailyFortuneText">Loading...</p>
+        <div class="lucky-numbers" id="dailyLuckyNumbers"></div>
+      </div>
+      <p id="resetTimer" style="font-size:10px; margin-top:15px; color:rgba(255,255,255,0.4);"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDMPB7cCb1HdT1B_UC3tN96OsXyFVZ6eiw",
+    authDomain: "reiru-project.firebaseapp.com",
+    projectId: "reiru-project",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.addDoc = addDoc;
+  window.collection = collection;
+  window.serverTimestamp = serverTimestamp;
+
+  // Diary Loader
+  const diaryContainer = document.getElementById("diaryContainer");
+  
+  function loadPublicDiary() {
+    const q = query(collection(db, "diary"), orderBy("date", "desc"));
+
+    onSnapshot(q, (snap) => {
+      if(snap.empty){
+        if(diaryContainer) diaryContainer.innerHTML = "<p style='text-align:center; color:rgba(255,255,255,0.5);'>Belum ada kisah baru.</p>";
+        return;
+      }
+
+      if(diaryContainer) {
+        diaryContainer.innerHTML = "";
+
+        snap.forEach(doc => {
+          const data = doc.data();
+          const dateObj = new Date(data.date);
+          const dateString = dateObj.toLocaleDateString("id-ID", {
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+          });
+
+          const entryDiv = document.createElement("div");
+          entryDiv.innerHTML = `
+            <p style="color:var(--gold-light); margin-top:15px; font-size:11px;">📅 ${dateString}</p>
+            <p style="white-space: pre-wrap; margin-bottom:15px; color:rgba(255,255,255,0.85);">${data.content}</p>
+            <p style="color:rgba(212,175,55,0.3); text-align:center; letter-spacing:10px;">✦ ✦ ✦</p>
+          `;
+          diaryContainer.appendChild(entryDiv);
+        });
+      }
+    });
+  }
+
+  loadPublicDiary();
+
+  // Board Messages
+  let unsubscribeBoard = null;
+
+  window.closeBoard = function(){
+    closeModal("boardModal");
+    if (unsubscribeBoard) {
+      unsubscribeBoard();
+      unsubscribeBoard = null;
+    }
+  }
+
+  window.openBoard = function(){
+    openModal("boardModal");
+    const list = document.getElementById("publicMessages");
+    
+    const q = query(
+      collection(db, "messages"),
+      orderBy("createdAt", "desc")
+    );
+
+    unsubscribeBoard = onSnapshot(q, snap => {
+      if (snap.empty) {
+        list.innerHTML = "<p style='text-align:center; color:rgba(255,255,255,0.5);'>Belum ada pesan</p>";
+        return;
+      }
+
+      list.innerHTML = "";
+
+      snap.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "board-item";
+
+        const shortId = data.visitorId
+          ? data.visitorId.slice(0, 5).toUpperCase()
+          : "LEGACY";
+
+        div.innerHTML = `
+          <div class="msg-date">📅 ${formatDate(data.createdAt)}</div>
+          <div class="msg-meta">NPC #${shortId}</div>
+          <div class="msg-text">${data.text}</div>
+          ${data.reply ? `<div class="msg-reply">↳ ${data.reply}</div>` : ""}
+        `;
+
+        list.appendChild(div);
+      });
+    });
+  }
+
+  window.closeModal = function(id){
+    document.getElementById(id).style.display = "none";
+  }
+
+  function formatDate(ts){
+    if (!ts) return "";
+    const d = ts.toDate();
+    return d.toLocaleDateString("id-ID", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+</script>
+
+<script>
+// ===== FLOATING STARS BACKGROUND =====
+function createStars() {
+  const starsContainer = document.getElementById('starsBg');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.opacity = Math.random() * 0.5 + 0.3;
+    starsContainer.appendChild(star);
+  }
+}
+createStars();
+
+// ===== FLOATING SPAWN =====
+const MAX_FLOATING = 14;
+const icons = ["✦", "✧", "✨", "⭐", "💫"];
+let hue = 0;
+
+function spawnFloating(){
+  if(document.querySelectorAll(".floating").length > MAX_FLOATING) return;
+  const el = document.createElement("div");
+  el.className = "floating";
+  el.textContent = icons[Math.floor(Math.random() * icons.length)];
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = 16 + Math.random() * 10 + "px";
+  const duration = 5 + Math.random() * 4;
+  el.style.animationDuration = duration + "s";
+  el.style.color = `hsl(${45 + Math.random() * 20}, 80%, 70%)`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), duration * 1000);
+}
+setInterval(spawnFloating, 400);
+
+// ===== NIGHT MODE =====
+const toggle = document.getElementById("nightToggle");
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("night");
+  toggle.textContent = document.body.classList.contains("night") ? "🌙" : "☀️";
+});
+
+// ===== MODAL FUNCTIONS =====
+function openModal(id){
+  document.getElementById(id).style.display = "block";
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display = "none";
+}
+
+// ===== IMAGE SLIDER =====
+const images = [
+  "reii.jpg",
+  "potret1.webp",
+  "potret2.webp",
+  "potret3.jpg",
+  "potret4.jpg",
+  "potret5.jpg",
+  "potret6.jpg",
+  "potret7.webp",
+  "Reiiq.png"
+];
+
+let imgIndex = 0;
+const sliderImg = () => document.getElementById("sliderImg");
+
+function nextImg(){
+  imgIndex = (imgIndex + 1) % images.length;
+  sliderImg().src = images[imgIndex];
+}
+
+function prevImg(){
+  imgIndex = (imgIndex - 1 + images.length) % images.length;
+  sliderImg().src = images[imgIndex];
+}
+
+// ===== MUSIC PLAYER =====
+document.querySelectorAll("audio").forEach(audio => {
+  audio.addEventListener("play", () => {
+    document.querySelectorAll("audio").forEach(a => {
+      if(a !== audio) a.pause();
+    });
+  });
+});
+
+const bgm = document.getElementById("bgmAudio");
+if(bgm) bgm.volume = 0.2;
+
+document.body.addEventListener('click', () => {
+  if (bgm && bgm.paused) {
+    const isAnyOtherPlaying = Array.from(document.querySelectorAll('audio')).some(a => a !== bgm && !a.paused);
+    if(!isAnyOtherPlaying) bgm.play().catch(() => {});
+  }
+}, { once: true });
+
+function toggleMusic(index) {
+  const players = document.querySelectorAll(".pixel-player");
+  
+  players.forEach((player, i) => {
+    const audio = player.querySelector("audio");
+    const btn = player.querySelector(".btn");
+    const fill = player.querySelector(".progress-fill");
+
+    if (i === index) {
+      if (audio.paused) {
+        if(bgm) bgm.pause();
+        audio.play();
+        player.classList.add("playing");
+        btn.textContent = "⏸";
+
+        audio.ontimeupdate = () => {
+          const percent = (audio.currentTime / audio.duration) * 100;
+          fill.style.width = percent + "%";
+        };
+
+        audio.onended = () => {
+          player.classList.remove("playing");
+          btn.textContent = "▶";
+          if(bgm) bgm.play();
+        };
+      } else {
+        audio.pause();
+        if(bgm) bgm.play();
+        player.classList.remove("playing");
+        btn.textContent = "▶";
+      }
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      player.classList.remove("playing");
+      player.querySelector(".btn").textContent = "▶";
+      player.querySelector(".progress-fill").style.width = "0%";
+    }
+  });
+}
+
+// ===== MESSAGE FORM =====
+const form = document.getElementById("anonForm");
+let cooldownActive = false;
+const COOLDOWN_TIME = 15;
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (cooldownActive) return;
+
+  const btn = form.querySelector("button");
+  const msg = form.querySelector("textarea").value.trim();
+  if (!msg) return;
+
+  try {
+    btn.textContent = "⏳";
+    await window.addDoc(
+      window.collection(window.db, "messages"),
+      {
+        text: msg,
+        visitorId: VISITOR_ID,
+        reply: "",
+        approved: false,
+        createdAt: window.serverTimestamp()
+      }
+    );
+
+    showAnimeNotif();
+    form.reset();
+    startCooldown(btn);
+  } catch (err) {
+    alert("Gagal mengirim 😢");
+    btn.textContent = "Kirim Pesan ✨";
+    console.error(err);
+  }
+});
+
+function showAnimeNotif(){
+  const notif = document.getElementById("animeNotif");
+  notif.classList.add("show");
+  setTimeout(() => notif.classList.remove("show"), 3000);
+}
+
+function startCooldown(btn){
+  cooldownActive = true;
+  const box = document.getElementById("cooldownBox");
+  const bar = document.getElementById("cooldownBar");
+  const text = document.getElementById("cooldownText");
+
+  let remaining = COOLDOWN_TIME;
+  box.style.display = "block";
+  btn.disabled = true;
+
+  const interval = setInterval(() => {
+    remaining--;
+    const percent = (remaining / COOLDOWN_TIME) * 100;
+    bar.style.width = percent + "%";
+    text.textContent = `⏳ Tunggu ${remaining} detik...`;
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      cooldownActive = false;
+      box.style.display = "none";
+      btn.disabled = false;
+      bar.style.width = "100%";
+      btn.textContent = "Kirim Pesan ✨";
+    }
+  }, 1000);
+}
+
+// ===== PIN SYSTEM =====
+const CORRECT_PIN = "000000";
+
+function openPinModal(){
+  openModal("pinModal");
+}
+
+function checkPin(){
+  const inputEl = document.getElementById("pinInput");
+  const error = document.getElementById("pinError");
+  const modalBox = document.querySelector("#pinModal .modal-content");
+  const inputValue = inputEl.value;
+
+  if(inputValue !== CORRECT_PIN){
+    error.style.display = "block";
+    modalBox.classList.add("shake");
+    setTimeout(() => {
+      modalBox.classList.remove("shake");
+      error.style.display = "none";
+      inputEl.value = "";
+    }, 1200);
+    return;
+  }
+
+  inputEl.value = "";
+  closeModal("pinModal");
+  openModal("diaryModal");
+}
+
+function closePinModal(){
+  closeModal("pinModal");
+  document.getElementById("pinInput").value = "";
+}
+
+// ===== VISITOR ID =====
+function getVisitorId(){
+  let id = localStorage.getItem("visitorId");
+  if(!id){
+    id = crypto.randomUUID();
+    localStorage.setItem("visitorId", id);
+  }
+  return id;
+}
+const VISITOR_ID = getVisitorId();
+
+// ===== SOUND EFFECTS =====
+const clickSfx = new Audio('Klik.mp3');
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('button') || e.target.closest('.accordion-header') || e.target.closest('a')) {
+    const sfxClone = clickSfx.cloneNode();
+    sfxClone.volume = 0.5;
+    sfxClone.play().catch(() => {});
+  }
+});
+
+// ===== GHOST SYSTEM =====
+function spawnGhosts() {
+  document.querySelectorAll('.pixel-ghost').forEach(el => el.remove());
+
+  const g = document.createElement('div');
+  g.classList.add('pixel-ghost');
+  
+  const startPos = getRandomPosition();
+  g.style.left = startPos.x + 'px';
+  g.style.top = startPos.y + 'px';
+  
+  document.body.appendChild(g);
+  
+  moveGhost(g);
+  setInterval(() => moveGhost(g), 5500);
+
+  g.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(typeof clickSfx !== 'undefined') {
+      const sfx = clickSfx.cloneNode();
+      sfx.play().catch(()=>{});
+    }
+    g.classList.add('vanish');
+    setTimeout(() => {
+      const newPos = getRandomPosition();
+      g.style.left = newPos.x + 'px';
+      g.style.top = newPos.y + 'px';
+      g.classList.remove('vanish');
+    }, 1500);
+  });
+}
+
+function getRandomPosition() {
+  const x = Math.random() * (window.innerWidth - 60);
+  const y = Math.random() * (window.innerHeight - 60);
+  return { x, y };
+}
+
+function moveGhost(element) {
+  if (element.classList.contains('vanish')) return;
+  const pos = getRandomPosition();
+  element.style.left = pos.x + 'px';
+  element.style.top = pos.y + 'px';
+  const currentLeft = parseFloat(element.style.left || 0);
+  if (pos.x < currentLeft) {
+    element.style.transform = "scale(1.5) scaleX(-1)";
+  } else {
+    element.style.transform = "scale(1.5) scaleX(1)";
+  }
+}
+
+spawnGhosts();
+
+// ===== UTBK COUNTDOWN =====
+const targetDate = new Date(2026, 3, 21, 0, 0, 0).getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if (distance < 0) {
+    document.getElementById("utbkCountdown").innerHTML = 
+      "<div style='font-size:10px; color:#ff6b6b;'>WAKTU TELAH TIBA!</div>";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("cd-days").innerText = days < 10 ? "0" + days : days;
+  document.getElementById("cd-hours").innerText = hours < 10 ? "0" + hours : hours;
+  document.getElementById("cd-minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+  document.getElementById("cd-seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ===== FORTUNE COOKIE =====
+const fortuneList = [
+  "Hari ini aura kamu bersinar banget, serius deh.",
+  "Jangan lupa minum air putih, biar nggak dehidrasi pas ngejar mimpi.",
+  "Awas, ada yang lagi diem-diem stalking sosmed kamu.",
+  "Rezeki nggak kemana, tapi kalau nggak dijemput ya diambil orang.",
+  "Coba dengerin playlist lama, bakal ada inspirasi baru.",
+  "Kode keras: Si dia lagi nunggu chat dari kamu lho.",
+  "Hari ini cocok banget buat cheat day, dietnya besok aja.",
+  "Hati-hati, dompet mulai menipis. Hemat mode: ON.",
+  "Bakal ada kabar baik yang bikin kamu senyum-senyum sendiri.",
+  "Sabar ya, drama hari ini cuma ujian kesabaran level easy.",
+  "Outfit kamu hari ini bakal dapet pujian, pede aja!",
+  "Jangan overthinking malem ini, mending tidur gasik.",
+  "Ada peluang bagus di depan mata, jangan sampai skip.",
+  "Mantan tiba-tiba ngechat? Hati-hati jebakan batman.",
+  "Energi kamu lagi low, mending rebahan dulu sebentar.",
+  "Ide brilian bakal muncul pas kamu lagi di WC/kamar mandi.",
+  "Jangan ragu buat bilang 'nggak' kalau emang nggak mau.",
+  "Hari ini kamu bakal jadi pusat perhatian (in a good way).",
+  "Cek keranjang belanja online, mending checkout sekarang atau nyesel.",
+  "Keberuntungan ada di pihakmu kalau kamu berani mulai duluan.",
+  "Akan ada momen awkward, tapi bawa santai aja biar tetep cool.",
+  "Teman lama bakal ngajak ketemuan, gas aja!",
+  "Jauhi orang toxic hari ini, mood kamu terlalu berharga.",
+  "Fokus sama satu tujuan dulu, jangan maruk mau semuanya.",
+  "Hari ini skill komunikasi kamu lagi level 100, manfaatin!",
+  "Siap-siap, bakal ada plot twist kecil di hari ini.",
+  "Uang kaget mungkin datang dari arah yang nggak disangka.",
+  "Jangan lupa ucapin terima kasih ke diri sendiri hari ini.",
+  "Kalau ragu, lempar koin aja. Intuisi kamu bakal njawab.",
+  "Hari ini waktu yang tepat buat ganti gaya rambut atau vibe.",
+  "Masalah yang bikin pusing kemarin bakal nemu solusinya hari ini.",
+  "Jangan gampang baper, dia emang gitu ke semua orang.",
+  "Coba rute jalan baru pas pulang, siapa tau nemu hidden gem.",
+  "Musik favorit bakal nyelamatin mood kamu seharian.",
+  "Kurangi screen time, mata kamu butuh istirahat bestie.",
+  "Ada barang yang kamu cari-cari akhirnya ketemu juga.",
+  "Senyum dikit dong, dunia butuh energi positif kamu.",
+  "Stop bandingin diri sama orang lain, kamu udah keren kok.",
+  "Hari ini mending main aman, jangan ambil risiko gede dulu.",
+  "Bakal ada yang traktir makan, siapin perut kosong.",
+  "Intuisi kamu lagi tajam banget, dengerin kata hati.",
+  "Jangan nunda pekerjaan, nanti numpuk jadi gunung lho.",
+  "Kesempatan emas buat memperbaiki hubungan yang renggang.",
+  "Hari ini kamu magnet keberuntungan, coba aja ikut giveaway.",
+  "Awas spoiler film/series bertebaran di timeline.",
+  "Kebaikan kecil yang kamu buat hari ini bakal balik berlipat ganda.",
+  "Jangan lupa telpon ortu atau orang terdekat, mereka kangen.",
+  "Rencana dadakan malah bakal jadi kenangan paling seru.",
+  "Hari ini kamu kuat banget, badai apapun lewat!",
+  "Tetap slay dan jangan biarkan siapapun ngerusak hari kamu."
+];
+
+const colorList = [
+  "Merah", "Biru Langit", "Hijau", "Kuning", 
+  "Hitam", "Putih", "Pink", "Ungu", 
+  "Abu-abu", "Coklat", "Oranye", "Emas",
+  "Silver", "Tosca", "Navy", "Cream", "Biru", "Biru Tua", "Cyan", "Magenta", "Nila"
+];
+
+function openFortuneModal() {
+  const modal = document.getElementById('fortuneModal');
+  const closedView = document.getElementById('cookieClosed');
+  const openedView = document.getElementById('cookieOpened');
+  
+  modal.style.display = "block";
+
+  const lastDate = localStorage.getItem('fortune_date');
+  const todayDate = new Date().toDateString();
+
+  if (lastDate === todayDate) {
+    closedView.style.display = "none";
+    openedView.style.display = "block";
+    document.getElementById('dailyFortuneText').textContent = localStorage.getItem('fortune_text');
+    document.getElementById('dailyLuckyNumbers').textContent = localStorage.getItem('fortune_lucky');
+    document.getElementById('resetTimer').textContent = "Kembali lagi besok untuk ramalan baru!";
+  } else {
+    closedView.style.display = "block";
+    openedView.style.display = "none";
+  }
+}
+
+function crackCookie() {
+  const cookieIcon = document.querySelector('.cookie-icon');
+  cookieIcon.classList.add('shake-cookie');
+
+  if(typeof clickSfx !== 'undefined') {
+    clickSfx.play().catch(()=>{});
+  }
+
+  setTimeout(() => {
+    cookieIcon.classList.remove('shake-cookie');
+    
+    const randomMsg = fortuneList[Math.floor(Math.random() * fortuneList.length)];
+    const singleLuckyNum = Math.floor(Math.random() * 12) + 1;
+    const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
+    const luckyResult = `Lucky Number: ${singleLuckyNum} | Color: ${randomColor}`;
+
+    const todayDate = new Date().toDateString();
+    localStorage.setItem('fortune_date', todayDate);
+    localStorage.setItem('fortune_text', randomMsg);
+    localStorage.setItem('fortune_lucky', luckyResult);
+
+    document.getElementById('dailyFortuneText').textContent = randomMsg;
+    document.getElementById('dailyLuckyNumbers').textContent = luckyResult;
+    document.getElementById('resetTimer').textContent = "Nasibmu sudah ditentukan untuk hari ini.";
+
+    document.getElementById('cookieClosed').style.display = "none";
+    document.getElementById('cookieOpened').style.display = "block";
+  }, 1000);
+}
+</script>
+</body>
+</html>
