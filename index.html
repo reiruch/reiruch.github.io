@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Welcome ♡ Reiru</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== ROOT VARIABLES (Genshin Style) ===== */
+:root {
+  --gold-primary: #d4af37;
+  --gold-light: #f4d03f;
+  --gold-dark: #b8860b;
+  --blue-primary: #1a237e;
+  --blue-dark: #0d1642;
+  --blue-light: #3949ab;
+  --white: #ffffff;
+  --cream: #faf8f3;
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  user-select: none; 
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(180deg, 
+    #0d1642 0%, 
+    #1a237e 30%, 
+    #283593 60%, 
+    #1a237e 100%);
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ===== BACKGROUND STARS ===== */
+.stars-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold-light);
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.particle {
+  position: absolute;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: floatParticle linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ===== LAYERS BACKGROUND (Elegant City Silhouette) ===== */
+.layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Mountains Far (Slow) */
+.mountains-far {
+  background: 
+    linear-gradient(180deg, transparent 70%, rgba(13, 22, 66, 0.8) 70%),
+    repeating-linear-gradient(110deg, 
+      transparent 0px, transparent 80px, 
+      rgba(13, 22, 66, 0.6) 80px, rgba(13, 22, 66, 0.6) 160px,
+      transparent 160px, transparent 200px);
+  background-size: 400px 100%;
+  height: 50%;
+  opacity: 0.4;
+  animation: scrollMountains 25s linear infinite;
+}
+
+/* Mountains Near (Faster) */
+.mountains-near {
+  background: 
+    linear-gradient(180deg, transparent 60%, rgba(26, 35, 126, 0.9) 60%),
+    repeating-linear-gradient(100deg, 
+      transparent 0px, transparent 50px, 
+      rgba(26, 35, 126, 0.8) 50px, rgba(26, 35, 126, 0.8) 120px,
+      transparent 120px, transparent 180px);
+  background-size: 300px 100%;
+  height: 35%;
+  opacity: 0.7;
+  animation: scrollMountains 12s linear infinite;
+}
+
+@keyframes scrollMountains {
+  from { background-position-x: 0px; }
+  to { background-position-x: -400px; }
+}
+
+/* ===== GLOWING ORBS (Mystical Effect) ===== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.4;
+  animation: orbFloat 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--gold-primary) 0%, transparent 70%);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--blue-light) 0%, transparent 70%);
+  top: 60%;
+  right: 15%;
+  animation-delay: -3s;
+}
+
+.orb-3 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+  bottom: 20%;
+  left: 30%;
+  animation-delay: -5s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { 
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translateY(-30px) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* ===== UI CONTAINER ===== */
+.ui-container {
+  z-index: 10;
+  text-align: center;
+  position: relative;
+  animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 40px;
+}
+
+@keyframes fadeInUp {
+  from { 
+    transform: translateY(60px); 
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1;
+  }
+}
+
+/* ===== TITLE BOX ===== */
+.title-box {
+  margin-bottom: 50px;
+  position: relative;
+}
+
+/* Decorative elements around title */
+.title-box::before,
+.title-box::after {
+  content: '✦';
+  position: absolute;
+  font-size: 24px;
+  color: var(--gold-primary);
+  opacity: 0.6;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.title-box::before {
+  top: -20px;
+  left: 50%;
+  transform: translateX(-60px);
+}
+
+.title-box::after {
+  top: -20px;
+  right: 50%;
+  transform: translateX(60px);
+  animation-delay: 1s;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 52px;
+  font-weight: 700;
+  background: linear-gradient(135deg, 
+    var(--gold-light) 0%, 
+    var(--gold-primary) 50%, 
+    var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 15px;
+  letter-spacing: 8px;
+  text-shadow: none;
+  position: relative;
+}
+
+/* Glow effect behind title */
+h1::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, 
+    var(--gold-light) 0%, 
+    var(--gold-primary) 50%, 
+    var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(20px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 6px;
+  font-family: 'Cinzel', serif;
+  animation: gentleBlink 2s ease-in-out infinite;
+  text-transform: uppercase;
+}
+
+@keyframes gentleBlink {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== ELEGANT BUTTON ===== */
+.btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Button glow effect */
+.btn-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.btn-wrapper:hover::before {
+  opacity: 1;
+}
+
+.enter-btn {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.2) 0%, 
+    rgba(212, 175, 55, 0.1) 100%);
+  color: var(--gold-light);
+  border: 2px solid var(--gold-primary);
+  padding: 18px 50px;
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  cursor: pointer;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect on button */
+.enter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.enter-btn:hover::before {
+  left: 100%;
+}
+
+.enter-btn:hover {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.35) 0%, 
+    rgba(212, 175, 55, 0.2) 100%);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(212, 175, 55, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: var(--gold-light);
+}
+
+.enter-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Arrow icon */
+.enter-btn .arrow {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.enter-btn:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* ===== CORNER DECORATIONS ===== */
+.corner-decoration {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.corner-decoration.top-left {
+  top: 30px;
+  left: 30px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 20px 0 0 0;
+}
+
+.corner-decoration.top-right {
+  top: 30px;
+  right: 30px;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 20px 0 0;
+}
+
+.corner-decoration.bottom-left {
+  bottom: 30px;
+  left: 30px;
+  border-right: none;
+  border-top: none;
+  border-radius: 0 0 0 20px;
+}
+
+.corner-decoration.bottom-right {
+  bottom: 30px;
+  right: 30px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 20px 0;
+}
+
+/* Corner ornaments */
+.corner-ornament {
+  position: fixed;
+  font-size: 20px;
+  color: var(--gold-primary);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.corner-ornament.tl { top: 20px; left: 20px; }
+.corner-ornament.tr { top: 20px; right: 20px; }
+.corner-ornament.bl { bottom: 20px; left: 20px; }
+.corner-ornament.br { bottom: 20px; right: 20px; }
+
+/* ===== FADE OVERLAY ===== */
+#fadeOverlay {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background: linear-gradient(135deg, 
+    var(--blue-dark) 0%, 
+    var(--blue-primary) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+}
+
+/* ===== BOTTOM GLOW LINE ===== */
+.bottom-glow {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--gold-primary) 20%, 
+    var(--gold-light) 50%, 
+    var(--gold-primary) 80%, 
+    transparent 100%);
+  opacity: 0.6;
+  z-index: 10;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  h1 { 
+    font-size: 36px;
+    letter-spacing: 4px;
+  }
+  
+  .subtitle {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+  
+  .enter-btn {
+    padding: 15px 40px;
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+  
+  .corner-decoration {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .corner-decoration.top-left { top: 15px; left: 15px; border-radius: 12px 0 0 0; }
+  .corner-decoration.top-right { top: 15px; right: 15px; border-radius: 0 12px 0 0; }
+  .corner-decoration.bottom-left { bottom: 15px; left: 15px; border-radius: 0 0 0 12px; }
+  .corner-decoration.bottom-right { bottom: 15px; right: 15px; border-radius: 0 0 12px 0; }
+  
+  .ui-container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { 
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+  
+  .subtitle {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+  
+  .enter-btn {
+    padding: 14px 35px;
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+  
+  .title-box::before,
+  .title-box::after {
+    font-size: 16px;
+  }
+  
+  .title-box::before {
+    transform: translateX(-40px);
+  }
+  
+  .title-box::after {
+    transform: translateX(40px);
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- Audio -->
+  <audio id="sfxClick" src="Klik.mp3"></audio>
+
+  <!-- Background Stars -->
+  <div class="stars-container" id="starsContainer"></div>
+  
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  
+  <!-- Background Layers -->
+  <div class="layer mountains-far"></div>
+  <div class="layer mountains-near"></div>
+  
+  <!-- Corner Decorations -->
+  <div class="corner-decoration top-left"></div>
+  <div class="corner-decoration top-right"></div>
+  <div class="corner-decoration bottom-left"></div>
+  <div class="corner-decoration bottom-right"></div>
+  
+  <!-- Corner Ornaments -->
+  <div class="corner-ornament tl">✦</div>
+  <div class="corner-ornament tr">✦</div>
+  <div class="corner-ornament bl">✦</div>
+  <div class="corner-ornament br">✦</div>
+  
+  <!-- Bottom Glow Line -->
+  <div class="bottom-glow"></div>
+  
+  <!-- Main UI -->
+  <div class="ui-container">
+    <div class="title-box">
+      <h1 data-text="REIRU'S WORLD">REIRU'S<br>WORLD</h1>
+      <p class="subtitle">— Press Start to Enter —</p>
+    </div>
+
+    <div class="btn-wrapper">
+      <button class="enter-btn" onclick="enterWorld()">
+        ENTER WORLD
+        <span class="arrow">➤</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Fade Overlay -->
+  <div id="fadeOverlay"></div>
+
+<script>
+  // ===== GENERATE BACKGROUND STARS =====
+  const starsContainer = document.getElementById('starsContainer');
+  
+  function createStars() {
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.opacity = Math.random() * 0.5 + 0.3;
+      
+      // Random star sizes
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      
+      starsContainer.appendChild(star);
+    }
+  }
+  createStars();
+
+  // ===== GENERATE FLOATING PARTICLES =====
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    const size = Math.random() * 4 + 2;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    particle.style.animationDelay = Math.random() * 5 + 's';
+    
+    document.body.appendChild(particle);
+    
+    // Remove after animation
+    setTimeout(() => {
+      particle.remove();
+    }, 25000);
+  }
+  
+  // Create initial particles
+  for (let i = 0; i < 15; i++) {
+    setTimeout(createParticle, i * 300);
+  }
+  
+  // Continue creating particles
+  setInterval(createParticle, 2000);
+
+  // ===== ENTER WORLD FUNCTION =====
+  function enterWorld() {
+    const sfx = document.getElementById('sfxClick');
+    const overlay = document.getElementById('fadeOverlay');
+    const btn = document.querySelector('.enter-btn');
+
+    // Change button text
+    btn.innerHTML = 'Loading... <span class="arrow">⟳</span>';
+    btn.style.pointerEvents = 'none';
+    
+    // Play sound
+    sfx.currentTime = 0;
+    sfx.volume = 0.5;
+    sfx.play().catch(e => console.log("Audio play failed:", e));
+
+    // Fade animation
+    overlay.style.opacity = '1';
+
+    // Navigate after animation
+    setTimeout(() => {
+      window.location.href = 'profile.html';
+    }, 800);
+  }
+  
+  // ===== KEYBOARD SUPPORT =====
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Enter' || e.code === 'Space') {
+      enterWorld();
+    }
+  });
+</script>
+
+</body>
+</html>
